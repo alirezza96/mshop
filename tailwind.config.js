@@ -14,6 +14,14 @@ module.exports = {
       "Dark_Blue": "#3F37C9",
       "Blue": "#4361EE",
       "Light-Blue": "#4895EF"
+    },
+    fontFamily: {
+      "dana-light": "dana light",
+      "dana-medium": "dana medium",
+      "dana-bold": "dana bold",
+      "morabba-light": "morabba light",
+      "morabba-medium": "morabba medium",
+      "morabba-bold": "morabba bold",
     }
   },
   plugins: [],

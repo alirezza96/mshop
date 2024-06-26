@@ -7,7 +7,7 @@ const Navbar = () => {
 
 const DesktopMode = () => {
     return (
-        <div className="flex flex-row-reverse bg-pink justify-between">
+        <div className=" w-full flex flex-row-reverse bg-pink justify-between">
             {/* basket */}
             <div>
                 سبد خرید

@@ -1,8 +1,25 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
+import localFont from "next/font/local"
 import Navbar from "@/app/components/templates/layout/navbar/Navbar";
 import Footer from "@/app/components/templates/layout/footer/Footer";
-const inter = Inter({ subsets: ["latin"] });
+
+const dana = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Dana/woff2/DanaFaNum-Regular.woff2",
+      style: "light"
+    },
+    {
+      path: "../../public/fonts/Dana/woff2/DanaFaNum-Medium.woff2",
+      style: "medium"
+    },
+    {
+      path: "../../public/fonts/Dana/woff2/DanaFaNum-DemiBold.woff2",
+      style: "bold"
+    },
+  ],
+  display: "swap"
+})
 
 export const metadata = {
   title: "Create Next App",
@@ -12,7 +29,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
-      <body className={`${inter.className} flex min-h-screen  flex-col items-center justify-between bg-Light-Blue `}>
+      <body className={`${dana.className} flex min-h-screen  flex-col items-center justify-between bg-Light-Blue `}>
         <Navbar />
         {children}
         <Footer />
