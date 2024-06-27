@@ -1,33 +1,30 @@
+import Button from "@/app/components/modules/button"
+import { ShoppingCartIcon, MagnifyingGlassIcon, Bars3Icon, HomeIcon, UserCircleIcon } from "@heroicons/react/24/outline"
+import Link from "next/link"
 const Navbar = () => {
     const isLoggedIn = true
-    const isDesktopMode = true
-    return isDesktopMode ? <DesktopMode /> : "mobile mode"
-    // desktop | mobile
-}
-
-const DesktopMode = () => {
     return (
-        <div className=" w-full flex flex-row-reverse bg-pink justify-between">
-            {/* basket */}
-            <div>
-                سبد خرید
-            </div>
-            {/* links */}
-            <nav>
-                <ul className="flex">
-                    <li>محصولات</li>
-                    <li>بلاگ</li>
-                    <li>درباره ما</li>
-                    <li>تماس با ما</li>
-                </ul>
-            </nav>
-            {/* logo */}
-            <div>
-                mshop
-            </div>
+        <div className="min-h-12 container bg-white flex flex-row-reverse justify-around items-center font-morabba  ">
+            <Button>
+                <ShoppingCartIcon className="w-6 h-6 stroke-Fuchsia" />
+            </Button>
+            <Button>
+                <HomeIcon className="w-6 h-6 stroke-Fuchsia" />
+            </Button>
+            <Button>
+                <Bars3Icon className="w-6 h-6 stroke-Fuchsia" />
+            </Button>
+
         </div>
     )
 }
+
+
+
+
+
+
+
 
 const LoggedIn = (isLoggedIn) => {
     const loggedIn =

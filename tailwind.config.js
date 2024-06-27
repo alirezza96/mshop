@@ -7,6 +7,8 @@ module.exports = {
   ],
   theme: {
     colors: {
+      "gray": "#ccc",
+      "white": "#eee",
       "pink": "#F72585",
       "Fuchsia": "#B5179E",
       "Purple": "#7209B7",
@@ -16,12 +18,19 @@ module.exports = {
       "Light-Blue": "#4895EF"
     },
     fontFamily: {
-      "dana-light": "dana light",
-      "dana-medium": "dana medium",
-      "dana-bold": "dana bold",
-      "morabba-light": "morabba light",
-      "morabba-medium": "morabba medium",
-      "morabba-bold": "morabba bold",
+      "dana": ["var(--font-dana)", "sans-serif"],
+      "morabba": ["var(--font-morabba)", "sans-serif"],
+    },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "8px"
+      }
+    },
+    screens: {
+      "tablet": "768px",
+      "laptop": "1024px",
+      "tv": "1280px"
     }
   },
   plugins: [],
