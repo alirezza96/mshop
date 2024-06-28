@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     colors: {
       "gray": "#ccc",
-      "white": "#eee",
+      "white": "#fff",
       "pink": "#F72585",
       "Fuchsia": "#B5179E",
       "Purple": "#7209B7",
@@ -24,13 +24,14 @@ module.exports = {
     container: {
       center: true,
       padding: {
-        DEFAULT: "8px"
+        DEFAULT: 0,
       }
     },
     screens: {
-      "tablet": "768px",
-      "laptop": "1024px",
-      "tv": "1280px"
+      "sm": "486px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px"
     }
   },
   plugins: [],

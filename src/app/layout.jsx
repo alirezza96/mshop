@@ -1,7 +1,6 @@
 import "./styles/globals.css";
-import Navbar from "@/app/components/templates/layout/navbar/Navbar";
 import { dana, morabba } from "@/app/styles/fonts"
-
+import Header from "@/app/components/templates/layout/Header";
 
 export const metadata = {
   title: "Create Next App",
@@ -11,12 +10,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
-      <body className={`${dana.variable, morabba.variable}  bg-Light-Blue flex flex-col-reverse tablet:flex-col justify-between min-h-screen `}>
-        <Navbar />
+      <body className={`${dana.variable, morabba.variable}   bg-Light-Blue flex flex-col-reverse md:flex-col justify-between min-h-screen `}>
+        <Header />
         <div className="container">
           {children}
         </div>
-
       </body>
     </html>
   );
