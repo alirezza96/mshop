@@ -1,11 +1,10 @@
 import { Button, NavLink } from "@/app/components/modules/form"
 import { ShoppingCartIcon, Bars3Icon, HomeIcon } from "@heroicons/react/24/outline"
-import Link from "next/link"
 import Searchbar from "./Searchbar"
 const Navbar = () => {
     const isLoggedIn = true
     return (
-        <div className="h-12 fixed inset-x-0  md:container md:top-2 bottom-0 flex gap-x-2  items-center bg-white shadow-inner md:shadow-md   md:rounded-lg  px-2 ">
+        <div className="box  h-12 fixed inset-x-0  md:container md:top-2 bottom-0 flex gap-x-2  items-center  shadow-inner p-2">
             <div className="flex  items-center justify-between grow font-morabba">
                 <div className="h-12 flex flex-row-reverse md:flex-row items-center gap-x-2">
                     <NavLink href="/" >

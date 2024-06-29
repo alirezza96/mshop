@@ -1,8 +1,9 @@
+import LatestProducts from "./components/templates/page/LatestProducts";
 
 const Home = () => {
   return (
-    <div>
-      Home page
+    <div className="">
+      <LatestProducts />
     </div>
   );
 }

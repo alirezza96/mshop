@@ -1,0 +1,54 @@
+import cover from "/public/products/01.webp"
+import Image from "next/image"
+import { formatCurrency } from "@/app/lib/utils"
+
+const CardProduct = () => {
+    const price = 1_800_000
+
+    return (
+        <div className="min-w-fit  box overflow-hidden">
+            {/* image  */}
+            <Image
+                src={cover}
+                height={240}
+                width={180}
+            />
+            <div className="p-1 text-sm flex flex-col justify-between ">
+                <div className="space-y-1  h-24 overflow-y-hidden">
+                    <p className="line-clamp-2">
+                        تیشرت زنانه مدل یقه گرد
+                    </p>
+                    <div className="flex items-center justify-between">
+                        <span>
+                            رنگ بندی:
+                        </span>
+                        <div className="flex gap-x-[6px] ">
+                            <div className="bg-Fuchsia w-3 h-3 rounded-sm outline outline-offset-1 outline-1 outline-gray border border-solid border-gray"></div>
+                            <div className="bg-Purple w-3 h-3 rounded-sm outline outline-offset-1 outline-1 outline-gray border border-solid border-gray"></div>
+                            <div className="bg-black w-3 h-3 rounded-sm outline outline-offset-1 outline-1 outline-gray border border-solid border-gray"></div>
+                            <div className="bg-white w-3 h-3 rounded-sm outline outline-offset-1 outline-1 outline-gray border border-solid border-gray"></div>
+                            <div className="bg-Blue w-3 h-3 rounded-sm outline outline-offset-1 outline-1 outline-gray border border-solid border-gray"></div>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                        <span>
+                            سایز بندی:
+                        </span>
+                        <div className="flex gap-x-1 divide-x-4 divide-y-2 divide-black  ">
+                            <span>xs</span>
+                            <span className="text-gray">sm</span>
+                            <span className="text-gray">md</span>
+                            <span>lg</span>
+                            <span className="text-gray">xl</span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <button className="bg-Light-Blue hover:bg-Blue text-white p-2 rounded-md w-full">{formatCurrency(price)}</button>
+            </div>
+        </div>
+    )
+}
+
+export default CardProduct
