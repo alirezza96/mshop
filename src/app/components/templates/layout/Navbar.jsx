@@ -1,4 +1,4 @@
-import Button from "@/app/components/modules/button"
+import {Button} from "@/app/components/modules/form"
 import { ShoppingCartIcon, MagnifyingGlassIcon, Bars3Icon, HomeIcon, UserCircleIcon } from "@heroicons/react/24/outline"
 import Link from "next/link"
 const Navbar = () => {
