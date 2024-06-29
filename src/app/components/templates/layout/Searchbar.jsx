@@ -1,12 +1,12 @@
-import { Button, Input } from "@/app/components/modules/form"
-
-const Searchbar = () => {
+import { Input } from "@/app/components/modules/form"
+const Searchbar = ({ className }) => {
     return (
-        <form className="container top-0 inset-x-0 h-12 flex  items-center  fixed  bg-white font-morabba rounded-lg my-3 px-2 ">
-            <Input placeholder="جستجو" name="search" type="search" classname="flex-grow" />
-            <Input value="جستجو" type="submit"  />
-
-        </form>
+        <div className={`px-2 ${className}`}>
+            <form className="h-10 flex  items-center  bg-gray/30 my-1  rounded-lg " >
+                <Input placeholder="جستجو" name="search" type="search" classname="flex-grow bg-transparent mx-2 outline-none focus-visible:border-b-2 border-Fuchsia/30 font-dana" />
+                <Input value="جستجو" type="submit" classname="font-morabba" />
+            </form>
+        </div>
     )
 }
 
