@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 .box {
-    @apply bg-white md:shadow-md rounded-lg shadow-inner
+    @apply bg-white md:shadow-md md:rounded-lg shadow-inner
 }
 
 .button {

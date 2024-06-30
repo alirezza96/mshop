@@ -7,7 +7,7 @@ const CardProduct = () => {
     const price = 1_800_000
 
     return (
-        <div className="mx-1 w-fit  box overflow-hidden">
+        <div className="mx-1 w-fit  box rounded-md overflow-hidden">
             {/* image  */}
             <Link href={"#"}>
                 <Image
