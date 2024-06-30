@@ -12,15 +12,21 @@
     @apply text-Fuchsia hover:bg-Purple/10 hover:text-Purple rounded-xl p-2
 }
 
+
 @layer utilities {
     .text-rtl {
         direction: rtl;
         text-align: right;
-
+        
     }
 
     .text-ltr {
         direction: ltr;
         text-align: left;
     }
+    .disabled-drag{
+        -webkit-user-drag: none;
+    }
+
 }
+

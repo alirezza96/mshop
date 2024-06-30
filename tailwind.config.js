@@ -24,7 +24,10 @@ module.exports = {
       "morabba": ["var(--font-morabba)", "sans-serif"],
     },
     container: {
-      center: true
+      center: true,
+      padding:{
+        DEFAULT: "1rem"
+      }
     },
     screens: {
       "sm": "486px",

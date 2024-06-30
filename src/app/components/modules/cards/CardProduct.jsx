@@ -1,6 +1,7 @@
 import cover from "/public/products/01.webp"
 import Image from "next/image"
 import { formatCurrency } from "@/app/lib/utils"
+import Link from "next/link"
 
 const CardProduct = () => {
     const price = 1_800_000
@@ -8,11 +9,14 @@ const CardProduct = () => {
     return (
         <div className="min-w-fit  box overflow-hidden">
             {/* image  */}
-            <Image
-                src={cover}
-                height={240}
-                width={180}
-            />
+            <Link href={"#"} className="disabled-drag">
+                <Image
+                    src={cover}
+                    height={240}
+                    width={180}
+                    className="disabled-drag"
+                />
+            </Link>
             <div className="p-1 text-sm flex flex-col justify-between ">
                 <div className="space-y-1  h-24 overflow-y-hidden">
                     <p className="line-clamp-2">
