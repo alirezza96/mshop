@@ -5,12 +5,13 @@
 @tailwind utilities;
 
 .box {
-    @apply bg-white md:shadow-md md:rounded-lg
+    @apply bg-white md:shadow-md rounded-lg shadow-inner
 }
 
 .button {
     @apply text-Fuchsia hover:bg-Purple/10 hover:text-Purple rounded-xl p-2
 }
+
 
 
 @layer utilities {

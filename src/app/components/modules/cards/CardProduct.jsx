@@ -7,14 +7,13 @@ const CardProduct = () => {
     const price = 1_800_000
 
     return (
-        <div className="min-w-fit  box overflow-hidden">
+        <div className="mx-1 w-fit  box overflow-hidden">
             {/* image  */}
-            <Link href={"#"} className="disabled-drag">
+            <Link href={"#"}>
                 <Image
                     src={cover}
                     height={240}
                     width={180}
-                    className="disabled-drag"
                 />
             </Link>
             <div className="p-1 text-sm flex flex-col justify-between ">
@@ -26,12 +25,12 @@ const CardProduct = () => {
                         <span>
                             رنگ بندی:
                         </span>
-                        <div className="flex gap-x-[6px] ">
-                            <div className="bg-Fuchsia w-3 h-3 rounded-sm outline outline-offset-1 outline-1 outline-gray border border-solid border-gray"></div>
-                            <div className="bg-Purple w-3 h-3 rounded-sm outline outline-offset-1 outline-1 outline-gray border border-solid border-gray"></div>
-                            <div className="bg-black w-3 h-3 rounded-sm outline outline-offset-1 outline-1 outline-gray border border-solid border-gray"></div>
-                            <div className="bg-white w-3 h-3 rounded-sm outline outline-offset-1 outline-1 outline-gray border border-solid border-gray"></div>
-                            <div className="bg-Blue w-3 h-3 rounded-sm outline outline-offset-1 outline-1 outline-gray border border-solid border-gray"></div>
+                        <div className="flex gap-x-1">
+                            <div className="bg-Fuchsia w-3 h-3 rounded-sm   border border-solid border-gray"></div>
+                            <div className="bg-Purple w-3 h-3 rounded-sm   border border-solid border-gray"></div>
+                            <div className="bg-black w-3 h-3 rounded-sm   border border-solid border-gray"></div>
+                            <div className="bg-white w-3 h-3 rounded-sm   border border-solid border-gray"></div>
+                            <div className="bg-Blue w-3 h-3 rounded-sm   border border-solid border-gray"></div>
                         </div>
                     </div>
                     <div className="flex items-center justify-between">
@@ -49,7 +48,7 @@ const CardProduct = () => {
 
 
                 </div>
-                <button className="bg-Light-Blue hover:bg-Blue text-white p-2 rounded-md w-full">{formatCurrency(price)}</button>
+                <button className="bg-Purple hover:bg-dark-purple text-white p-2 rounded-md w-full">{formatCurrency(price)}</button>
             </div>
         </div>
     )

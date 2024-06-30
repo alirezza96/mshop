@@ -5,7 +5,7 @@ import Basket from "./Basket"
 const Navbar = () => {
     const isLoggedIn = true
     return (
-        <div className="box  h-12 fixed inset-x-0  md:container md:top-2 bottom-0 flex gap-x-2  items-center  shadow-inner p-2">
+        <div className="box  h-12 fixed inset-x-0  md:container md:top-2 bottom-0 flex gap-x-2  items-center  shadow-inner p-2 z-50">
             <div className="flex  items-center justify-between grow ">
                 <div className="h-12 flex flex-row-reverse md:flex-row items-center gap-x-2">
                     <NavLink href="/" >

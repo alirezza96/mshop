@@ -1,4 +1,6 @@
 import "./styles/globals.css";
+import "swiper/css"
+
 import { dana, morabba } from "@/app/styles/fonts"
 import Navbar from "@/app/components/templates/layout/Navbar";
 export const metadata = {
