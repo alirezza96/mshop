@@ -6,7 +6,15 @@ import cover2 from "/public/banner/02.jpg"
 import cover3 from "/public/banner/03.jpg"
 const Landing = () => {
     return (
-        <Swiper className="swiper">
+        <Swiper
+            className="swiper h-96"
+            autoplay={true}
+            loop={true}
+            rewind={true}
+            
+
+
+        >
             <SwiperSlide>
                 <div>
                     <Image src={cover1} width={1024} height={576} className="object-cover aspect-video w-full" />
