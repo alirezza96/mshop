@@ -25,14 +25,14 @@ export const InputRadio = ({ className, ...rest }) => {
         <input
             {...rest}
             type="radio"
-            className={`rounded-sm border border-solid border-gray appearance-none ring-Purple/20 checked:ring ${className}`}
+            className={`rounded-sm border border-solid border-gray appearance-none ring-offset-1 ring-Purple/80 checked:ring ${className}`}
             style={{ backgroundColor: rest.color }}
             name={rest.name} />
     )
     const size = (
         <label className="relative">
             <input {...rest} type="radio" className="peer appearance-none absolute" name={rest.name} />
-            <span className={`block  text-center rounded-sm ring-Purple/20 peer-checked:ring ${className}`} >{rest.label}</span>
+            <span className={`block  text-center rounded-sm ring-offset-1 ring-Purple/80 peer-checked:ring ${className}`} >{rest.label}</span>
         </label>
     )
     return rest.color ? color : size

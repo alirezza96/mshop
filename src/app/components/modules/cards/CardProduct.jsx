@@ -11,13 +11,13 @@ const colors = [
 const sizes = [
     "xs", "sm", "ms", "lg", "xl", "xxl"
 ]
-const CardProduct = () => {
+const CardProduct = ({href, ...rest}) => {
     const price = 1_800_000
 
     return (
         <div className="mx-1 min-w-[180px] box rounded-md overflow-hidden">
             {/* image  */}
-            <Link href={"#"} className="disabled-drag">
+            <Link href={`/products/${href}`} className="disabled-drag">
                 <Image
                     src={cover}
                     height={240}
