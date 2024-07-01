@@ -1,70 +1,14 @@
-"use client"
-
 import Link from "next/link"
-import CardProduct from "@/app/components/modules/cards/CardProduct"
-import { Swiper, SwiperSlide } from "swiper/react"
-
 const ProductsContainer = ({ title, href = "#", children, className }) => {
     return (
         <div className={`box p-2 space-y-4 my-4 ${className}`}>
             <ProductsHeader href={href}>
                 {title}
             </ProductsHeader>
-            <Swiper
-                className="mySwiper"
+            <div className="flex overflow-x-scroll">
 
-                breakpoints={{
-                    486: {
-                        slidesPerView: 2,
-                    },
-                    // when window width is >= 768px
-                    768: {
-                        slidesPerView: 4,
-                    },
-                    // when window width is >= 1024px
-                    1024: {
-                        slidesPerView: 6,
-                    },
-                }
-                }
-            >
                 {children}
-                <SwiperSlide>
-                    <CardProduct />
-                </SwiperSlide>
-                <SwiperSlide>
-
-                    <CardProduct />
-                </SwiperSlide>
-                <SwiperSlide>
-
-                    <CardProduct />
-                </SwiperSlide>
-                <SwiperSlide>
-
-                    <CardProduct />
-                </SwiperSlide>
-                <SwiperSlide>
-
-                    <CardProduct />
-                </SwiperSlide>
-                <SwiperSlide>
-
-                    <CardProduct />
-                </SwiperSlide>
-                <SwiperSlide>
-
-                    <CardProduct />
-                </SwiperSlide>
-                <SwiperSlide>
-
-                    <CardProduct />
-                </SwiperSlide>
-                <SwiperSlide>
-
-                    <CardProduct />
-                </SwiperSlide>
-            </Swiper>
+            </div>
         </div>
     )
 }

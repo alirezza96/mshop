@@ -3,6 +3,16 @@ import CardProduct from "../../modules/cards/CardProduct"
 const PopularProducts = () => {
     return (
         <ProductsContainer title="محبوبترین محصولات" href="/products?orderBy=popularity">
+            <CardProduct/>
+            <CardProduct/>
+            <CardProduct/>
+            <CardProduct/>
+            <CardProduct/>
+            <CardProduct/>
+            <CardProduct/>
+            <CardProduct/>
+            <CardProduct/>
+            <CardProduct/>
         </ProductsContainer>
     )
 }
