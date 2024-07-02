@@ -11,18 +11,20 @@ const colors = [
 const sizes = [
     "xs", "sm", "ms", "lg", "xl", "xxl"
 ]
-const CardProduct = ({href, ...rest}) => {
+const CardProduct = ({ href, ...rest }) => {
     const price = 1_800_000
 
     return (
-        <div className="mx-1 min-w-[180px] box rounded-md overflow-hidden">
+        <div className="mx-1 min-w-[180px] max-w-[260px] box rounded-md overflow-hidden">
             {/* image  */}
-            <Link href={`/products/${href}`} className="disabled-drag">
+            <Link href={`/products/${href}`} className="disabled-drag ">
                 <Image
                     src={cover}
                     height={240}
+                    alt="image product"
                     width={180}
-                    className="disabled-drag"
+                    className="disabled-drag w-full aspect-[3/4] object-cover "
+                    
                 />
             </Link>
             <div className="p-1 text-sm flex flex-col justify-between ">
@@ -51,7 +53,7 @@ const CardProduct = ({href, ...rest}) => {
 
                             {
                                 sizes?.map((item, index) => (
-                                    <InputRadio key={index} name="size" label={item} disabled={true}  />
+                                    <InputRadio key={index} name="size" label={item} disabled={true} />
                                 ))
                             }
                         </div>

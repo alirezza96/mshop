@@ -1,8 +1,7 @@
 import Image from "next/image"
 import cover from "/public/products/01.webp"
 import { formatCurrency } from "@/app/lib/utils"
-import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline"
-
+import Counter from "@/app/components/modules/Counter"
 const Basket = ({ className }) => {
     return (
         <div className={` absolute bottom-12 md:bottom-auto md:top-14 inset-x-0 box p-2  min-h-48 max-h-96 overflow-y-auto z-50 ${className} `}>
@@ -54,23 +53,7 @@ const Basket = ({ className }) => {
     )
 }
 
-const Counter = ({ className }) => {
-    const count = 10
 
-    return (
-        <div className={`border border-solid border-Fuchsia text-Fuchsia w-20 leading-8 font-bold flex justify-around rounded-lg ${className}`}>
-            <button >
-                <PlusIcon className="w-4 h-4" />
-            </button>
-            <p className="bg-Fuchsia/10 px-1 text-center ">
-                {count}
-            </p>
-            <button >
-                <MinusIcon className="w-4 h-4" />
-            </button>
-        </div>
-    )
-}
 
 const BasketCard = () => {
     const price = 1_800_000
@@ -78,7 +61,13 @@ const BasketCard = () => {
         <tr className="child:align-middle">
             <td>
                 <div className="flex gap-2 my-1">
-                    <Image width={60} height={80} src={cover} className="aspect-[3/4] object-contain rounded-lg" />
+                    <Image
+                        src={cover}
+                        alt="Image Product"
+                        width={60}
+                        height={80}
+                        className="aspect-[3/4] object-contain rounded-lg"
+                    />
                     <span className="font-bold">
                         تیشرت زنانه مدل یقه گرد
                     </span>

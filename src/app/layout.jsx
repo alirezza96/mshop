@@ -11,8 +11,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fa" dir="rtl">
-      <body className={`${dana.variable, morabba.variable} md:container  flex flex-col justify-between min-h-screen`}>
+    <html lang="fa" dir="rtl" className="scroll-smooth">
+      <body className={`${dana.variable, morabba.variable} md:container  flex flex-col justify-between min-h-screen `}>
         <Navbar />
         <div className="mt-14 md:mt-16 w-full">
           {children}

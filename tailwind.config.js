@@ -26,11 +26,11 @@ module.exports = {
     container: {
       center: true,
       padding:{
-        DEFAULT: "1rem"
       }
     },
     screens: {
-      "sm": "486px",
+      "xs": "480px",
+      "sm": "576px",
       "md": "768px",
       "lg": "1024px",
       "xl": "1280px"
@@ -42,6 +42,6 @@ module.exports = {
       addVariant("child-hover", "&>*:hover")
     }
   ],
-  
+
 
 };

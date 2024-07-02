@@ -20,17 +20,17 @@ const Landing = () => {
         >
             <SwiperSlide>
                 <div>
-                    <Image src={cover1} width={1024} height={576} className="object-cover aspect-video w-full" />
+                    <Image src={cover1} alt="Banner Image" width={1024} height={576} className="object-cover aspect-video w-full" />
                 </div>
             </SwiperSlide>
             <SwiperSlide>
                 <div>
-                    <Image src={cover2} width={1024} height={576} className="object-cover aspect-video w-full" />
+                    <Image src={cover2} alt="Banner Image" width={1024} height={576} className="object-cover aspect-video w-full" />
                 </div>
             </SwiperSlide>
             <SwiperSlide>
                 <div>
-                    <Image src={cover3} width={1024} height={576} className="object-cover aspect-video w-full" />
+                    <Image src={cover3} alt="Banner Image" width={1024} height={576} className="object-cover aspect-video w-full" />
                 </div>
             </SwiperSlide>
         </Swiper>
