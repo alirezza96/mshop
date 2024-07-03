@@ -55,8 +55,8 @@ const Navbar = () => {
                         <Button >
                             <UserIcon className="w-6 h-6" />
                         </Button>
-                        : <NavLink href="/register">
-                            ورود | ثبت نام
+                        : <NavLink href="/register" className="block">
+                            <UserIcon className="w-6 h-6 " />
                         </NavLink>
                 }
             </div>

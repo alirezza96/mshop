@@ -1,12 +1,10 @@
-"use client"
 import Breadcrumb from "@/app/components/modules/Breadcrumb"
 import Image from "next/image"
 import cover from "/public/products/01.webp"
-import { Button, InputRadio } from "@/app/components/modules/form"
+import {  InputRadio } from "@/app/components/modules/form"
 import { HeartIcon } from "@heroicons/react/24/outline"
 import { formatCurrency } from "@/app/lib/utils"
 import Counter from "@/app/components/modules/Counter"
-import { useState } from "react"
 const breadcrumbs = [
     { fa: "پوشاک", eng: "wear" },
     { fa: "زنانه", eng: "womans" },
@@ -20,7 +18,7 @@ const sizes = [
 ]
 const page = () => {
     const like = true
-    const [totalPrice, setTotalPrice] = useState(1_180_000)
+    const totalPrice = 1_180_000
     return (
         <div>
             <Breadcrumb breadcrumbs={breadcrumbs} />

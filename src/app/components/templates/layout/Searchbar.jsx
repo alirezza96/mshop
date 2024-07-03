@@ -18,16 +18,15 @@ const Searchbar = ({ className }) => {
     }, 500)
     return (
         <div className={`bg-white px-2 ${className}`}>
-            <div
-                className="h-10 flex  items-center px-1  bg-gray/30 my-1  rounded-lg " >
-                <Input
-                    placeholder="جستجو"
-                    name="search" type="search"
-                    defaultValue={searchParams.get("q")?.toString()}
-                    onChange={e => handelSearch(e.target.value)}
-                    className="flex-grow bg-transparent mx-2 outline-none focus-visible:border-b-2 border-Fuchsia/30 font-dana" />
+            <Input
+                placeholder="جستجو"
+                name="search" type="search"
+                defaultValue={searchParams.get("q")?.toString()}
+                onChange={e => handelSearch(e.target.value)}
+            >
                 <MagnifyingGlassIcon className="w-6 h-6 text-Fuchsia" />
-            </div>
+
+            </Input>
         </div>
     )
 }

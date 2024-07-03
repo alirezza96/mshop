@@ -5,19 +5,40 @@ import Link from "next/link"
 export const Button = ({ children, className, ...rest }) => {
     // return <button {...rest} className={`button transition-colors ${className}`}>{children}</button>
     return (
-        <button {...rest} className={`text-Fuchsia hover:bg-Purple/10 hover:text-Purple rounded-xl p-2 ${className}`}>{children}</button>
+        <button {...rest} className={` text-Fuchsia hover:bg-Purple/10 hover:text-Purple rounded-xl p-2 ${className}`}>{children}</button>
     )
 }
 
 
-export const Input = ({ children, className, ...rest }) => {
+export const Input = ({ children, className, label, ...rest }) => {
+    return rest.type === "submit" ?
+        (
+            <input {...rest}
+                className="w-full bg-Purple hover:bg-dark-purple text-white p-2 my-1 rounded-md min-w-24 cursor-pointer font-morabba"
+            />
+        )
+        : rest.type === "textArea" ? (
+            <div >
+                <label className="block">{label}</label>
+                <input {...rest} />
+            </div>
+        )
+            :
 
-    return (
-        <>
-            <label>{children}</label>
-            <input {...rest} className={`${className} ${rest.type == "submit" ? "button cursor-pointer focus-visible:outline-dashed" : ""}`} />
-        </>
-    )
+            (
+                <div>
+                    <label className="font-morabba">
+                        {label}
+                    </label>
+                    <div
+                        className={`h-10 flex  items-center justify-between px-1  bg-Fuchsia/10 my-1  rounded-lg ${className}`} >
+                        <input {...rest}
+                            className="w-full mx-2  bg-transparent outline-none focus-visible:border-b-2 border-Fuchsia/30 font-dana" />
+                        {children}
+                    </div>
+                </div>
+
+            )
 }
 
 export const InputRadio = ({ className, ...rest }) => {
