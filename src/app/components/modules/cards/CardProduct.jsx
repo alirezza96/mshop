@@ -11,26 +11,26 @@ const colors = [
 const sizes = [
     "xs", "sm", "ms", "lg", "xl", "xxl"
 ]
-const CardProduct = ({ href, ...rest }) => {
+const CardProduct = ({ href, fa, en, src }) => {
     const price = 1_800_000
-
     return (
-        <div className="mx-1 min-w-[180px] max-w-[260px] box rounded-md overflow-hidden">
+        <div className="mx-1  max-w-64 my-2 box rounded-md overflow-hidden">
             {/* image  */}
             <Link href={`/products/${href}`} className="disabled-drag ">
-                <Image
-                    src={cover}
-                    height={240}
-                    alt="image product"
-                    width={180}
-                    className="disabled-drag w-full aspect-[3/4] object-cover "
-                    
-                />
+                <div className="h-[240px] w-[180px] mx-auto">
+                    <Image
+                        src={src}
+                        height={240}
+                        alt="image product"
+                        width={180}
+                        className="disabled-drag aspect-[3/4] object-cover "
+                    />
+                </div>
             </Link>
-            <div className="p-1 text-sm flex flex-col justify-between ">
-                <div className="space-y-1  h-24 ">
-                    <p className="line-clamp-2">
-                        تیشرت زنانه مدل یقه گرد
+            <div className="p-1 text-sm flex flex-col justify-between  min-h-44">
+                <div className="space-y-1   ">
+                    <p className="line-clamp-2 min-h-10">
+                        {fa}
                     </p>
                     <div className="flex items-center justify-between">
                         <span>
@@ -68,7 +68,7 @@ const CardProduct = ({ href, ...rest }) => {
 
 
                 </div>
-                <button className="bg-Purple hover:bg-dark-purple text-white p-2 rounded-md w-full">مشاهده</button>
+                <button className="bg-Purple hover:bg-dark-purple text-white rounded-md h-10 w-full">مشاهده</button>
             </div>
         </div>
     )

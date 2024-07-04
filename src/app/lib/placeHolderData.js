@@ -1,8 +1,10 @@
 // This file contains placeholder data that you'll be replacing with real data in the Data Fetching chapter:
+
+import { randomUUID } from "crypto";
 // https://nextjs.org/learn/dashboard-app/fetching-data
 const users = [
   {
-    id: '410544b2-4001-4271-9855-fec4b6a6442a',
+    id: randomUUID(),
     name: 'admin',
     email: 'admin@admin.com',
     password: '123456',
@@ -11,37 +13,37 @@ const users = [
 
 const customers = [
   {
-    id: 'd6e15727-9fe1-4961-8c5b-ea44a9bd81aa',
+    id: randomUUID(),
     name: 'Evil Rabbit',
     email: 'evil@rabbit.com',
     image_url: '/customers/evil-rabbit.png',
   },
   {
-    id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
+    id: randomUUID(),
     name: 'Delba de Oliveira',
     email: 'delba@oliveira.com',
     image_url: '/customers/delba-de-oliveira.png',
   },
   {
-    id: '3958dc9e-742f-4377-85e9-fec4b6a6442a',
+    id: randomUUID(),
     name: 'Lee Robinson',
     email: 'lee@robinson.com',
     image_url: '/customers/lee-robinson.png',
   },
   {
-    id: '76d65c26-f784-44a2-ac19-586678f7c2f2',
+    id: randomUUID(),
     name: 'Michael Novotny',
     email: 'michael@novotny.com',
     image_url: '/customers/michael-novotny.png',
   },
   {
-    id: 'CC27C14A-0ACF-4F4A-A6C9-D45682C144B9',
+    id: randomUUID(),
     name: 'Amy Burns',
     email: 'amy@burns.com',
     image_url: '/customers/amy-burns.png',
   },
   {
-    id: '13D07535-C59E-4157-A011-F8D2EF4E0CBB',
+    id: randomUUID(),
     name: 'Balazs Orban',
     email: 'balazs@orban.com',
     image_url: '/customers/balazs-orban.png',
@@ -144,4 +146,35 @@ const revenue = [
   { month: 'Dec', revenue: 4800 },
 ];
 
-export { users, customers, invoices, revenue };
+const categories = [
+  {
+    id: randomUUID(),
+    fa: 'جوراب',
+    en: 'tights',
+  },
+  {
+    id: randomUUID(),
+    fa: 'تیشرت',
+    en: 'tee-shirt',
+  },
+  {
+    id: randomUUID(),
+    fa: 'هودی',
+    en: 'hoodies',
+  },
+  {
+    id: randomUUID(),
+    fa: 'جین',
+    en: 'jeans',
+  },
+];
+
+
+const products = [
+  { id: '3958dc9e-742f-4377-85e9-fec4b6a6442a', fa: "جوراب زنانه ماییلدا مدل 4216 بسته 5 عددی", en: "", category_id: categories[0].id, thumbnail_url: "/products/03.jpg" },
+  { id: '76d65c26-f784-44a2-ac19-586678f7c2f2', fa: "تی شرت آستین کوتاه زنانه مدل سه خرس و نوشیدنی", en: "", category_id: categories[1].id, thumbnail_url: "/products/02.jpg" },
+  { id: 'CC27C14A-0ACF-4F4A-A6C9-D45682C144B9', fa: "هودی زنانه مدل فانتزی کره ای", en: "", category_id: categories[2].id, thumbnail_url: "/products/01.jpg" },
+  { id: '13D07535-C59E-4157-A011-F8D2EF4E0CBB', fa: "شلوار جین زنانه ایزی دو مدل 6264990873", en: "", category_id: categories[3].id, thumbnail_url: "/products/04.jpg" },
+]
+
+export { users, customers, invoices, revenue, products, categories };

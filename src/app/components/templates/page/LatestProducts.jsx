@@ -1,17 +1,16 @@
-import ProductsContainer from "@/app/components/templates/page/ProductsContainer"
 import CardProduct from "../../modules/cards/CardProduct"
-const LatestProducts = () => {
-    const arr = new Array(10).fill("")
-    return (
-        <ProductsContainer title="آخرین محصولات" href="/products?orderBy=latests">
-            {
-                arr.map((item, index) => (
-                    <CardProduct key={index + 1} href={index + 1} {...item} />
-
-                ))
-            }
-        </ProductsContainer>
-    )
+import { fetchLatestProducts } from "@/app/lib/data"
+const LatestProducts = async () => {
+    const latestProducts = await fetchLatestProducts()
+    return latestProducts?.map((product) => (
+        <CardProduct
+            key={product.id}
+            href={product.id}
+            fa={product.fa}
+            en={product.en}
+            src={product.thumbnail_url}
+        />
+    ))
 }
 
 export default LatestProducts
