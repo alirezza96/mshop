@@ -25,7 +25,7 @@ module.exports = {
     },
     container: {
       center: true,
-      padding:{
+      padding: {
       }
     },
     screens: {
@@ -34,7 +34,14 @@ module.exports = {
       "md": "768px",
       "lg": "1024px",
       "xl": "1280px"
-    }
+    },
+    // keyframes: {
+    //   shimmer: {
+    //     '100%': {
+    //       transform: 'translateX(100%)',
+    //     },
+    //   },
+    // },
   },
   plugins: [
     function ({ addVariant }) {

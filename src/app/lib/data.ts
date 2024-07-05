@@ -31,14 +31,22 @@ export async function fetchRevenue() {
 
 export async function fetchLatestProducts() {
     try {
-        console.log('Fetching revenue data...');
-
-        // await new Promise((resolve) => setTimeout(resolve, 10000));
+        await new Promise((resolve) => setTimeout(resolve, 10000));
 
         const data = await sql<Product>`
-            SELECT * FROM PRODUCTS LIMIT 2
+            SELECT * FROM PRODUCTS LIMIT 6
         `
-        console.log('Data fetch completed after 3 seconds.');
+        return data.rows
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to fetch the latest products.');
+    }
+}
+export async function fetchPopularProducts() {
+    try {
+        const data = await sql<Product>`
+            SELECT * FROM PRODUCTS LIMIT 6
+        `
         return data.rows
     } catch (error) {
         console.error('Database Error:', error);
@@ -101,39 +109,28 @@ export async function fetchCardData() {
     }
 }
 
-const ITEMS_PER_PAGE = 6;
-export async function fetchFilteredInvoices(
+const ITEMS_PER_PAGE = 24;
+export async function fetchFilteredProducts(
     query: string,
     currentPage: number,
 ) {
     const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-
     try {
-        const invoices = await sql<InvoicesTable>`
+        const invoices = await sql<Product>`
       SELECT
-        invoices.id,
-        invoices.amount,
-        invoices.date,
-        invoices.status,
-        customers.name,
-        customers.email,
-        customers.image_url
-      FROM invoices
-      JOIN customers ON invoices.customer_id = customers.id
+        *
+      FROM products
       WHERE
-        customers.name ILIKE ${`%${query}%`} OR
-        customers.email ILIKE ${`%${query}%`} OR
-        invoices.amount::text ILIKE ${`%${query}%`} OR
-        invoices.date::text ILIKE ${`%${query}%`} OR
-        invoices.status ILIKE ${`%${query}%`}
-      ORDER BY invoices.date DESC
+        fa ILIKE ${`%${query}%`} OR
+        en ILIKE ${`%${query}%`}
+      ORDER BY id DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
         return invoices.rows;
     } catch (error) {
         console.error('Database Error:', error);
-        throw new Error('Failed to fetch invoices.');
+        throw new Error('Failed to fetch products.');
     }
 }
 

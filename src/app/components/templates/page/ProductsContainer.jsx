@@ -1,11 +1,11 @@
 import Link from "next/link"
 const ProductsContainer = ({ title, href = "#", children, className }) => {
     return (
-        <div className={`box p-2 space-y-4 my-4 ${className}`}>
+        <div className={`space-y-4 ${className}`}>
             <ProductsHeader href={href}>
                 {title}
             </ProductsHeader>
-            <div className="flex overflow-x-scroll">
+            <div className="flex gap-2 overflow-x-auto">
 
                 {children}
             </div>

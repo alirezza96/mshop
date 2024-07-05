@@ -6,7 +6,6 @@ import { useState } from "react"
 const Counter = ({ className, disabled }) => {
     const [count, setCount] = useState(0)
     const handelCount = () => {
-        console.log("count =>", count)
     }
     return (
         <div className={`w-36 max-w-64 leading-8 text-center  rounded-lg border border-solid border-Fuchsia text-fu   ${className}`}>

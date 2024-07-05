@@ -3,17 +3,22 @@ import Landing from "./components/templates/page/Landing";
 import LatestProducts from "./components/templates/page/LatestProducts";
 import PopularProducts from "./components/templates/page/PopularProducts";
 import ProductsContainer from "./components/templates/page/ProductsContainer";
-import { CardSkeleton1 } from "./components/modules/skeletons";
+import { CardsSkeleton } from "./components/modules/skeletons";
 const Home = () => {
   return (
-    <div className="">
+    <div className="space-y-4">
       <Landing />
       <ProductsContainer title="آخرین محصولات" href="/products?orderBy=latests">
+        <Suspense fallback={<CardsSkeleton cards={4} />}>
           <LatestProducts />
-          <CardSkeleton1/>
+        </Suspense>
+      </ProductsContainer>
+      <ProductsContainer title="محبوبترین محصولات" href="/products?orderBy=latests">
+        <Suspense fallback={<CardsSkeleton cards={4} />}>
+          <PopularProducts />
+        </Suspense>
       </ProductsContainer>
 
-      <PopularProducts />
     </div>
   );
 }

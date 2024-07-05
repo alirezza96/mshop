@@ -31,7 +31,7 @@ export const Input = ({ children, className, label, ...rest }) => {
                         {label}
                     </label>
                     <div
-                        className={`h-10 flex  items-center justify-between px-1  bg-Fuchsia/10 my-1  rounded-lg ${className}`} >
+                        className={`h-10 flex  items-center justify-between   bg-Fuchsia/10 my-1  rounded-lg ${className}`} >
                         <input {...rest}
                             className="w-full mx-2  bg-transparent outline-none focus-visible:border-b-2 border-Fuchsia/30 font-dana" />
                         {children}

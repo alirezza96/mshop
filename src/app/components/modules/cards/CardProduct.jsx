@@ -1,4 +1,3 @@
-import cover from "/public/products/01.webp"
 import Image from "next/image"
 import { formatCurrency } from "@/app/lib/utils"
 import Link from "next/link"
@@ -14,7 +13,7 @@ const sizes = [
 const CardProduct = ({ href, fa, en, src }) => {
     const price = 1_800_000
     return (
-        <div className="mx-1  max-w-64 my-2 box rounded-md overflow-hidden">
+        <div className="min-w-64 max-w-64 flex-1 rounded-md overflow-hidden group">
             {/* image  */}
             <Link href={`/products/${href}`} className="disabled-drag ">
                 <div className="h-[240px] w-[180px] mx-auto">
@@ -23,15 +22,15 @@ const CardProduct = ({ href, fa, en, src }) => {
                         height={240}
                         alt="image product"
                         width={180}
-                        className="disabled-drag aspect-[3/4] object-cover "
+                        className="disabled-drag aspect-[3/4] object-cover group-hover:scale-105 transition-transform delay-100 "
                     />
                 </div>
             </Link>
-            <div className="p-1 text-sm flex flex-col justify-between  min-h-44">
+            <div className="p-1 text-sm flex flex-col justify-between  min-h-40">
                 <div className="space-y-1   ">
-                    <p className="line-clamp-2 min-h-10">
+                    <Link href={`/products/${href}`} className="line-clamp-2 min-h-10">
                         {fa}
-                    </p>
+                    </Link>
                     <div className="flex items-center justify-between">
                         <span>
                             رنگ بندی:
@@ -68,7 +67,6 @@ const CardProduct = ({ href, fa, en, src }) => {
 
 
                 </div>
-                <button className="bg-Purple hover:bg-dark-purple text-white rounded-md h-10 w-full">مشاهده</button>
             </div>
         </div>
     )

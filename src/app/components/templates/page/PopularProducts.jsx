@@ -1,20 +1,15 @@
-import ProductsContainer from "@/app/components/templates/page/ProductsContainer"
 import CardProduct from "../../modules/cards/CardProduct"
-const PopularProducts = () => {
-    return (
-        <ProductsContainer title="محبوبترین محصولات" href="/products?orderBy=popularity">
-            <CardProduct/>
-            <CardProduct/>
-            <CardProduct/>
-            <CardProduct/>
-            <CardProduct/>
-            <CardProduct/>
-            <CardProduct/>
-            <CardProduct/>
-            <CardProduct/>
-            <CardProduct/>
-        </ProductsContainer>
-    )
+import { fetchPopularProducts } from "@/app/lib/data"
+const PopularProducts = async () => {
+    const popularProducts = await fetchPopularProducts()
+    return popularProducts?.map((product) => (
+        <CardProduct
+            key={product.id}
+            href={product.id}
+            fa={product.fa}
+            en={product.en}
+            src={product.thumbnail_url}
+        />
+    ))
 }
-
 export default PopularProducts
