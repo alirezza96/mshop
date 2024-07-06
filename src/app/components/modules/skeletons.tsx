@@ -2,7 +2,7 @@
 const shimmer = 'before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent';
 export function CardSkeleton() {
   return (
-    <div className={`animate-pulse flex-1  min-w-64 max-w-64 border border-solid border-gray/20 rounded-md overflow-hidden `}>
+    <div className={`animate-pulse  border border-solid border-gray/20 rounded-md overflow-hidden `}>
       {/* header  */}
       <div className="h-[240px] bg-gray/70"></div>
       {/* body  */}

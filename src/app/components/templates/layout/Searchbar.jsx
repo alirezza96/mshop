@@ -15,6 +15,7 @@ const Searchbar = ({ className }) => {
     const handelSearch = () => {
         const params = new URLSearchParams(searchParams)
         if (!search) return false
+        params.set("page", "1")
         if (search) {
             params.set("q", search)
         } else {

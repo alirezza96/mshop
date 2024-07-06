@@ -13,15 +13,15 @@ const sizes = [
 const CardProduct = ({ href, fa, en, src }) => {
     const price = 1_800_000
     return (
-        <div className="min-w-64 max-w-64 flex-1 rounded-md overflow-hidden group">
+        <div className="group">
             {/* image  */}
             <Link href={`/products/${href}`} className="disabled-drag ">
-                <div className="h-[240px] w-[180px] mx-auto">
+                <div className="h-64 w-48 mx-auto">
                     <Image
                         src={src}
-                        height={240}
+                        height={256}
                         alt="image product"
-                        width={180}
+                        width={192}
                         className="disabled-drag aspect-[3/4] object-cover group-hover:scale-105 transition-transform delay-100 "
                     />
                 </div>

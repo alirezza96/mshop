@@ -109,7 +109,7 @@ export async function fetchCardData() {
     }
 }
 
-const ITEMS_PER_PAGE = 24;
+const ITEMS_PER_PAGE = 1;
 export async function fetchFilteredProducts(
     query: string,
     currentPage: number,
@@ -134,19 +134,14 @@ export async function fetchFilteredProducts(
     }
 }
 
-export async function fetchInvoicesPages(query: string) {
+export async function fetchProductsPages(query: string) {
     try {
         const count = await sql`SELECT COUNT(*)
-    FROM invoices
-    JOIN customers ON invoices.customer_id = customers.id
-    WHERE
-      customers.name ILIKE ${`%${query}%`} OR
-      customers.email ILIKE ${`%${query}%`} OR
-      invoices.amount::text ILIKE ${`%${query}%`} OR
-      invoices.date::text ILIKE ${`%${query}%`} OR
-      invoices.status ILIKE ${`%${query}%`}
+      FROM products
+      WHERE
+        fa ILIKE ${`%${query}%`} OR
+        en ILIKE ${`%${query}%`}
   `;
-
         const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
         return totalPages;
     } catch (error) {
