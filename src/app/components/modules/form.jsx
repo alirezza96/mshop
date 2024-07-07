@@ -5,7 +5,7 @@ import Link from "next/link"
 export const Button = ({ children, className, ...rest }) => {
     // return <button {...rest} className={`button transition-colors ${className}`}>{children}</button>
     return (
-        <button {...rest} className={` text-Fuchsia hover:bg-Purple/10 hover:text-Purple rounded-xl p-2 ${className}`}>{children}</button>
+        <button {...rest} className={` text-Fuchsia hover:bg-Purple/10 hover:text-Purple rounded-xl  ${className}`}>{children}</button>
     )
 }
 

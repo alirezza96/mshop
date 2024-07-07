@@ -31,7 +31,7 @@ const Searchbar = ({ className }) => {
                 defaultValue={searchParams.get("q")?.toString()}
                 onChange={e => handelFastSearch(e.target.value)}
             >
-                <Button onClick={handelSearch}>
+                <Button onClick={handelSearch} className="p-2">
                     <MagnifyingGlassIcon className="w-6 h-6 text-Fuchsia" />
 
                 </Button>

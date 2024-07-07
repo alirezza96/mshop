@@ -35,7 +35,7 @@ const Navbar = () => {
                         <NavLink href={"/contact-us"}>تماس با ما</NavLink>
                         <NavLink href={"/about-us"}>درباره ما</NavLink>
                     </div>
-                    <Button className="md:hidden ">
+                    <Button className="md:hidden p-2">
                         <Bars3Icon className="w-6 h-6 stroke-Fuchsia" />
                     </Button>
                 </div>
@@ -44,7 +44,7 @@ const Navbar = () => {
             <Searchbar className="fixed top-0 inset-x-0 shadow-md md:shadow-none  md:relative md:rounded-xl" />
             <div className="hidden md:block w-px bg-gray h-8"></div>
             <div className="group">
-                <Button>
+                <Button className="p-2">
                     <ShoppingCartIcon className="w-6 h-6 stroke-Fuchsia" />
                 </Button>
                 <Basket className=" invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200" />
@@ -52,7 +52,7 @@ const Navbar = () => {
             <div className="font-morabba">
                 {
                     isLoggedIn ?
-                        <Button >
+                        <Button className="p-2" >
                             <UserIcon className="w-6 h-6" />
                         </Button>
                         : <NavLink href="/register" className="block">

@@ -1,5 +1,6 @@
 import { sql } from '@vercel/postgres';
 import {
+    Category,
     CustomerField,
     CustomersTableType,
     InvoiceForm,
@@ -109,20 +110,21 @@ export async function fetchCardData() {
     }
 }
 
-const ITEMS_PER_PAGE = 1;
+const ITEMS_PER_PAGE = 4;
 export async function fetchFilteredProducts(
     query: string,
     currentPage: number,
 ) {
     const offset = (currentPage - 1) * ITEMS_PER_PAGE;
     try {
+
         const invoices = await sql<Product>`
       SELECT
         *
       FROM products
       WHERE
-        fa ILIKE ${`%${query}%`} OR
-        en ILIKE ${`%${query}%`}
+      (null is null or  fa ILIKE ${`%${query}%`}) OR
+      (null is null or  en ILIKE ${`%${query}%`})
       ORDER BY id DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
@@ -139,8 +141,8 @@ export async function fetchProductsPages(query: string) {
         const count = await sql`SELECT COUNT(*)
       FROM products
       WHERE
-        fa ILIKE ${`%${query}%`} OR
-        en ILIKE ${`%${query}%`}
+     (null is null  or fa ILIKE ${`%${query}%`}) OR
+     (null is null or   en ILIKE ${`%${query}%`})
   `;
         const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
         return totalPages;
@@ -174,7 +176,18 @@ export async function fetchInvoiceById(id: string) {
         throw new Error('Failed to fetch invoice.');
     }
 }
-
+export async function fetchCategories() {
+    try {
+        const data = await sql<Category>`
+        SELECT * FROM categories
+        `
+        const categories = data.rows
+        return categories
+    } catch (error) {
+        console.error("Database error", error)
+        throw new Error("Failed to fetch categories")
+    }
+}
 export async function fetchCustomers() {
     try {
         const data = await sql<CustomerField>`

@@ -32,7 +32,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/app/lib/action.js", "src/app/ui/invoices/FormN.jsx"  ],
   "exclude": [
     "node_modules"
   ]
