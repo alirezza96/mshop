@@ -20,3 +20,13 @@ export const createProducts = async (formData) => {
     revalidatePath("/products")
     redirect("/products")
 }
+
+export const createCustomer = async (formData) => {
+    const rawFormData = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        image_url: formData.get("imageUrl").name
+    }
+    console.log("rawFormData =>", rawFormData)
+
+}
