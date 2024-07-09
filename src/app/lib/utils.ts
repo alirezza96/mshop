@@ -1,3 +1,4 @@
+
 export const formatCurrency = (amount: number) => {
     return amount.toLocaleString("fa-IR") + " ریال"
 }
@@ -6,8 +7,16 @@ export const formatNumber = (number: number) => {
     return number.toLocaleString("fa-IR")
 }
 
+export const formatDateToLocal = (date: Date) => {
+    const formatter = new Intl.DateTimeFormat("fa-IR", {
+        day: "numeric",
+        month: "2-digit",
+        year: "numeric"
+    })
+    return formatter.format(date)
+}
 
-export const  generatePagination =  (currentPage: number, totalPages: number) => {
+export const generatePagination = (currentPage: number, totalPages: number) => {
     // If the total number of pages is 7 or less,
     // display all pages without any ellipsis.
     if (totalPages <= 7) {

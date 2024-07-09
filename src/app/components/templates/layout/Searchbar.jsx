@@ -2,7 +2,7 @@
 import { Button, Input } from "@/app/components/modules/form"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 // import { useDebouncedCallback } from "use-debounce"
 const Searchbar = ({ className }) => {
     const searchParams = useSearchParams()
@@ -12,7 +12,11 @@ const Searchbar = ({ className }) => {
         if (!term.trim()) return false
         setSearch(term)
     }
+
+
     const handelSearch = () => {
+
+
         const params = new URLSearchParams(searchParams)
         if (!search) return false
         params.set("page", "1")

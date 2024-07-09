@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { createCustomer } from '@/app/lib/action';
+import { createCustomer } from '@/app/lib/actions';
 import { Button, Input } from '@/app/components/modules/form';
 
 export default function Form() {
