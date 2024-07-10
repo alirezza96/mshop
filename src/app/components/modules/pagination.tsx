@@ -35,7 +35,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
 
           {
             allPages.map(page => (
-              <li className=' min-w-8 text-center '>
+              <li key={page} className=' min-w-8 text-center '>
                 {
                   isNaN(page) ?
                     <span>

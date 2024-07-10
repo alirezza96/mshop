@@ -7,13 +7,13 @@ export const formatNumber = (number: number) => {
     return number.toLocaleString("fa-IR")
 }
 
-export const formatDateToLocal = (date: Date) => {
+export const formatDateToLocal = (date: string) => {
     const formatter = new Intl.DateTimeFormat("fa-IR", {
         day: "numeric",
         month: "2-digit",
         year: "numeric"
     })
-    return formatter.format(date)
+    return formatter.format(new Date(date))
 }
 
 export const generatePagination = (currentPage: number, totalPages: number) => {

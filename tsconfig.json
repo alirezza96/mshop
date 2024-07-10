@@ -32,7 +32,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/lib/action.ts", "src/app/ui/invoices/FormN.jsx", "src/app/components/templates/admin/customers/ProductsTable.jsx"  ],
+, "src/app/lib/action.ts", "src/app/ui/invoices/FormN.jsx", "src/app/components/templates/admin/customers/ProductsTable.jsx", "src/app/(admin-p)/admin/invoices/error.jsx"  ],
   "exclude": [
     "node_modules"
   ]

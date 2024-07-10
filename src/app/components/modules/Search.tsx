@@ -4,19 +4,17 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 // import { useDebouncedCallback } from "use-debounce"
-const Searchbar = ({ className }) => {
+const Search = ({ className, placeholder }: { className: string, placeholder: string }) => {
     const searchParams = useSearchParams()
     const router = useRouter()
     const [search, setSearch] = useState("")
-    const handelFastSearch = (term) => {
+    const handelFastSearch = (term: string) => {
         if (!term.trim()) return false
         setSearch(term)
     }
 
 
     const handelSearch = () => {
-
-
         const params = new URLSearchParams(searchParams)
         if (!search) return false
         params.set("page", "1")
@@ -30,10 +28,10 @@ const Searchbar = ({ className }) => {
     return (
         <div className={`bg-white px-2 ${className}`}>
             <Input
-                placeholder="جستجو"
+                placeholder={placeholder ? placeholder : "جستجو"}
                 name="search" type="search"
                 defaultValue={searchParams.get("q")?.toString()}
-                onChange={e => handelFastSearch(e.target.value)}
+                onChange={(e) => handelFastSearch(e.target.value)}
             >
                 <Button onClick={handelSearch} className="p-2">
                     <MagnifyingGlassIcon className="w-6 h-6 text-Fuchsia" />
@@ -45,4 +43,4 @@ const Searchbar = ({ className }) => {
     )
 }
 
-export default Searchbar
+export default Search

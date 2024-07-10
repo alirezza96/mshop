@@ -41,7 +41,7 @@ async function seedInvoices() {
       customer_id UUID NOT NULL,
       amount INT NOT NULL,
       status VARCHAR(255) NOT NULL,
-      date DATE NOT NULL
+      date CHAR(10) NOT NULL
     );
   `;
 

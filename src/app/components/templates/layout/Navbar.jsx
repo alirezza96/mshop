@@ -1,6 +1,6 @@
 import { Button, NavLink } from "@/app/components/modules/form"
 import { ShoppingCartIcon, Bars3Icon, HomeIcon, UserIcon } from "@heroicons/react/24/outline"
-import Searchbar from "./Searchbar"
+import Search from "@/app/components/modules/Search"
 import Basket from "./Basket"
 const Navbar = () => {
     const isLoggedIn = false
@@ -41,7 +41,7 @@ const Navbar = () => {
                 </div>
 
             </div>
-            <Searchbar className="fixed top-0 inset-x-0 shadow-md md:shadow-none  md:relative md:rounded-xl" />
+            <Search className="fixed top-0 inset-x-0 shadow-md md:shadow-none  md:relative md:rounded-xl" />
             <div className="hidden md:block w-px bg-gray h-8"></div>
             <div className="group">
                 <Button className="p-2">
