@@ -3,10 +3,13 @@ import { usePathname } from "next/navigation"
 import Link from "next/link"
 
 export const Button = ({ children, className, ...rest }) => {
+    const classname = ` text-Fuchsia hover:bg-Purple/10 hover:text-Purple rounded-xl  ${className}`
     // return <button {...rest} className={`button transition-colors ${className}`}>{children}</button>
-    return (
-        <button {...rest} className={` text-Fuchsia hover:bg-Purple/10 hover:text-Purple rounded-xl  ${className}`}>{children}</button>
-    )
+    const elem = rest.href ?
+        <Link className={classname} {...rest}>{children}</Link>
+        :
+        <button className={classname} {...rest}>{children}</button>
+    return elem
 }
 
 
@@ -26,17 +29,19 @@ export const Input = ({ children, className, label, ...rest }) => {
             :
 
             (
-                <div>
-                    <label className="font-morabba">
+                <>
+                    <label htmlFor={rest.id} className="font-morabba">
                         {label}
                     </label>
                     <div
                         className={`h-10 flex  items-center justify-between   bg-Fuchsia/10 my-1  rounded-lg ${className}`} >
-                        <input {...rest}
-                            className="w-full mx-2  bg-transparent outline-none focus-visible:border-b-2 border-Fuchsia/30 font-dana" />
+                        <input
+                            {...rest}
+                            id={rest.id}
+                            className=" w-full mx-2  bg-transparent outline-none focus-visible:border-b-2 border-Fuchsia/30 font-dana" />
                         {children}
                     </div>
-                </div>
+                </>
 
             )
 }
@@ -57,6 +62,22 @@ export const InputRadio = ({ className, ...rest }) => {
         </label>
     )
     return rest.color ? color : size
+}
+
+export const Select = ({ label, className, children, ...rest }) => {
+    return (
+        <>
+            <label htmlFor={rest.id} className="font-morabba">
+                {label}
+            </label>
+            <select
+                className={`h-10 px-2 flex  items-center justify-between   bg-Fuchsia/10 my-1  rounded-lg ${className}`}
+                {...rest}
+            >
+                {children}
+            </select>
+        </>
+    )
 }
 
 export const NavLink = ({ children, href, className, ...rest }) => {

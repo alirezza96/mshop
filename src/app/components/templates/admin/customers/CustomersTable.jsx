@@ -10,7 +10,7 @@ import { UpdateCustomer } from './buttons';
 export default async function CustomersTable({
     customers,
 }) {
-    console.log("customers =>", customers)
+    // console.log("customers =>", customers)
     return (
         <div className="w-full">
             {/* ${lusitana.className} */}

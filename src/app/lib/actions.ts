@@ -10,13 +10,13 @@ import { formatDateToLocal } from "./utils"
 const FormSchema = z.object({
   id: z.string(),
   customerId: z.string({
-    invalid_type_error: 'Please select a customer.',
+    invalid_type_error: 'انتخاب مشتری اجباری است.',
   }),
   amount: z.coerce
     .number()
-    .gt(0, { message: 'Please enter an amount greater than $0.' }),
+    .gt(0, { message: 'مقدار وارد شده باید بیشتر از 0 باشد.' }),
   status: z.enum(['pending', 'paid'], {
-    invalid_type_error: 'Please select an invoice status.',
+    invalid_type_error: 'لطفا وضعیت سفارش را مشخص کنید.',
   }),
   date: z.string(),
 });
@@ -40,20 +40,20 @@ export async function createInvoice(prevState: State, formData: FormData) {
     amount: formData.get('amount'),
     status: formData.get('status'),
   });
- 
+
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Create Invoice.',
+      message: 'خطا',
     };
   }
- 
+
   // Prepare data for insertion into the database
   const { customerId, amount, status } = validatedFields.data;
   const amountInCents = amount * 100;
   const date = new Date().toISOString().split('T')[0];
- 
+
   // Insert data into the database
   try {
     await sql`
@@ -66,17 +66,24 @@ export async function createInvoice(prevState: State, formData: FormData) {
       message: 'Database Error: Failed to Create Invoice.',
     };
   }
- 
+
   // Revalidate the cache for the invoices page and redirect the user.
   revalidatePath('/admin/invoices');
   redirect('/admin/invoices');
 }
-export async function updateInvoice(id: string, formData: FormData) {
-  const { customerId, amount, status } = UpdateInvoice.parse({
+export async function updateInvoice(id: string, prevState: State, formData: FormData) {
+  const validatedFields = UpdateInvoice.safeParse({
     customerId: formData.get("customerId"),
     amount: formData.get("amount"),
     status: formData.get("status")
   })
+  if (!validatedFields.success) {
+    return {
+      message: "Missing Fields. Failed to Create Invoice.",
+      errors: validatedFields.error.flatten().fieldErrors
+    }
+  }
+  const { customerId, amount, status } = validatedFields.data
   try {
     await sql`
       UPDATE invoices

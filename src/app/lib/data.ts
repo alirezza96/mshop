@@ -112,7 +112,7 @@ export async function fetchCardData() {
   }
 }
 
-const ITEMS_PER_PAGE = 40;
+const ITEMS_PER_PAGE = 2;
 export async function fetchFilteredProducts(
   query: string,
   currentPage: number,
@@ -203,7 +203,8 @@ export async function fetchFilteredInvoices(
   currentPage: number,
 ) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+  await new Promise(resolve => setTimeout(resolve, 3000))
   try {
     const invoices = await sql<InvoicesTable>`
       SELECT
@@ -225,7 +226,6 @@ export async function fetchFilteredInvoices(
       ORDER BY invoices.date DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
-
     return invoices.rows;
   } catch (error) {
     console.error('Database Error:', error);

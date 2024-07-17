@@ -1,11 +1,17 @@
 import Form from '@/app/components/templates/admin/invoices/edit-form';
 import Breadcrumb from '@/app/components/modules/Breadcrumb';
 import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
-import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-export const metadata: Metadata = {
-    title: 'Edit Invoice',
-};
+
+
+export const generateMetadata = ({ params }: { params: { id: string } }) => {
+    const id = params.id
+    return {
+        title: `ویرایش سفارش | ${id}`
+    }
+}
+
+
 
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
@@ -13,10 +19,9 @@ export default async function Page({ params }: { params: { id: string } }) {
         fetchInvoiceById(id),
         fetchCustomers(),
     ]);
-    console.log("invoice =>", invoice)
     if (!invoice) {
-        notFound();
-      }
+        return notFound();
+    }
     const breadcrumbs = [
         { label: 'داشبورد', href: '/admin' },
         { label: 'سفارشات', href: '/admin/invoices' },
@@ -26,11 +31,6 @@ export default async function Page({ params }: { params: { id: string } }) {
             active: true,
         },
     ]
-
-    //   if (!invoice) {
-    //     notFound();
-    //   }
-
     return (
         <main>
             <Breadcrumb breadcrumbs={breadcrumbs} />
