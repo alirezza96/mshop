@@ -1,19 +1,20 @@
 "use client"
 import { Button, Input } from "@/app/components/modules/form"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
-import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useState } from "react"
 // import { useDebouncedCallback } from "use-debounce"
-const Search = ({ className, placeholder }: { className: string, placeholder: string }) => {
+const Search = ({ className, placeholder, globalSearch = false }:
+    { className: string, placeholder: string, globalSearch: boolean }
+) => {
     const searchParams = useSearchParams()
+    const pathname = usePathname()
     const router = useRouter()
     const [search, setSearch] = useState("")
     const handelFastSearch = (term: string) => {
         if (!term.trim()) return false
         setSearch(term)
     }
-
-
     const handelSearch = () => {
         const params = new URLSearchParams(searchParams)
         if (!search) return false
@@ -23,7 +24,7 @@ const Search = ({ className, placeholder }: { className: string, placeholder: st
         } else {
             params.delete("q")
         }
-        router.replace(`/search?${params.toString()}`)
+        router.replace(`${globalSearch ? "/search" : pathname}?${params.toString()}`)
     }
     return (
         <div className={`bg-white px-2 ${className}`}>

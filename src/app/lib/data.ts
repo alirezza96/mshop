@@ -125,13 +125,15 @@ export async function fetchFilteredProducts(
         *
       FROM products
       WHERE
-      (null is null or  fa ILIKE ${`%${query}%`}) OR
-      (null is null or  en ILIKE ${`%${query}%`})
+      fa ILIKE ${`%${query}%`} OR
+      en ILIKE ${`%${query}%`}
       ORDER BY id DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
+    console.log("sql =>", invoices.rows)
     return invoices.rows;
+
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch products.');
@@ -143,8 +145,8 @@ export async function fetchProductsPages(query: string) {
     const count = await sql`SELECT COUNT(*)
       FROM products
       WHERE
-     (null is null  or fa ILIKE ${`%${query}%`}) OR
-     (null is null or   en ILIKE ${`%${query}%`})
+     fa ILIKE ${`%${query}%`} OR
+     en ILIKE ${`%${query}%`}
   `;
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
     return totalPages;
@@ -203,8 +205,6 @@ export async function fetchFilteredInvoices(
   currentPage: number,
 ) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
-  await new Promise(resolve => setTimeout(resolve, 3000))
   try {
     const invoices = await sql<InvoicesTable>`
       SELECT

@@ -41,7 +41,7 @@ const Navbar = () => {
                 </div>
 
             </div>
-            <Search className="fixed top-0 inset-x-0 shadow-md md:shadow-none  md:relative md:rounded-xl" />
+            <Search globalSearch={true} className="fixed top-0 inset-x-0 shadow-md md:shadow-none  md:relative md:rounded-xl" />
             <div className="hidden md:block w-px bg-gray h-8"></div>
             <div className="group">
                 <Button className="p-2">

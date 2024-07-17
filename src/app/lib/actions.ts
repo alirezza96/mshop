@@ -7,7 +7,7 @@ import { redirect } from "next/navigation"
 import { z } from "zod"
 import { formatDateToLocal } from "./utils"
 //invoices
-const FormSchema = z.object({
+const InvoiceFormSchema = z.object({
   id: z.string(),
   customerId: z.string({
     invalid_type_error: 'انتخاب مشتری اجباری است.',
@@ -21,8 +21,8 @@ const FormSchema = z.object({
   date: z.string(),
 });
 
-const CreateInvoice = FormSchema.omit({ id: true, date: true });
-const UpdateInvoice = FormSchema.omit({ date: true, id: true });
+const CreateInvoice = InvoiceFormSchema.omit({ id: true, date: true });
+const UpdateInvoice = InvoiceFormSchema.omit({ date: true, id: true });
 
 export type State = {
   errors?: {
@@ -119,6 +119,54 @@ export async function deleteInvoice(id: string) {
 
 }
 
+//products
+const ProductFormSchema = z.object({
+  id: z.string(),
+  fa: z.string({
+    invalid_type_error: "وارد کردن نام محصول اجباری است."
+  }),
+  en: z.string({
+    invalid_type_error: "وارد کردن نام محصول اجباری است."
+  }),
+  categoryId: z.string({
+    invalid_type_error: "وارد کردن دسته بندی اجباری است."
+  }),
+  thumbnailUrl: z.string({
+    invalid_type_error: "عکس محصول را وارد کنید."
+  }),
+
+})
+const CreateProduct = ProductFormSchema.omit({ id: true })
+
+export const createProduct = async (prevState: State, formData: FormData) => {
+
+  const data = {
+    fa: formData.get("fa"),
+    en: formData.get("en"),
+    thumbnailUrl: formData.get("thumbnailUrl").name,
+    categoryId: formData.get("categoryId"),
+  }
+  const validatedFields = CreateProduct.safeParse(data)
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "err"
+    }
+  }
+  const { fa, en, categoryId, thumbnailUrl } = validatedFields.data
+  try {
+    await sql`
+    INSERT INTO products (fa,en, category_id, thumbnail_url) VALUES
+    (${fa},${en},${categoryId},${thumbnailUrl})
+`
+  } catch (err) {
+    return {
+      message: 'Database Error: Failed to Create Invoice.',
+    }
+  }
+  revalidatePath("/admin/products")
+  redirect("admin/products")
+}
 
 // products
 // export const createProducts = async (formData: FormData) => {
