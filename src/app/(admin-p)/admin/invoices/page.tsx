@@ -6,7 +6,7 @@ import Breadcrumb from '@/app/components/modules/Breadcrumb';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import Pagination from '@/app/components/modules/pagination';
 import { TableRowSkeleton } from '@/app/components/modules/skeletons';
-import DashboardHeader from "@/app/components/templates/admin/DashboardHeader"
+import TableHeader from "@/app/components/templates/admin/TableHeader"
 export const metadata: Metadata = {
     title: 'سفارشات',
 };
@@ -29,10 +29,7 @@ export default async function Page({
     return (
         <>
             <Breadcrumb breadcrumbs={breadcrumbs} />
-            <DashboardHeader href="./invoices/create">
-                ثبت سفارش
-                <PlusIcon className='w-4 h-4 inline' />
-            </DashboardHeader>
+            <TableHeader href="./invoices/create" title="سفارش" />
             <Suspense key={query + currentPage} fallback={<TableRowSkeleton />}>
                 <Table query={query} currentPage={currentPage} />
             </Suspense>

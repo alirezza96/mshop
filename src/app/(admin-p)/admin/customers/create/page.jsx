@@ -1,5 +1,6 @@
 import Breadcrumbs from '@/app/components/modules/Breadcrumb';
 import { fetchCategories, fetchCustomers } from '@/app/lib/data';
+import Form from "@/app/components/templates/admin/customers/create-form"
 export default async function Page() {
     const categories = await fetchCategories();
     const customers = await fetchCustomers()
@@ -12,6 +13,7 @@ export default async function Page() {
     return (
         <main>
             <Breadcrumbs breadcrumbs={breadcrumbs} />
+            <Form/>
         </main>
     );
 }

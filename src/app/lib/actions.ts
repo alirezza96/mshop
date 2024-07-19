@@ -6,6 +6,8 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from "zod"
 import { formatDateToLocal } from "./utils"
+import path from "path"
+import { writeFile } from "fs/promises"
 //invoices
 const InvoiceFormSchema = z.object({
   id: z.string(),
@@ -139,7 +141,6 @@ const ProductFormSchema = z.object({
 const CreateProduct = ProductFormSchema.omit({ id: true })
 
 export const createProduct = async (prevState: State, formData: FormData) => {
-
   const data = {
     fa: formData.get("fa"),
     en: formData.get("en"),
@@ -199,3 +200,55 @@ export const createProduct = async (prevState: State, formData: FormData) => {
 //     redirect("/admin/customers")
 
 // }
+
+
+//customers
+const customerFormSchema = z.object({
+  name: z.string().min(5, "وارد کردن نام مشتری اجباری است"),
+  email: z.string().email({ message: "ایمیل وارد شده نامعتبر است" }),
+  imageUrl: z.string().optional()
+})
+const CreateCustomer = customerFormSchema;
+export const createCustomer = async (formData: FormData) => {
+  const img = formData.get("imageUrl")
+  if (img && !(img instanceof File)) {
+    return {
+      message: "خطا",
+      errors: { imageUrl: ["تصویر نامعتبر است"] },
+    }
+  }
+  const newImageName = img ? `${img.lastModified}_${img.name}` : null
+  const validatedFields = CreateCustomer.safeParse({
+    name: formData.get("name"),
+    email: formData.get("email"),
+    imageUrl: newImageName
+  })
+
+  if (!validatedFields.success) {
+    return {
+      message: "خطا",
+      errors: validatedFields.error.flatten().fieldErrors
+    }
+  }
+
+  const { name, email, imageUrl } = validatedFields.data
+  const newImgUrl = imageUrl ? `/customers/${imageUrl}` : null
+  try {
+    await sql`
+ INSERT INTO customers (name, email, image_url)
+        VALUES ( ${name}, ${email}, ${newImgUrl})
+  `
+    if (img) {
+      const pathname = path.join(process.cwd(), "public/customers", newImageName)
+      const buffer = Buffer.from(await img.arrayBuffer())
+      await writeFile(pathname, buffer)
+    }
+  } catch (error) {
+    console.error('Database Error:', error);
+    return {
+      message: 'Database Error: Failed to Create Customer.',
+    }
+  }
+  revalidatePath("/admin/customers")
+  redirect("/admin/customers")
+}

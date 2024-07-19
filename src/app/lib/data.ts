@@ -3,7 +3,7 @@ import { unstable_noStore as noStore } from 'next/cache';
 import {
   Category,
   CustomerField,
-  CustomersTableType,
+  TableType,
   InvoiceForm,
   InvoicesTable,
   LatestInvoiceRaw,
@@ -275,7 +275,7 @@ export async function fetchCustomers() {
 
 export async function fetchFilteredCustomers(query: string) {
   try {
-    const data = await sql<CustomersTableType>`
+    const data = await sql<TableType>`
 		SELECT
 		  customers.id,
 		  customers.name,
@@ -303,5 +303,22 @@ export async function fetchFilteredCustomers(query: string) {
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch customer table.');
+  }
+}
+
+export const fetchCustomersPage = async (query: string) => {
+  try {
+    const count = await sql`SELECT COUNT(*)
+  	FROM customers
+		WHERE
+		  customers.name ILIKE ${`%${query}%`} OR
+        customers.email ILIKE ${`%${query}%`}
+  `;
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of customers.');
   }
 }
