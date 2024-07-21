@@ -11,7 +11,7 @@ import {
   Revenue,
 } from './definitions';
 
-import { formatCurrency } from './utils';
+import { formatCurrency, formatDateToLocal, formatNumber } from './utils';
 
 export async function fetchRevenue() {
   try {
@@ -24,7 +24,6 @@ export async function fetchRevenue() {
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
     // console.log('Data fetch completed after 3 seconds.');
-
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);
@@ -77,6 +76,30 @@ export async function fetchLatestInvoices() {
   }
 }
 
+export async function fetchPreOrderByCustomerId(customerId: string) {
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 10000))
+    const data = await sql`
+      SELECT * FROM invoices as h
+        LEFT OUTER JOIN invoices_detail as d
+          ON h.id = d.id
+          WHERE h.customer_id = ${customerId}
+            AND h.status = 'pending'
+    `
+    return data.rows.map(preOrder => ({
+      ...preOrder,
+      amount: formatCurrency(preOrder.amount || 0),
+      price: formatCurrency(preOrder.price || 0),
+      quantity: formatNumber(preOrder.quantity || 0),
+      data: formatDateToLocal(preOrder.date)
+    }))
+  } catch (error) {
+    console.log("Database error =>", error)
+    throw new Error("Failed to fetch pre order")
+  }
+}
+
+
 export async function fetchCardData() {
   try {
     // You can probably combine these into a single SQL query
@@ -95,10 +118,10 @@ export async function fetchCardData() {
       invoiceStatusPromise,
     ]);
 
-    const numberOfInvoices = Number(data[0].rows[0].count ?? '0');
-    const numberOfCustomers = Number(data[1].rows[0].count ?? '0');
-    const totalPaidInvoices = formatCurrency(data[2].rows[0].paid ?? '0');
-    const totalPendingInvoices = formatCurrency(data[2].rows[0].pending ?? '0');
+    const numberOfInvoices = formatNumber(Number(data[0].rows[0].count));
+    const numberOfCustomers = formatNumber(Number(data[1].rows[0].count));
+    const totalPaidInvoices = formatCurrency(Number(data[2].rows[0].paid));
+    const totalPendingInvoices = formatCurrency(Number(data[2].rows[0].pending));
 
     return {
       numberOfCustomers,
@@ -131,7 +154,6 @@ export async function fetchFilteredProducts(
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
-    console.log("sql =>", invoices.rows)
     return invoices.rows;
 
   } catch (error) {
@@ -154,6 +176,19 @@ export async function fetchProductsPages(query: string) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch total number of invoices.');
   }
+}
+
+export async function fetchProductById(id: string) {
+  try {
+    const data = await sql`
+    SELECT  * FROM products where id = ${id}
+`
+    return data.rows[0]
+  } catch (error) {
+    console.error("Database error =>", error)
+    throw new Error("failed to fetch product by id")
+  }
+
 }
 
 export async function fetchInvoiceById(id: string) {

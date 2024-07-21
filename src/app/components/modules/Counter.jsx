@@ -3,7 +3,7 @@ import { formatNumber } from "@/app/lib/utils"
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline"
 import { useState } from "react"
 
-const Counter = ({ className, disabled }) => {
+const Counter = ({ className, disabled, ...rest }) => {
     const [count, setCount] = useState(0)
     const handelCount = () => {
     }

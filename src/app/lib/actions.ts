@@ -252,3 +252,26 @@ export const createCustomer = async (formData: FormData) => {
   revalidatePath("/admin/customers")
   redirect("/admin/customers")
 }
+
+const createOrderFormSchema = z.object({
+  color: z.string({
+    invalid_type_error: "رنگبندی را مشخص کنید"
+  }),
+  size: z.string({
+    invalid_type_error: "سایز را مشخص کنید"
+  })
+})
+export const createOrder = (id: string, prevState: State, formData: FormData) => {
+  const data = {
+    color: formData.get("color"),
+    size: formData.get("size")
+  }
+  const validatedFields = createOrderFormSchema.safeParse(data)
+  if (!validatedFields.success) {
+    return {
+      message: "لطفا مواردی که مشخص شده را تکمیل کنید",
+      errors: validatedFields.error.flatten().fieldErrors
+    }
+  }
+
+}

@@ -46,23 +46,7 @@ export const Input = ({ children, className, label, ...rest }) => {
             )
 }
 
-export const InputRadio = ({ className, ...rest }) => {
-    const color = (
-        <input
-            {...rest}
-            type="radio"
-            className={`rounded-md border border-solid border-gray appearance-none ring-offset-1 ring-Purple/80 checked:ring ${className}`}
-            style={{ backgroundColor: rest.color }}
-            name={rest.name} />
-    )
-    const size = (
-        <label className="relative">
-            <input {...rest} type="radio" className="peer appearance-none absolute" name={rest.name} />
-            <span className={`block  text-center rounded-md ring-offset-1 ring-Purple/80 peer-checked:ring ${className}`} >{rest.label}</span>
-        </label>
-    )
-    return rest.color ? color : size
-}
+
 
 export const Select = ({ label, className, children, ...rest }) => {
     return (
@@ -87,4 +71,23 @@ export const NavLink = ({ children, href, className, ...rest }) => {
             {children}
         </Link>
     )
+}
+
+
+export const InputRadio = ({ className, ...rest }) => {
+    const color = (
+        <input
+            {...rest}
+            type="radio"
+            className={`rounded-md border border-solid border-gray appearance-none ring-offset-1 ring-Purple/80 checked:ring ${className}`}
+            style={{ backgroundColor: rest.color }}
+            name={rest.name} />
+    )
+    const size = (
+        <label className="relative">
+            <input {...rest} type="radio" className="peer appearance-none absolute" name={rest.name} />
+            <span className={`block  text-center rounded-md ring-offset-1 ring-Purple/80 peer-checked:ring ${className}`} >{rest.label}</span>
+        </label>
+    )
+    return rest.color ? color : size
 }

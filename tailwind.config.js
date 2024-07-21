@@ -9,12 +9,13 @@ module.exports = {
     colors: {
       "white": "#fff",
       "black": "#000",
+      "light-gray": "#f6f8fc",
       "gray": "#ccc",
       "pink": "#F72585",
       "Fuchsia": "#B5179E",
       "Purple": "#7209B7",
       "dark-purple": "#480CA8",
-      "Dark_Blue": "#3F37C9",
+      "Dark-Blue": "#3F37C9",
       "Blue": "#4361EE",
       "Light-Blue": "#4895EF",
       "transparent": "transparent"

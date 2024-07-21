@@ -1,14 +1,13 @@
 import Breadcrumb from "@/app/components/modules/Breadcrumb"
 import Image from "next/image"
 import cover from "/public/products/01.webp"
-import {  InputRadio } from "@/app/components/modules/form"
 import { HeartIcon } from "@heroicons/react/24/outline"
-import { formatCurrency } from "@/app/lib/utils"
-import Counter from "@/app/components/modules/Counter"
+import Form from "@/app/components/templates/(website)/products/[id]/create-form"
+import { fetchProductById } from "@/app/lib/data"
 const breadcrumbs = [
-    { fa: "پوشاک", eng: "wear" },
-    { fa: "زنانه", eng: "womans" },
-    { fa: "دامن", eng: "skirt" },
+    { label: "پوشاک", href: "wear" },
+    { label: "زنانه", href: "womans" },
+    { label: "دامن", href: "skirt" },
 ]
 const colors = [
     "red", "yellow", "blue", "purple", "black", "white"
@@ -16,20 +15,26 @@ const colors = [
 const sizes = [
     "xs", "sm", "ms", "lg", "xl", "xxl"
 ]
-const page = () => {
+const page = async ({ params }) => {
+    const id = params.id
+    const product = await fetchProductById(id)
     const like = true
-    const totalPrice = 1_180_000
     return (
         <div>
             <Breadcrumb breadcrumbs={breadcrumbs} />
             <div className="my-3 flex gap-x-8 ">
-                <Image src={cover} alt="Product Image" height={540} width={405} className="rounded-lg" />
+                <Image
+                    src={product.thumbnail_url}
+                    alt={`تصویر محصول ${product.fa}`}
+                    height={540}
+                    width={405}
+                    className="rounded-lg disabled-drag" />
                 <div className="flex-auto flex flex-col justify-between min-h-[540px] ">
                     <div className="space-y-[10px]">
 
-                        <div className="flex justify-between items-center">
-                            <h2 className="text-xl">
-                                تیشرت زنانه یقه گرد
+                        <div className="flex justify-between gap-4">
+                            <h2 className="text-base">
+                                {product.fa}
                             </h2>
                             <HeartIcon className={`w-6 h-6 cursor-pointer hover:fill-Fuchsia/40 hover:text-Fuchsia ${like ? "fill-Purple text-Purple" : ""}`} />
                         </div>
@@ -37,42 +42,12 @@ const page = () => {
                         <p className="text-sm/7 text-black/60">
                             کد محصول:
                             <span className="">
-                                20301
+                                {product.id}
                             </span>
                         </p>
-                        <div className="flex items-center justify-between">
-                            <span>
-                                رنگ بندی:
-                            </span>
-                            <div className="flex gap-x-[6px]">
-                                {
-                                    colors?.map((item, index) => (
-                                        <InputRadio key={index} name="color" color={item} className="w-6 h-6" />
-                                    ))
-                                }
-                            </div>
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <span>
-                                سایز بندی:
-                            </span>
-                            <div className="flex gap-x-[6px]">
-                                {
-                                    sizes?.map((item, index) => (
-                                        <InputRadio key={index} name="size" label={item} className={"border border-solid border-gray min-w-6"} />
-                                    ))
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex justify-between items-center border-t border-dashed p-2">
-                        <Counter disabled={true} />
-                        <span className="font-bold">
-                            {formatCurrency(totalPrice)}
-                        </span>
+                        <Form id={id} colors={colors} sizes={sizes} />
 
                     </div>
-
                 </div>
             </div>
             <div className="box  flex justify-around gap-2 p-1 font-morabba sticky text-center top-12 md:top-14 ">
@@ -155,7 +130,6 @@ const page = () => {
         </div >
     )
 }
-
 
 
 

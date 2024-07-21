@@ -1,5 +1,5 @@
 import { db } from '@vercel/postgres';
-import { invoices, customers, revenue, users, products, categories } from '@/app/lib/placeHolderData';
+import { invoices, invoicesDetail, customers, revenue, users, products, categories } from '@/app/lib/placeHolderData';
 import { hashPassword } from '@/app/lib/auth';
 
 const client = await db.connect();
@@ -48,8 +48,8 @@ async function seedInvoices() {
   const insertedInvoices = await Promise.all(
     invoices.map(
       (invoice) => client.sql`
-        INSERT INTO invoices (customer_id, amount, status, date)
-        VALUES (${invoice.customer_id}, ${invoice.amount}, ${invoice.status}, ${invoice.date})
+        INSERT INTO invoices (id, customer_id, amount, status, date)
+        VALUES (${invoice.id} ,${invoice.customer_id}, ${invoice.amount}, ${invoice.status}, ${invoice.date})
         ON CONFLICT (id) DO NOTHING;
       `,
     ),
@@ -57,6 +57,32 @@ async function seedInvoices() {
 
   return insertedInvoices;
 }
+
+async function seedInvoicesDetail() {
+  await client.sql`DROP TABLE IF EXISTS invoices_detail`
+  await client.sql`
+   CREATE TABLE invoices_detail(
+    id UUID,
+    price INT,
+    quantity INT,
+    size VARCHAR(10),
+    color VARCHAR(10)
+   )
+  `
+  const InsertedInvoicesDetail = await Promise.all(
+    invoicesDetail.map(
+      (invoice) => client.sql`
+        INSERT INTO invoices_detail (id, price, quantity, size, color)
+          VALUES (${invoice.id},${invoice.price}, ${invoice.quantity}, ${invoice.size}, ${invoice.color})
+      `
+    )
+  )
+  return InsertedInvoicesDetail
+}
+
+
+
+
 
 async function seedCustomers() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -77,7 +103,7 @@ async function seedCustomers() {
         INSERT INTO customers (id, name, email, image_url)
         VALUES (${customer.id}, ${customer.name}, ${customer.email}, ${customer.image_url})
         ON CONFLICT (id) DO NOTHING;
-      `,
+      `
     ),
   );
 
@@ -133,10 +159,7 @@ async function seedCategories() {
 
 async function seedProducts() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-  
   await client.sql`DROP TABLE IF EXISTS products`;
-
-
   await client.sql`
     CREATE TABLE products (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -155,17 +178,15 @@ async function seedProducts() {
       `,
     ),
   );
-
   return insertedProducts;
 }
-
-
 export async function GET() {
   try {
     await client.sql`BEGIN`;
     await seedUsers();
     await seedCustomers();
     await seedInvoices();
+    await seedInvoicesDetail();
     await seedRevenue();
     await seedCategories();
     await seedProducts();
@@ -174,6 +195,7 @@ export async function GET() {
     return Response.json({ message: 'Database seeded successfully' });
   } catch (error) {
     await client.sql`ROLLBACK`;
+    console.log("err =>", error)
     return Response.json({ error }, { status: 500 });
   }
 }
