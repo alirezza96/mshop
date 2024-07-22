@@ -7,6 +7,14 @@ const users = [
     id: randomUUID(),
     name: 'admin',
     email: 'admin@admin.com',
+    role: "admin",
+    password: '123456',
+  },
+  {
+    id: randomUUID(),
+    name: 'user',
+    email: 'user@user.com',
+    role: "user",
     password: '123456',
   },
 ];

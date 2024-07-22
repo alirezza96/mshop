@@ -220,7 +220,7 @@ export function InvoicesTableSkeleton() {
 export function BasketContentSkeleton() {
   const className = " invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200"
   return (
-    <div className={`${className} child:animate-pulse  absolute bottom-12 md:bottom-auto md:top-14 inset-x-0 box p-2 h-96  z-50  `}>
+    <div className={`${className} child:animate-pulse  absolute bottom-12 md:bottom-auto md:top-14 inset-x-0 box p-2 min-h-48  z-50  `}>
       <div className="h-20 bg-gray/70 my-1 rounded-md"></div>
       <div className="h-20 bg-gray/70 my-1 rounded-md"></div>
       <div className="border-t border-dashed "></div>

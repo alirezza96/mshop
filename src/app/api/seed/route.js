@@ -13,6 +13,7 @@ async function seedUsers() {
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       email TEXT NOT NULL UNIQUE,
+      role TEXT NOT NULL,
       password TEXT NOT NULL
     );
   `;
@@ -21,8 +22,8 @@ async function seedUsers() {
     users.map(async (user) => {
       const hashedPassword = await hashPassword(user.password)
       return client.sql`
-        INSERT INTO users (id, name, email, password)
-        VALUES (${user.id}, ${user.name}, ${user.email}, ${hashedPassword})
+        INSERT INTO users (id, name, email, role, password)
+        VALUES (${user.id}, ${user.name}, ${user.email}, ${user.role}, ${hashedPassword})
         ON CONFLICT (id) DO NOTHING;
       `;
     }),

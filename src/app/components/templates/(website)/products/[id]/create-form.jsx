@@ -4,6 +4,7 @@ import { createOrder } from "@/app/lib/actions"
 import { formatCurrency } from "@/app/lib/utils"
 import { useActionState } from "react"
 import { InputRadio } from "@/app/components/modules/form"
+import SubmitForm from "@/app/components/templates/(website)/products/[id]/submit-button"
 export default function Form({ colors, sizes, id }) {
     const totalPrice = 1_180_000
     const initialState = { errors: {}, message: null }
@@ -22,7 +23,7 @@ export default function Form({ colors, sizes, id }) {
                     <div className="flex gap-x-[6px]">
                         {
                             colors?.map((item) => (
-                                <InputRadio key={item} name="color" value={item} color={item} className="w-6 h-6" />
+                                <InputRadio  key={item} name="color" id={item} value={item} color={item} className="w-6 h-6" />
                             ))
                         }
                     </div>
@@ -46,7 +47,7 @@ export default function Form({ colors, sizes, id }) {
                     <div className="flex gap-x-[6px]">
                         {
                             sizes?.map((item) => (
-                                <InputRadio key={item} name="size" value={item} label={item} className={"border border-solid border-gray min-w-6"} />
+                                <InputRadio  key={item} name="size" id={item} value={item} label={item} className={"border border-solid border-gray min-w-6"} />
                             ))
                         }
                     </div>
@@ -74,7 +75,8 @@ export default function Form({ colors, sizes, id }) {
                     </div>
                     <div className="flex justify-between items-center ">
                         {/* <Counter/> */}
-                        <Input type="submit" value="افزودن به سبد خرید" />
+                        {/* <Input type="submit" value="افزودن به سبد خرید" /> */}
+                        <SubmitForm/>
                         <span className="font-bold">
                             {formatCurrency(totalPrice)}
                         </span>

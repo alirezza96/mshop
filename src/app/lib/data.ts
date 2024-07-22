@@ -33,7 +33,7 @@ export async function fetchRevenue() {
 
 export async function fetchLatestProducts() {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 10000));
+    // await new Promise((resolve) => setTimeout(resolve, 10000));
 
     const data = await sql<Product>`
             SELECT * FROM PRODUCTS LIMIT 6
@@ -78,7 +78,6 @@ export async function fetchLatestInvoices() {
 
 export async function fetchPreOrderByCustomerId(customerId: string) {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 10000))
     const data = await sql`
       SELECT * FROM invoices as h
         LEFT OUTER JOIN invoices_detail as d

@@ -46,7 +46,7 @@ const page = async ({ params }) => {
                             </span>
                         </p>
                         <Form id={id} colors={colors} sizes={sizes} />
-
+  
                     </div>
                 </div>
             </div>

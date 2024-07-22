@@ -8,6 +8,8 @@ import { z } from "zod"
 import { formatDateToLocal } from "./utils"
 import path from "path"
 import { writeFile } from "fs/promises"
+import { comparePassword, generateToken } from "@/app/lib/auth"
+import { cookies } from "next/headers"
 //invoices
 const InvoiceFormSchema = z.object({
   id: z.string(),
@@ -274,4 +276,66 @@ export const createOrder = (id: string, prevState: State, formData: FormData) =>
     }
   }
 
+}
+
+// authenticate
+const authenticateFormSchema = z.object({
+  email: z
+    .string()
+    .email("ایمیل وارد شده نامعتبر است."),
+  password: z.string()
+    .min(4, "حداقل رمز عبور 4 حرف میباشد")
+    .max(8, "حداکثر رمز عبور 8 حرف میباشد")
+})
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  const validatedFields = authenticateFormSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password")
+  })
+  if (!validatedFields.success) {
+    return {
+      message: "لطفا مواردی که مشخص شده را تکمیل کنید",
+      errors: validatedFields.error.flatten().fieldErrors
+    }
+  }
+  const { email, password } = validatedFields.data
+  try {
+    const data = await sql`
+      SELECT * FROM users WHERE email = ${email}
+    `
+    const user = data.rows[0]
+    // is user exists?
+    if (!user) {
+      return {
+        message: "نام کاربری یا رمز عبور اشتباه است"
+      }
+    }
+    // check password
+    const comparedPassword = await comparePassword(password, user.password)
+    if (!comparedPassword) {
+      return {
+        message: "نام کاربری یا رمز عبور اشتباه است"
+      }
+    }
+    // generate token
+    const token = generateToken({ id: user.id, email: user.email })
+    const cookie = cookies()
+    cookie.set("token", token, { httpOnly: true, path: "/" })
+    var role = user.role
+  } catch (error) {
+    console.error("Database error =>", error)
+    return {
+      message: "Database Error"
+    }
+  }
+  role == "user" ? redirect("/dashboard") : redirect("/admin")
+}
+
+// logout
+export const logout = () => {
+  cookies().delete("token")
+  redirect("/")
 }

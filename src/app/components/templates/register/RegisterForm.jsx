@@ -1,30 +1,68 @@
 "use client"
 import Link from "next/link"
 import { Input } from "@/app/components/modules/form"
+import { useActionState } from 'react';
+import { authenticate } from '@/app/lib/actions';
 const RegisterForm = () => {
+  const initialState = { message: null, errors: {} }
+  const [errorMessages, formAction, isPending] = useActionState(
+    authenticate,
+    initialState,
+  );
+  // console.log("isPending =>", isPending)
+  console.log("errorMessage =>", errorMessages)
   return (
-    <form className="py-4 space-y-2 min-w-64 max-w-80 mx-auto">
-      <Input
-        type="email"
-        className="bg-Fuchsia/10 text-ltr "
-        label="ایمیل"
-        autoFocus
-        required
-        autoSave
+    <div className="py-4 space-y-2 min-w-64 max-w-80 mx-auto">
 
-      />
-      <Input
-        type="password"
-        className="bg-Fuchsia/10 text-ltr"
-        label="پسورد"
-        required
-        minLength="4"
-        maxLength="8"
-      />
-      <Link href={"#"} className="text-Fuchsia font-bold block text-xs">
-        فراموشی رمز عبور
-      </Link>
-      <Input type="submit" value="ورود" />
+      <form action={formAction} >
+        <Input
+          type="text"
+          name="email"
+          id="email"
+          className="bg-Fuchsia/10 text-ltr "
+          label="ایمیل"
+          autoFocus={true}
+        />
+        {/* <div>
+          {errorMessages.errors.email ?
+            errorMessages.errors.email.map(message => (
+              <p
+                key={message}
+                className="mt-2 text-sm text-pink bg-pink/5">
+                {message}
+              </p>
+            )) : ""
+          }
+        </div> */}
+        <Input
+          type="password"
+          name="password"
+          id="password"
+          className="bg-Fuchsia/10 text-ltr"
+          label="رمز عبور"
+        />
+        {/* <div>
+          {errorMessages.errors?.password ?
+            errorMessages.errors?.password.map(message => (
+              <p key={message} className="mt-2 text-sm text-pink bg-pink/5">
+                {message}
+              </p>
+            )) : ""
+          }
+        </div> */}
+        <Input
+          type="submit"
+          value="ورود"
+          className="w-full"
+        />
+      </form>
+      {/* <div>
+        {errorMessages?.message ?
+          <p className="mt-2 text-sm text-pink bg-pink/5">
+            {errorMessages?.message}
+          </p> : ""
+        }
+      </div> */}
       <div className="text-sm text-center ">
         <span>
           حساب کاربری ندارید؟
@@ -33,8 +71,8 @@ const RegisterForm = () => {
           </Link>
         </span>
       </div>
+    </div>
 
-    </form>
   )
 }
 

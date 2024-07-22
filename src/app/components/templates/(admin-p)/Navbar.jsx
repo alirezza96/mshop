@@ -1,7 +1,6 @@
 import { Button, NavLink } from "@/app/components/modules/form"
-import {  Bars3Icon, HomeIcon, UserIcon } from "@heroicons/react/24/outline"
+import { Bars3Icon, HomeIcon, UserIcon } from "@heroicons/react/24/outline"
 const Navbar = () => {
-    const isLoggedIn = false
     return (
         <div style={{ padding: "0 5px" }} className="h-12 flex items-center gap-x-1 lg:gap-x-2">
             <div className="flex  items-center justify-between grow ">
@@ -39,15 +38,9 @@ const Navbar = () => {
 
             </div>
             <div className="font-morabba">
-                {
-                    isLoggedIn ?
-                        <Button className="p-2" >
-                            <UserIcon className="w-6 h-6" />
-                        </Button>
-                        : <NavLink href="/register" className="block">
-                            <UserIcon className="w-6 h-6 " />
-                        </NavLink>
-                }
+                <NavLink href="/register" className="block">
+                    <UserIcon className="w-6 h-6 " />
+                </NavLink>
             </div>
         </div>
     )
