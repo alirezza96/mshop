@@ -1,15 +1,15 @@
 "use client"
-import { Input } from "@/app/components/modules/form"
 import { createOrder } from "@/app/lib/actions"
 import { formatCurrency } from "@/app/lib/utils"
 import { useActionState } from "react"
 import { InputRadio } from "@/app/components/modules/form"
-import SubmitForm from "@/app/components/templates/(website)/products/[id]/submit-button"
 export default function Form({ colors, sizes, id }) {
+
     const totalPrice = 1_180_000
     const initialState = { errors: {}, message: null }
     const add2CartWithId = createOrder.bind(null, id)
-    const [state, formAction] = useActionState(add2CartWithId, initialState)
+    const [errorsMessage, formAction, pending] = useActionState(add2CartWithId, initialState)
+    console.log("errorsMessage =>", errorsMessage)
     return (
         <form
             action={formAction}
@@ -23,15 +23,15 @@ export default function Form({ colors, sizes, id }) {
                     <div className="flex gap-x-[6px]">
                         {
                             colors?.map((item) => (
-                                <InputRadio  key={item} name="color" id={item} value={item} color={item} className="w-6 h-6" />
+                                <InputRadio key={item} name="color" id={item} value={item} color={item} className="w-6 h-6" />
                             ))
                         }
                     </div>
                 </div>
                 <div>
                     {
-                        state.errors?.color &&
-                        state.errors?.color.map((error) => (
+                        errorsMessage &&
+                        errorsMessage.errors.color?.map((error) => (
                             <p
                                 key={error}
                                 className="mt-2 text-sm text-pink bg-pink/5">
@@ -47,15 +47,15 @@ export default function Form({ colors, sizes, id }) {
                     <div className="flex gap-x-[6px]">
                         {
                             sizes?.map((item) => (
-                                <InputRadio  key={item} name="size" id={item} value={item} label={item} className={"border border-solid border-gray min-w-6"} />
+                                <InputRadio key={item} name="size" id={item} value={item} label={item} className={"border border-solid border-gray min-w-6"} />
                             ))
                         }
                     </div>
                 </div>
                 <div>
                     {
-                        state.errors?.size &&
-                        state.errors?.size.map((error) => (
+                        errorsMessage &&
+                        errorsMessage.errors.size?.map((error) => (
                             <p
                                 key={error}
                                 className="mt-2 text-sm text-pink bg-pink/5">
@@ -67,16 +67,19 @@ export default function Form({ colors, sizes, id }) {
                 <div className="border-t border-dashed ">
                     <div>
                         {
-                            state?.message &&
+                            errorsMessage &&
                             <p className="mt-2 text-sm text-pink bg-pink/5">
-                                {state.message}
+                                {errorsMessage.message}
                             </p>
                         }
                     </div>
                     <div className="flex justify-between items-center ">
-                        {/* <Counter/> */}
-                        {/* <Input type="submit" value="افزودن به سبد خرید" /> */}
-                        <SubmitForm/>
+                        <button
+                            type="submit"
+                            disabled={pending}
+                            className={`${pending && "animate-pulse cursor-not-allowed"} bg-Purple hover:bg-dark-purple text-white p-2 my-1 rounded-md min-w-24 cursor-pointer font-morabba`}>
+                            افزودن به سبد خرید
+                        </button>
                         <span className="font-bold">
                             {formatCurrency(totalPrice)}
                         </span>

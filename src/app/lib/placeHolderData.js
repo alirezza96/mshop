@@ -17,11 +17,18 @@ const users = [
     role: "user",
     password: '123456',
   },
+  {
+    id: randomUUID(),
+    name: 'customer',
+    email: 'customer@customer.com',
+    role: "user",
+    password: '123456',
+  },
 ];
 
 const customers = [
   {
-    id: randomUUID(),
+    id: users[2].id,
     name: 'Evil Rabbit',
     email: 'evil@rabbit.com',
     image_url: '/customers/evil-rabbit.png',
@@ -57,127 +64,6 @@ const customers = [
     image_url: '/customers/balazs-orban.png',
   },
 ];
-
-const invoices = [
-  {
-    id: randomUUID(),
-    customer_id: customers[0].id,
-    amount: 15795,
-    status: 'pending',
-    date: '2022-12-06',
-  },
-  {
-    id: randomUUID(),
-    customer_id: customers[1].id,
-    amount: 20348,
-    status: 'pending',
-    date: '2022-11-14',
-  },
-  {
-    id: randomUUID(),
-    customer_id: customers[4].id,
-    amount: 3040,
-    status: 'paid',
-    date: '2022-10-29',
-  },
-  {
-    id: randomUUID(),
-    customer_id: customers[3].id,
-    amount: 44800,
-    status: 'paid',
-    date: '2023-09-10',
-  },
-  {
-    id: randomUUID(),
-    customer_id: customers[5].id,
-    amount: 34577,
-    status: 'pending',
-    date: '2023-08-05',
-  },
-  {
-    id: randomUUID(),
-    customer_id: customers[2].id,
-    amount: 54246,
-    status: 'pending',
-    date: '2023-07-16',
-  },
-  {
-    id: randomUUID(),
-    customer_id: customers[0].id,
-    amount: 666,
-    status: 'pending',
-    date: '2023-06-27',
-  },
-  {
-    id: randomUUID(),
-    customer_id: customers[3].id,
-    amount: 32545,
-    status: 'paid',
-    date: '2023-06-09',
-  },
-  {
-    id: randomUUID(),
-    customer_id: customers[4].id,
-    amount: 1250,
-    status: 'paid',
-    date: '2023-06-17',
-  },
-  {
-    id: randomUUID(),
-    customer_id: customers[5].id,
-    amount: 8546,
-    status: 'paid',
-    date: '2023-06-07',
-  },
-  {
-    id: randomUUID(),
-    customer_id: customers[1].id,
-    amount: 500,
-    status: 'paid',
-    date: '2023-08-19',
-  },
-  {
-    id: randomUUID(),
-    customer_id: customers[5].id,
-    amount: 8945,
-    status: 'paid',
-    date: '2023-06-03',
-  },
-  {
-    id: randomUUID(),
-    customer_id: customers[2].id,
-    amount: 1000,
-    status: 'paid',
-    date: '2022-06-05',
-  },
-];
-
-const invoicesDetail = [
-  {
-    id: invoices[0].id,
-    quantity: 10,
-    color: "red",
-    size: "md",
-    price: 1_000_000
-  }
-]
-
-
-const revenue = [
-  { month: 'Jan', revenue: 2000 },
-  { month: 'Feb', revenue: 1800 },
-  { month: 'Mar', revenue: 2200 },
-  { month: 'Apr', revenue: 2500 },
-  { month: 'May', revenue: 2300 },
-  { month: 'Jun', revenue: 3200 },
-  { month: 'Jul', revenue: 3500 },
-  { month: 'Aug', revenue: 3700 },
-  { month: 'Sep', revenue: 2500 },
-  { month: 'Oct', revenue: 2800 },
-  { month: 'Nov', revenue: 3000 },
-  { month: 'Dec', revenue: 4800 },
-];
-
 const categories = [
   {
     id: randomUUID(),
@@ -200,6 +86,7 @@ const categories = [
     en: 'jeans',
   },
 ];
+
 
 
 const products = [
@@ -240,5 +127,114 @@ const products = [
   { id: randomUUID(), fa: "هودی زنانه مدل فانتزی کره ای", en: "", category_id: categories[2].id, thumbnail_url: "/products/01.jpg" },
   { id: randomUUID(), fa: "شلوار جین زنانه ایزی دو مدل 6264990873", en: "", category_id: categories[3].id, thumbnail_url: "/products/04.jpg" },
 ]
+const invoices = [
+  {
+    id: randomUUID(),
+    customer_id: customers[0].id,
+    status: 'pending',
+    date: '2022-12-06',
+  },
+  {
+    id: randomUUID(),
+    customer_id: customers[1].id,
+    status: 'pending',
+    date: '2022-11-14',
+  },
+  {
+    id: randomUUID(),
+    customer_id: customers[4].id,
+    status: 'paid',
+    date: '2022-10-29',
+  },
+  {
+    id: randomUUID(),
+    customer_id: customers[3].id,
+    status: 'paid',
+    date: '2023-09-10',
+  },
+  {
+    id: randomUUID(),
+    customer_id: customers[5].id,
+    status: 'pending',
+    date: '2023-08-05',
+  },
+  {
+    id: randomUUID(),
+    customer_id: customers[2].id,
+    status: 'pending',
+    date: '2023-07-16',
+  },
+  {
+    id: randomUUID(),
+    customer_id: customers[0].id,
+    status: 'pending',
+    date: '2023-06-27',
+  },
+  {
+    id: randomUUID(),
+    customer_id: customers[3].id,
+    status: 'paid',
+    date: '2023-06-09',
+  },
+  {
+    id: randomUUID(),
+    customer_id: customers[4].id,
+    status: 'paid',
+    date: '2023-06-17',
+  },
+  {
+    id: randomUUID(),
+    customer_id: customers[5].id,
+    status: 'paid',
+    date: '2023-06-07',
+  },
+  {
+    id: randomUUID(),
+    customer_id: customers[1].id,
+    status: 'paid',
+    date: '2023-08-19',
+  },
+  {
+    id: randomUUID(),
+    customer_id: customers[5].id,
+    status: 'paid',
+    date: '2023-06-03',
+  },
+  {
+    id: randomUUID(),
+    customer_id: customers[2].id,
+    status: 'paid',
+    date: '2022-06-05',
+  },
+];
+
+const invoicesDetail = [
+  {
+    id: invoices[0].id,
+    product_id: products[0].id,
+    quantity: 10,
+    color: "red",
+    size: "md",
+    price: 1_000_000
+  }
+]
+
+
+const revenue = [
+  { month: 'Jan', revenue: 2000 },
+  { month: 'Feb', revenue: 1800 },
+  { month: 'Mar', revenue: 2200 },
+  { month: 'Apr', revenue: 2500 },
+  { month: 'May', revenue: 2300 },
+  { month: 'Jun', revenue: 3200 },
+  { month: 'Jul', revenue: 3500 },
+  { month: 'Aug', revenue: 3700 },
+  { month: 'Sep', revenue: 2500 },
+  { month: 'Oct', revenue: 2800 },
+  { month: 'Nov', revenue: 3000 },
+  { month: 'Dec', revenue: 4800 },
+];
+
+
 
 export { users, customers, invoices, invoicesDetail, revenue, products, categories };

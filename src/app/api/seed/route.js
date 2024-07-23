@@ -40,7 +40,6 @@ async function seedInvoices() {
     CREATE TABLE invoices (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       customer_id UUID NOT NULL,
-      amount INT NOT NULL,
       status VARCHAR(255) NOT NULL,
       date CHAR(10) NOT NULL
     );
@@ -49,8 +48,8 @@ async function seedInvoices() {
   const insertedInvoices = await Promise.all(
     invoices.map(
       (invoice) => client.sql`
-        INSERT INTO invoices (id, customer_id, amount, status, date)
-        VALUES (${invoice.id} ,${invoice.customer_id}, ${invoice.amount}, ${invoice.status}, ${invoice.date})
+        INSERT INTO invoices (id, customer_id, status, date)
+        VALUES (${invoice.id} ,${invoice.customer_id}, ${invoice.status}, ${invoice.date})
         ON CONFLICT (id) DO NOTHING;
       `,
     ),
@@ -64,6 +63,7 @@ async function seedInvoicesDetail() {
   await client.sql`
    CREATE TABLE invoices_detail(
     id UUID,
+    product_id UUID,
     price INT,
     quantity INT,
     size VARCHAR(10),
@@ -73,8 +73,8 @@ async function seedInvoicesDetail() {
   const InsertedInvoicesDetail = await Promise.all(
     invoicesDetail.map(
       (invoice) => client.sql`
-        INSERT INTO invoices_detail (id, price, quantity, size, color)
-          VALUES (${invoice.id},${invoice.price}, ${invoice.quantity}, ${invoice.size}, ${invoice.color})
+        INSERT INTO invoices_detail (id,product_id, price, quantity, size, color)
+          VALUES (${invoice.id},${invoice.product_id},${invoice.price}, ${invoice.quantity}, ${invoice.size}, ${invoice.color})
       `
     )
   )

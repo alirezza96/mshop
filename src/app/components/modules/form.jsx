@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation"
 import Link from "next/link"
 
 export const Button = ({ children, className, ...rest }) => {
-    const classname = ` text-Fuchsia hover:bg-Purple/10 hover:text-Purple rounded-xl  ${className}`
+    const classname = ` bg-Purple/10 hover:text-Purple hover:bg-Purple/20  rounded-xl p-2 text-sm  ${className}`
     // return <button {...rest} className={`button transition-colors ${className}`}>{children}</button>
     const elem = rest.href ?
         <Link className={classname} {...rest}>{children}</Link>

@@ -41,10 +41,11 @@ const page = async ({ params }) => {
                         <div className="h-px mt-4 bg-gray"></div>
                         <p className="text-sm/7 text-black/60">
                             کد محصول:
-                            <span className="">
+                            <span className="text-ltr">
                                 {product.id}
                             </span>
                         </p>
+                            
                         <Form id={id} colors={colors} sizes={sizes} />
   
                     </div>
@@ -58,7 +59,7 @@ const page = async ({ params }) => {
                     توضیحات
                 </a>
             </div>
-            <div className="space-y-6">
+            <div className="space-y-6 mt-4">
                 <p id="spec" >
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil veniam vitae maiores molestias ab dignissimos aspernatur amet alias consectetur facere laudantium dolorem et neque ut dolore provident, reiciendis ipsam voluptatibus.
                     Pariatur unde tenetur expedita quisquam ratione? Aut, consectetur alias similique doloremque, placeat voluptas numquam minima, totam corporis ducimus nam autem ad molestias quis est laborum aspernatur recusandae voluptatibus libero saepe?
@@ -102,6 +103,8 @@ const page = async ({ params }) => {
                     Ullam, incidunt magni et corrupti hic fugit laborum accusantium alias amet consequuntur doloremque, delectus cumque repellendus fugiat neque. Quo officiis quisquam alias. Sed ut blanditiis, exercitationem adipisci non nemo molestias.
                 </p>
                 <p id="desc">
+                    1234
+                    <br/>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil veniam vitae maiores molestias ab dignissimos aspernatur amet alias consectetur facere laudantium dolorem et neque ut dolore provident, reiciendis ipsam voluptatibus.
                     Pariatur unde tenetur expedita quisquam ratione? Aut, consectetur alias similique doloremque, placeat voluptas numquam minima, totam corporis ducimus nam autem ad molestias quis est laborum aspernatur recusandae voluptatibus libero saepe?
                     Possimus ut quis adipisci accusantium asperiores neque expedita libero vel placeat. Esse repudiandae inventore quo consequuntur officiis rerum, quasi velit animi repellendus fugit dignissimos molestiae aliquam quibusdam aliquid, tempora at?

@@ -5,9 +5,8 @@ const layout = ({ children }) => {
     return (
         <div className="md:container  flex flex-col justify-between min-h-screen ">
             <Navbar />
-            <div className="mt-14 md:mt-16 w-full">
-                {children}
-            </div>
+            <div className="h-16 "></div>
+            {children}
             <Footer className="my-12" />
         </div>
     )

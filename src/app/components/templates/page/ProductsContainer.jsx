@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { Button } from "../../modules/form"
 const ProductsContainer = ({ title, href = "#", children, className }) => {
     return (
         <div className={`space-y-4 ${className}`}>
@@ -20,7 +20,7 @@ const ProductsHeader = ({ children, href }) => {
                 {children}
             </h2>
             <div className="bg-Purple h-px flex-grow"></div>
-            <Link className=" bg-Purple/10 hover:text-Purple hover:bg-Purple/20  rounded-xl p-2 text-sm" href={href}>مشاهده تمامی محصولات</Link>
+            <Button  href={href}>مشاهده تمامی محصولات</Button>
         </div>
     )
 }

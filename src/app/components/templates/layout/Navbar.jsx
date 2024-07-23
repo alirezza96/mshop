@@ -1,14 +1,12 @@
-import { Button, Input, NavLink } from "@/app/components/modules/form"
-import { ShoppingCartIcon, Bars3Icon, HomeIcon, UserIcon, PowerIcon, ArrowLeftStartOnRectangleIcon } from "@heroicons/react/24/outline"
+import { Button, NavLink } from "@/app/components/modules/form"
+import { ShoppingCartIcon, Bars3Icon, HomeIcon } from "@heroicons/react/24/outline"
 import Search from "@/app/components/modules/Search"
 import Basket from "./Basket"
 import { Suspense } from "react"
 import { BasketContentSkeleton } from "../../modules/skeletons"
-import { logout } from "@/app/lib/actions"
-import { tokenPayload } from "@/app/lib/auth"
+import ProfileOptions from "@/app/components/modules/profile-options"
 export default async function Navbar() {
-    const payload = await tokenPayload()
-    console.log("payload =>", payload)
+
 
     return (
         <div style={{ padding: "0 5px" }} className="h-12 flex items-center gap-x-1 lg:gap-x-2 fixed inset-x-0 bottom-0 md:top-2  md:container  box   z-50">
@@ -50,42 +48,15 @@ export default async function Navbar() {
             <Search globalSearch={true} className="fixed top-0 inset-x-0 shadow-md md:shadow-none  md:relative md:rounded-xl" />
             <div className="hidden md:block w-px bg-gray h-8"></div>
             <div className="group">
-                <Button className="p-2">
+                <NavLink href="/cart" className="p-2 inline-flex">
                     <ShoppingCartIcon className="w-6 h-6 stroke-Fuchsia" />
-                </Button>
+                </NavLink>
                 <Suspense fallback={<BasketContentSkeleton />}>
                     <Basket className=" invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200" />
                 </Suspense>
             </div>
-            <div className="group">
-                <NavLink
-                    href="/register"
-                    className="inline-flex"
-                >
-                    <UserIcon className="w-6 h-6 " />
-                </NavLink>
-                {
-                    payload &&
-                    <div className="font-morabba w-48 h-32 absolute left-0 top-14 py-4 px-2 box z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200">
-                        <ul className="space-y-2">
-                            <li>
-                                <NavLink href="/dashboard">حساب کاربری</NavLink>
-                            </li>
-                            <li>
-                                <form action={logout}>
-                                    <button
-                                        type="submit"
-                                        className="text-Fuchsia hover:bg-Purple/10 hover:text-Purple rounded-xl p-2 "
-                                    >
-                                        خروج از حساب کاربری
-                                    </button>
-                                </form>
-                            </li>
 
-                        </ul>
-                    </div>
-                }
-            </div>
+            <ProfileOptions />
             {/* <form
           action={async () => {
             'use server';

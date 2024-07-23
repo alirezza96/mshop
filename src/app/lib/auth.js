@@ -28,7 +28,7 @@ export const tokenPayload = async () => {
         const tokenPayload = verifyToken(token.value)
         if (!tokenPayload) return false
         const data = await sql`
-            SELECT name, email, role FROM users
+            SELECT id ,name, email FROM users
                  WHERE id = ${tokenPayload.id}
         `
         const user = data.rows[0]

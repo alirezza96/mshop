@@ -82,16 +82,19 @@ export async function fetchPreOrderByCustomerId(customerId: string) {
       SELECT * FROM invoices as h
         LEFT OUTER JOIN invoices_detail as d
           ON h.id = d.id
+        LEFT OUTER JOIN products as p
+          ON p.id = d.product_id
           WHERE h.customer_id = ${customerId}
             AND h.status = 'pending'
     `
-    return data.rows.map(preOrder => ({
+    const preOrder = data.rows.map(preOrder => ({
       ...preOrder,
       amount: formatCurrency(preOrder.amount || 0),
       price: formatCurrency(preOrder.price || 0),
       quantity: formatNumber(preOrder.quantity || 0),
       data: formatDateToLocal(preOrder.date)
     }))
+    return { preOrder, rowCount: formatNumber(data.rowCount) }
   } catch (error) {
     console.log("Database error =>", error)
     throw new Error("Failed to fetch pre order")

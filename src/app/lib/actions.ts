@@ -5,10 +5,9 @@ import { sql } from "@vercel/postgres"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from "zod"
-import { formatDateToLocal } from "./utils"
 import path from "path"
 import { writeFile } from "fs/promises"
-import { comparePassword, generateToken } from "@/app/lib/auth"
+import { comparePassword, generateToken, tokenPayload } from "@/app/lib/auth"
 import { cookies } from "next/headers"
 //invoices
 const InvoiceFormSchema = z.object({
@@ -263,7 +262,7 @@ const createOrderFormSchema = z.object({
     invalid_type_error: "سایز را مشخص کنید"
   })
 })
-export const createOrder = (id: string, prevState: State, formData: FormData) => {
+export const createOrder = async (id: string, prevState: State, formData: FormData) => {
   const data = {
     color: formData.get("color"),
     size: formData.get("size")
@@ -275,7 +274,43 @@ export const createOrder = (id: string, prevState: State, formData: FormData) =>
       errors: validatedFields.error.flatten().fieldErrors
     }
   }
-
+  const { color, size } = validatedFields.data
+  const payload = await tokenPayload()
+  if (!payload) return redirect("/register")
+  try {
+    // is pending invoices exists
+    const data = await sql`
+      SELECT id FROM invoices 
+       WHERE customer_id = ${payload.id}
+       AND status = 'pending'
+    `
+    const invoice = data.rows[0]
+    const invoiceId = randomUUID()
+    const date = new Date().toISOString().split("T")[0]
+    if (!invoice) {
+      await sql`
+      INSERT INTO invoices (id, customer_id, status, date)
+      VALUES (${invoiceId} ,${payload.id}, 'pending'  , ${date})
+      `
+    } else {
+      await sql`
+      UPDATE invoices SET date = ${date}
+       WHERE customer_id= ${payload.id} 
+       AND status= 'pending'
+      `
+    }
+    await sql`
+    INSERT INTO invoices_detail (id, product_id , price, quantity, size, color)
+    VALUES (${invoice ? invoice.id : invoiceId},${id}, 1 , 1 , ${size}, ${color})
+    `
+    console.log("invoice id =>", invoice ? invoice.id : invoiceId)
+  } catch (error) {
+    console.error("Database error =>", error)
+    return {
+      message: "Database error => create order failed."
+    }
+  }
+  revalidatePath("/")
 }
 
 // authenticate
@@ -324,14 +359,13 @@ export async function authenticate(
     const token = generateToken({ id: user.id, email: user.email })
     const cookie = cookies()
     cookie.set("token", token, { httpOnly: true, path: "/" })
-    var role = user.role
   } catch (error) {
     console.error("Database error =>", error)
     return {
       message: "Database Error"
     }
   }
-  role == "user" ? redirect("/dashboard") : redirect("/admin")
+  redirect("/dashboard")
 }
 
 // logout
@@ -339,3 +373,4 @@ export const logout = () => {
   cookies().delete("token")
   redirect("/")
 }
+

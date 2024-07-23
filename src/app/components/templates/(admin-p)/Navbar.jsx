@@ -1,13 +1,18 @@
 import { Button, NavLink } from "@/app/components/modules/form"
-import { Bars3Icon, HomeIcon, UserIcon } from "@heroicons/react/24/outline"
+import { Bars3Icon, GlobeAltIcon, HomeIcon } from "@heroicons/react/24/outline"
+import ProfileOptions from "@/app/components/modules/profile-options"
 const Navbar = () => {
     return (
         <div style={{ padding: "0 5px" }} className="h-12 flex items-center gap-x-1 lg:gap-x-2">
             <div className="flex  items-center justify-between grow ">
                 <div className="h-12 flex flex-row-reverse md:flex-row items-center gap-x-2">
                     <NavLink href="/admin" >
-                        <HomeIcon className="w-6 h-6 stroke-Fuchsia" />
+                        <HomeIcon className="w-6 h-6" />
                     </NavLink>
+                    <NavLink href="/" >
+                        <GlobeAltIcon className="w-6 h-6" />
+                    </NavLink>
+                    <div className="hidden md:block w-px bg-gray h-8"></div>
                     <div className="hidden md:flex md:gap-x-2 lg:gap-x-4 font-morabba">
                         <NavLink href={"admin/products"} className="group">
                             محصولات
@@ -32,16 +37,12 @@ const Navbar = () => {
                         <NavLink href={"admin/invoices"}>سفارشات</NavLink>
                     </div>
                     <Button className="md:hidden p-2">
-                        <Bars3Icon className="w-6 h-6 stroke-Fuchsia" />
+                        <Bars3Icon className="w-6 h-6" />
                     </Button>
                 </div>
 
             </div>
-            <div className="font-morabba">
-                <NavLink href="/register" className="block">
-                    <UserIcon className="w-6 h-6 " />
-                </NavLink>
-            </div>
+            <ProfileOptions />
         </div>
     )
 }
