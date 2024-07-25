@@ -10,17 +10,16 @@ export default async function page() {
 
 
     return (
-        <div className="max-w-screen-md mx-auto flex justify-between md:border border-solid rounded-lg border-Fuchsia/10 overflow-hidden">
+        <div className=" flex justify-between items-center">
             <RegisterForm />
-            <div className="hidden md:block bg-Fuchsia/10 ">
+            <div className="hidden md:block">
                 <Image
                     src={cover}
                     alt="image product"
                     height={560}
                     width={420}
-                    className="disabled-drag "
+                    className="disabled-drag rounded-xl"
                     priority={true}
-
                 />
             </div>
         </div>

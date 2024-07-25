@@ -12,6 +12,7 @@ import {
 } from './definitions';
 
 import { formatCurrency, formatDateToLocal, formatNumber } from './utils';
+import { tokenPayload } from './auth';
 
 export async function fetchRevenue() {
   try {
@@ -76,7 +77,9 @@ export async function fetchLatestInvoices() {
   }
 }
 
-export async function fetchPreOrderByCustomerId(customerId: string) {
+export async function fetchPreOrders() {
+  const payload = await tokenPayload()
+  if(!payload) return false
   try {
     const data = await sql`
       SELECT * FROM invoices as h
@@ -84,17 +87,17 @@ export async function fetchPreOrderByCustomerId(customerId: string) {
           ON h.id = d.id
         LEFT OUTER JOIN products as p
           ON p.id = d.product_id
-          WHERE h.customer_id = ${customerId}
+          WHERE h.customer_id = ${payload.id}
             AND h.status = 'pending'
     `
-    const preOrder = data.rows.map(preOrder => ({
+    const preOrders = data.rows.map(preOrder => ({
       ...preOrder,
       amount: formatCurrency(preOrder.amount || 0),
       price: formatCurrency(preOrder.price || 0),
       quantity: formatNumber(preOrder.quantity || 0),
       data: formatDateToLocal(preOrder.date)
     }))
-    return { preOrder, rowCount: formatNumber(data.rowCount) }
+    return { preOrders, rowCount: formatNumber(data.rowCount) }
   } catch (error) {
     console.log("Database error =>", error)
     throw new Error("Failed to fetch pre order")

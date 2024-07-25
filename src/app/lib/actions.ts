@@ -303,7 +303,7 @@ export const createOrder = async (id: string, prevState: State, formData: FormDa
     INSERT INTO invoices_detail (id, product_id , price, quantity, size, color)
     VALUES (${invoice ? invoice.id : invoiceId},${id}, 1 , 1 , ${size}, ${color})
     `
-    console.log("invoice id =>", invoice ? invoice.id : invoiceId)
+    // console.log("invoice id =>", invoice ? invoice.id : invoiceId)
   } catch (error) {
     console.error("Database error =>", error)
     return {

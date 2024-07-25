@@ -1,13 +1,10 @@
 import Image from "next/image"
 import { formatCurrency } from "@/app/lib/utils"
-import { fetchPreOrderByCustomerId } from "@/app/lib/data"
+import { fetchPreOrders } from "@/app/lib/data"
 import { FaceFrownIcon } from "@heroicons/react/24/outline"
-import { tokenPayload } from "@/app/lib/auth"
 import { Button } from "../../modules/form"
 const Basket = async ({ className }) => {
-    const payload = await tokenPayload()
-    const { preOrder, rowCount } = await fetchPreOrderByCustomerId(payload.id)
-
+    const { preOrders, rowCount } = await fetchPreOrders()
     return (
         <>
             {/* counter  */}
@@ -16,7 +13,7 @@ const Basket = async ({ className }) => {
             </div>
             <div className={` absolute bottom-12 md:bottom-auto md:top-14 inset-x-0 box p-2  z-50 ${className} `}>
                 {
-                    !preOrder?.length ?
+                    !preOrders?.length ?
                         <div className="h-48 flex flex-col justify-center items-center">
                             <FaceFrownIcon className="w-10 h-10" />
                             سبد خرید شما خالی است!
@@ -27,7 +24,7 @@ const Basket = async ({ className }) => {
                                 <table className="w-full  " >
                                     <tbody >
                                         {
-                                            preOrder?.map((item, index) => (
+                                            preOrders?.map((item, index) => (
 
                                                 <BasketCard key={index}  {...item} />
                                             ))

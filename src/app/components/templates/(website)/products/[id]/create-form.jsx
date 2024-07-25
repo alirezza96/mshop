@@ -9,7 +9,7 @@ export default function Form({ colors, sizes, id }) {
     const initialState = { errors: {}, message: null }
     const add2CartWithId = createOrder.bind(null, id)
     const [errorsMessage, formAction, pending] = useActionState(add2CartWithId, initialState)
-    console.log("errorsMessage =>", errorsMessage)
+    // console.log("errorsMessage =>", errorsMessage)
     return (
         <form
             action={formAction}
