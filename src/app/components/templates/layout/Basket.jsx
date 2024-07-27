@@ -3,6 +3,7 @@ import { formatCurrency } from "@/app/lib/utils"
 import { fetchPreOrders } from "@/app/lib/data"
 import { FaceFrownIcon } from "@heroicons/react/24/outline"
 import { Button } from "../../modules/form"
+import PreOrderDetail from "../(website)/cart/page/order-detail"
 const Basket = async ({ className }) => {
     const { preOrders, rowCount } = await fetchPreOrders()
     return (
@@ -20,19 +21,7 @@ const Basket = async ({ className }) => {
                         </div>
                         :
                         <>
-                            <div className="relative  min-h-48 max-h-80 overflow-y-auto">
-                                <table className="w-full  " >
-                                    <tbody >
-                                        {
-                                            preOrders?.map((item, index) => (
-
-                                                <BasketCard key={index}  {...item} />
-                                            ))
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-
+                        <PreOrderDetail preOrders={preOrders} className="relative  min-h-48 max-h-80 overflow-y-auto"/>
                             <div className="bg-pink/10 mt-2 rounded-lg px-2">
                                 <table className="w-full table-fixed">
                                     <tbody>
@@ -66,12 +55,9 @@ const Basket = async ({ className }) => {
                                             </td>
                                         </tr>
                                     </tbody>
-
                                 </table>
                             </div>
                         </>
-
-
                 }
 
             </div>

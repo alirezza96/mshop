@@ -92,9 +92,6 @@ export async function fetchPreOrders() {
     `
     const preOrders = data.rows.map(preOrder => ({
       ...preOrder,
-      amount: formatCurrency(preOrder.amount || 0),
-      price: formatCurrency(preOrder.price || 0),
-      quantity: formatNumber(preOrder.quantity || 0),
       data: formatDateToLocal(preOrder.date)
     }))
     return { preOrders, rowCount: formatNumber(data.rowCount) }
