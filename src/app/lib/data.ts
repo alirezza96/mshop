@@ -94,7 +94,7 @@ export async function fetchPreOrders() {
       ...preOrder,
       data: formatDateToLocal(preOrder.date)
     }))
-    return { preOrders, rowCount: formatNumber(data.rowCount) }
+    return { preOrders, rowCount: data.rowCount }
   } catch (error) {
     console.log("Database error =>", error)
     throw new Error("Failed to fetch pre order")

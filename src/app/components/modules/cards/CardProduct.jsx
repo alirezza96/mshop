@@ -15,7 +15,11 @@ const CardProduct = ({ href, fa, en, src }) => {
     return (
         <div className="group">
             {/* image  */}
-            <Link href={`/products/${href}`} className="disabled-drag ">
+            <Link
+                href={`/products/${href}`}
+                target="_blank"
+                className="disabled-drag"
+            >
                 <div className="h-64 w-48 mx-auto">
                     <Image
                         src={src}

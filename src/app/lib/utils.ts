@@ -1,11 +1,11 @@
 
 import { Revenue } from './definitions';
 export const formatCurrency =  (amount: number) => {
-    return amount.toLocaleString("fa-IR") + " ریال"
+    return amount?.toLocaleString("fa-IR") + " ریال"
 }
 
 export const formatNumber = (number: number) => {
-    return number.toLocaleString("fa-IR")
+    return number?.toLocaleString("fa-IR")
 }
 
 export const formatDateToLocal = (date: string) => {

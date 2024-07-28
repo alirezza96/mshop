@@ -4,17 +4,17 @@ import { tokenPayload } from "@/app/lib/auth"
 import { NavLink } from "./form"
 
 export default async function ProfileOptions() {
-    const payload = await tokenPayload()
+    const {name} = await tokenPayload()
     return (
         <div className="group">
             <NavLink
-                href={payload ? "/dashboard" : "/register"}
+                href={name ? "/dashboard" : "/register"}
                 className="inline-flex"
             >
-                <UserIcon className="w-6 h-6 " />
+                <Icon name={name} />
             </NavLink>
             {
-                payload && <Options />
+                name && <Options />
             }
 
         </div>
@@ -40,4 +40,15 @@ const Options = () => {
         </ul>
 
     )
+}
+
+const Icon = ({ name }) => {
+    const elem = !name
+        ?
+        <UserIcon className="w-6 h-6 " />
+        :
+        <div className="w-6 leading-6 rounded-full text-center bg-Fuchsia/10">
+            {name[0].toUpperCase()}
+        </div>
+    return elem
 }

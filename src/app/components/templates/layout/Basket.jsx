@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { formatCurrency } from "@/app/lib/utils"
+import { formatCurrency, formatNumber } from "@/app/lib/utils"
 import { fetchPreOrders } from "@/app/lib/data"
 import { FaceFrownIcon } from "@heroicons/react/24/outline"
 import { Button } from "../../modules/form"
@@ -9,8 +9,8 @@ const Basket = async ({ className }) => {
     return (
         <>
             {/* counter  */}
-            <div className="w-6 text-center rounded-full text-white bg-pink/80 e absolute top-0 ">
-                {rowCount}
+            <div className={`${!rowCount && "hidden"} w-6 text-center rounded-full text-white bg-pink/80 e absolute top-0`}>
+                {formatNumber(rowCount)}
             </div>
             <div className={` absolute bottom-12 md:bottom-auto md:top-14 inset-x-0 box p-2  z-50 ${className} `}>
                 {

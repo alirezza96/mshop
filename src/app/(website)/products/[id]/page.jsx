@@ -4,6 +4,17 @@ import cover from "/public/products/01.webp"
 import { HeartIcon } from "@heroicons/react/24/outline"
 import Form from "@/app/components/templates/(website)/products/[id]/create-form"
 import { fetchProductById } from "@/app/lib/data"
+
+export const generateMetadata = async ({params}) => {
+    const id = params.id
+    const product = await fetchProductById(id)
+    return {
+        title: product.fa
+    }
+}
+
+
+
 const breadcrumbs = [
     { label: "پوشاک", href: "wear" },
     { label: "زنانه", href: "womans" },
