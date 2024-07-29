@@ -19,14 +19,20 @@ export default async function page() {
         <div className=" flex justify-between items-center">
             <RegisterForm />
             <div className="hidden md:block">
-                <Image
-                    src={cover}
-                    alt="image product"
-                    height={560}
-                    width={420}
-                    className="disabled-drag rounded-xl"
-                    priority={true}
-                />
+                {
+                    cover ?
+                        <Image
+                            src={cover}
+                            alt="image product"
+                            height={560}
+                            width={420}
+                            className="disabled-drag rounded-xl"
+                            priority={true}
+                        />
+
+                        :
+                      null
+                }
             </div>
         </div>
     )

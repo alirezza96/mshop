@@ -5,7 +5,7 @@ import { HeartIcon } from "@heroicons/react/24/outline"
 import Form from "@/app/components/templates/(website)/products/[id]/create-form"
 import { fetchProductById } from "@/app/lib/data"
 
-export const generateMetadata = async ({params}) => {
+export const generateMetadata = async ({ params }) => {
     const id = params.id
     const product = await fetchProductById(id)
     return {
@@ -35,7 +35,7 @@ const page = async ({ params }) => {
             <Breadcrumb breadcrumbs={breadcrumbs} />
             <div className="my-3 flex gap-x-8 ">
                 <Image
-                    src={product.thumbnail_url}
+                    src={product?.thumbnail_url ? product.thumbnail_url : cover}
                     alt={`تصویر محصول ${product.fa}`}
                     height={540}
                     width={405}
@@ -56,9 +56,9 @@ const page = async ({ params }) => {
                                 {product.id}
                             </span>
                         </p>
-                            
+
                         <Form id={id} colors={colors} sizes={sizes} />
-  
+
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@ const page = async ({ params }) => {
                 </p>
                 <p id="desc">
                     1234
-                    <br/>
+                    <br />
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil veniam vitae maiores molestias ab dignissimos aspernatur amet alias consectetur facere laudantium dolorem et neque ut dolore provident, reiciendis ipsam voluptatibus.
                     Pariatur unde tenetur expedita quisquam ratione? Aut, consectetur alias similique doloremque, placeat voluptas numquam minima, totam corporis ducimus nam autem ad molestias quis est laborum aspernatur recusandae voluptatibus libero saepe?
                     Possimus ut quis adipisci accusantium asperiores neque expedita libero vel placeat. Esse repudiandae inventore quo consequuntur officiis rerum, quasi velit animi repellendus fugit dignissimos molestiae aliquam quibusdam aliquid, tempora at?

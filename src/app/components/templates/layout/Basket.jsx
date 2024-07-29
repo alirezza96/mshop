@@ -21,7 +21,7 @@ const Basket = async ({ className }) => {
                         </div>
                         :
                         <>
-                        <PreOrderDetail preOrders={preOrders} className="relative  min-h-48 max-h-80 overflow-y-auto"/>
+                            <PreOrderDetail preOrders={preOrders} className="relative  min-h-48 max-h-80 overflow-y-auto" />
                             <div className="bg-pink/10 mt-2 rounded-lg px-2">
                                 <table className="w-full table-fixed">
                                     <tbody>
@@ -69,13 +69,17 @@ const BasketCard = (props) => {
         <tr className="child:align-middle">
             <td>
                 <div className="flex gap-2 my-1">
-                    <Image
-                        src={props.thumbnail_url}
-                        alt={`تصویر محصول ${props.fa}`}
-                        width={60}
-                        height={80}
-                        className="aspect-[3/4] object-contain rounded-lg"
-                    />
+                    {
+                        props?.thumbnail_url ?
+                            <Image
+                                src={props.thumbnail_url}
+                                alt={`تصویر محصول ${props.fa}`}
+                                width={60}
+                                height={80}
+                                className="aspect-[3/4] object-contain rounded-lg"
+                            />
+                            : null
+                    }
                     <div>
 
                         <p className="font-bold">

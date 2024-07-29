@@ -15,16 +15,30 @@ const InvoiceFormSchema = z.object({
   customerId: z.string({
     invalid_type_error: 'انتخاب مشتری اجباری است.',
   }),
-  amount: z.coerce
+  quantity: z.coerce
     .number()
     .gt(0, { message: 'مقدار وارد شده باید بیشتر از 0 باشد.' }),
   status: z.enum(['pending', 'paid'], {
     invalid_type_error: 'لطفا وضعیت سفارش را مشخص کنید.',
   }),
+  color: z.string({
+    invalid_type_error: "رنگبندی را مشخص کنید"
+  }),
+  size: z.string({
+    invalid_type_error: "سایز را مشخص کنید"
+  }),
   date: z.string(),
 });
 
-const CreateInvoice = InvoiceFormSchema.omit({ id: true, date: true });
+const CreateInvoiceByCustomer = InvoiceFormSchema.omit(
+  {
+    id: true,
+    date: true,
+    status: true,
+    quantity: true,
+    customerId: true
+  }
+)
 const UpdateInvoice = InvoiceFormSchema.omit({ date: true, id: true });
 
 export type State = {
@@ -36,14 +50,23 @@ export type State = {
   message?: string | null;
 };
 
-export async function createInvoice(prevState: State, formData: FormData) {
+export async function createInvoice(productId: string, prevState: State, formData: FormData) {
   // Validate form using Zod
-  const validatedFields = CreateInvoice.safeParse({
-    customerId: formData.get('customerId'),
-    amount: formData.get('amount'),
-    status: formData.get('status'),
-  });
-
+  const data = {
+    color: formData.get("color"),
+    size: formData.get("size")
+  }
+  const validateFields = CreateInvoiceByCustomer.safeParse(data)
+  if (!validateFields.success) {
+    return {
+      message: "انتخاب سایز و رنگ اجباری است",
+      errors: validateFields.error.flatten().fieldErrors
+    }
+  }
+  const { color, size } = validateFields.data
+  console.log("validateFields =>", validateFields)
+  console.log("productId =>", productId)
+  return
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
@@ -74,6 +97,8 @@ export async function createInvoice(prevState: State, formData: FormData) {
   revalidatePath('/admin/invoices');
   redirect('/admin/invoices');
 }
+
+
 export async function updateInvoice(id: string, prevState: State, formData: FormData) {
   const validatedFields = UpdateInvoice.safeParse({
     customerId: formData.get("customerId"),
@@ -254,64 +279,7 @@ export const createCustomer = async (formData: FormData) => {
   redirect("/admin/customers")
 }
 
-const createOrderFormSchema = z.object({
-  color: z.string({
-    invalid_type_error: "رنگبندی را مشخص کنید"
-  }),
-  size: z.string({
-    invalid_type_error: "سایز را مشخص کنید"
-  })
-})
-export const createOrder = async (id: string, prevState: State, formData: FormData) => {
-  const data = {
-    color: formData.get("color"),
-    size: formData.get("size")
-  }
-  const validatedFields = createOrderFormSchema.safeParse(data)
-  if (!validatedFields.success) {
-    return {
-      message: "لطفا مواردی که مشخص شده را تکمیل کنید",
-      errors: validatedFields.error.flatten().fieldErrors
-    }
-  }
-  const { color, size } = validatedFields.data
-  const payload = await tokenPayload()
-  if (!payload) return redirect("/register")
-  try {
-    // is pending invoices exists
-    const data = await sql`
-      SELECT id FROM invoices 
-       WHERE customer_id = ${payload.id}
-       AND status = 'pending'
-    `
-    const invoice = data.rows[0]
-    const invoiceId = randomUUID()
-    const date = new Date().toISOString().split("T")[0]
-    if (!invoice) {
-      await sql`
-      INSERT INTO invoices (id, customer_id, status, date)
-      VALUES (${invoiceId} ,${payload.id}, 'pending'  , ${date})
-      `
-    } else {
-      await sql`
-      UPDATE invoices SET date = ${date}
-       WHERE customer_id= ${payload.id} 
-       AND status= 'pending'
-      `
-    }
-    await sql`
-    INSERT INTO invoices_detail (id, product_id , price, quantity, size, color)
-    VALUES (${invoice ? invoice.id : invoiceId},${id}, 1 , 1 , ${size}, ${color})
-    `
-    // console.log("invoice id =>", invoice ? invoice.id : invoiceId)
-  } catch (error) {
-    console.error("Database error =>", error)
-    return {
-      message: "Database error => create order failed."
-    }
-  }
-  revalidatePath("/")
-}
+
 
 // authenticate
 const authenticateFormSchema = z.object({

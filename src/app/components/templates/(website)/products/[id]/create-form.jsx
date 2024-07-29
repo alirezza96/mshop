@@ -1,5 +1,5 @@
 "use client"
-import { createOrder } from "@/app/lib/actions"
+import { createInvoice } from "@/app/lib/actions"
 import { formatCurrency } from "@/app/lib/utils"
 import { useActionState } from "react"
 import { InputRadio } from "@/app/components/modules/form"
@@ -7,14 +7,12 @@ export default function Form({ colors, sizes, id }) {
 
     const totalPrice = 1_180_000
     const initialState = { errors: {}, message: null }
-    const add2CartWithId = createOrder.bind(null, id)
+    const add2CartWithId = createInvoice.bind(null, id)
     const [errorsMessage, formAction, pending] = useActionState(add2CartWithId, initialState)
-    // console.log("errorsMessage =>", errorsMessage)
     return (
         <form
             action={formAction}
         >
-
             <div className="space-y-[10px]">
                 <div className="flex items-center justify-between">
                     <span>

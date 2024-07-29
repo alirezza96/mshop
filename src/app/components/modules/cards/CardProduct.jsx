@@ -21,13 +21,17 @@ const CardProduct = ({ href, fa, en, src }) => {
                 className="disabled-drag"
             >
                 <div className="h-64 w-48 mx-auto">
-                    <Image
-                        src={src}
-                        height={256}
-                        alt="image product"
-                        width={192}
-                        className="disabled-drag aspect-[3/4] object-cover group-hover:scale-105 transition-transform delay-100 "
-                    />
+                    {
+                        src ?
+                            <Image
+                                src={src}
+                                height={256}
+                                alt="image product"
+                                width={192}
+                                className="disabled-drag aspect-[3/4] object-cover group-hover:scale-105 transition-transform delay-100 "
+                            />
+                            : null
+                    }
                 </div>
             </Link>
             <div className="p-1 text-sm flex flex-col justify-between  min-h-40">

@@ -25,13 +25,17 @@ const Table = async ({ query, currentPage }: { query: string, currentPage: numbe
                             <td>{product.id}</td>
                             <td >
                                 <div className="flex items-center gap-2">
-                                    <Image
-                                        src={product.thumbnail_url}
-                                        className="rounded-full"
-                                        width={48}
-                                        height={48}
-                                        alt={`${product.en}'s product picture`}
-                                    />
+                                    {
+                                        product.thumbnail_url ?
+                                            <Image
+                                                src={product.thumbnail_url}
+                                                className="rounded-full"
+                                                width={48}
+                                                height={48}
+                                                alt={`${product.en}'s product picture`}
+                                            />
+                                            : null
+                                    }
                                     <p className="line-clamp-2">
                                         {product.fa}
                                     </p>
