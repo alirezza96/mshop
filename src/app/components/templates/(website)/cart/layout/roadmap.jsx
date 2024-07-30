@@ -1,33 +1,28 @@
 "use client"
+import { usePathname } from "next/navigation"
 export default function Roadmap() {
+    const focus = false
+    const breadcrumb = [
+        { label: "اطلاعات سفارش", href: "/cart" },
+        { label: "اطلاعات ارسال", href: "/cart/shipping-method" },
+        { label: "پرداخت", href: "/cart/payment" },
+    ]
+    const pathname = usePathname()
     return (
-        <div className="font-morabba text-sm h-16 w-[70%] mx-auto mb-2 flex justify-between  text-center">
-            <div className="h-6  flex flex-auto items-center">
-                <div className="relative bg-white border border-solid rounded-md border-gray w-6 ">
-                    1
-                    <span className="w-max absolute top-full left-1/2 -translate-x-1/2 ">
-                        اطلاعات سفارش
-                    </span>
-                </div>
-                <div className="bg-gray flex-1 h-px"></div>
-            </div>
-            <div className="h-6  flex flex-auto items-center">
-                <div className="relative bg-white border border-solid rounded-md border-gray w-6 ">
-                    2
-                    <span className="w-max absolute top-full left-1/2 -translate-x-1/2 ">
-                        اطلاعات ارسال
-                    </span>
-                </div>
-                <div className="bg-gray flex-1 h-px"></div>
-            </div>
-            <div className="h-6  flex  items-center">
-                <div className="relative bg-white border border-solid rounded-md border-gray w-6 ">
-                    3
-                    <span className="w-max absolute top-full left-1/2 -translate-x-1/2 ">
-                        پرداخت
-                    </span>
-                </div>
-            </div>
-        </div>
+        <ol className="font-morabba  text-sm w-[80%] my-8  mx-auto flex justify-between  text-center">
+            {
+                breadcrumb?.map((item, index) => (
+                    <li
+                        key={index + 1}
+                        className={pathname === item.href ? "scale-105" : "scale-95 grayscale text-black/60"}
+                    >
+                        <div className="w-6 leading-6 bg-pink/30 rounded-full mx-auto">{index + 1}</div>
+                        <div>{item.label}</div>
+                    </li>
+
+                ))
+            }
+        </ol>
     )
 }
+

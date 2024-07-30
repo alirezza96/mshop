@@ -8,9 +8,9 @@ export const formatNumber = (number: number) => {
     return number?.toLocaleString("fa-IR")
 }
 
-export const formatDateToLocal = (date: string) => {
-    const formatter = new Intl.DateTimeFormat("fa-IR", {
-        day: "numeric",
+export const formatDateToLocal = (date) => {
+    const formatter = new Intl.DateTimeFormat("fa-IR-u-nu-latn", {
+        day: "2-digit",
         month: "2-digit",
         year: "numeric"
     })

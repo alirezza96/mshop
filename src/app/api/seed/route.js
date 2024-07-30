@@ -59,10 +59,12 @@ async function seedInvoices() {
 }
 
 async function seedInvoicesDetail() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+
   await client.sql`DROP TABLE IF EXISTS invoices_detail`
   await client.sql`
    CREATE TABLE invoices_detail(
-    id UUID,
+    id UUID DEFAULT uuid_generate_v4(),
     product_id UUID,
     price INT,
     quantity INT,

@@ -82,7 +82,7 @@ export async function fetchPreOrders() {
   if(!payload) return false
   try {
     const data = await sql`
-      SELECT * FROM invoices as h
+      SELECT h.date,d.*,p.fa,p.category_id, p.en, p.thumbnail_url FROM invoices as h
         LEFT OUTER JOIN invoices_detail as d
           ON h.id = d.id
         LEFT OUTER JOIN products as p
@@ -90,10 +90,7 @@ export async function fetchPreOrders() {
           WHERE h.customer_id = ${payload.id}
             AND h.status = 'pending'
     `
-    const preOrders = data.rows.map(preOrder => ({
-      ...preOrder,
-      data: formatDateToLocal(preOrder.date)
-    }))
+    const preOrders = data.rows
     return { preOrders, rowCount: data.rowCount }
   } catch (error) {
     console.log("Database error =>", error)

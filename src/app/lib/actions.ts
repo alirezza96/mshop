@@ -9,6 +9,7 @@ import path from "path"
 import { writeFile } from "fs/promises"
 import { comparePassword, generateToken, tokenPayload } from "@/app/lib/auth"
 import { cookies } from "next/headers"
+import { formatDateToLocal } from "./utils"
 //invoices
 const InvoiceFormSchema = z.object({
   id: z.string(),
@@ -64,38 +65,45 @@ export async function createInvoice(productId: string, prevState: State, formDat
     }
   }
   const { color, size } = validateFields.data
-  console.log("validateFields =>", validateFields)
-  console.log("productId =>", productId)
-  return
-  // If form validation fails, return errors early. Otherwise, continue.
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: 'خطا',
-    };
+  const payload = await tokenPayload()
+  if (!payload) {
+    return redirect("/register")
   }
-
-  // Prepare data for insertion into the database
-  const { customerId, amount, status } = validatedFields.data;
-  const amountInCents = amount * 100;
-  const date = new Date().toISOString().split('T')[0];
-
-  // Insert data into the database
+  const customerId = payload.id
   try {
-    await sql`
-      INSERT INTO invoices (customer_id, amount, status, date)
-      VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
-    `;
+    // if invoice exists, update values
+    const invoice = await sql`
+    SELECT * FROM invoices 
+    WHERE status = 'pending'
+    AND customer_id = ${customerId}
+    `
+    const invoiceId = { id: invoice.rows[0]?.id }
+    const jalaaliDate = formatDateToLocal(new Date())
+    if (invoice.rowCount > 0) {
+      await sql`
+      UPDATE invoices
+      SET date = ${jalaaliDate}
+      WHERE id = ${invoiceId.id}
+      `
+    } else {
+      const newInvoice = await sql`
+        INSERT INTO invoices(customer_id, status, date)
+        VALUES(${customerId},'pending',${jalaaliDate})
+        RETURNING id
+      `
+      invoiceId.id = newInvoice.rows[0].id
+    }
+    const invoiceDetail = await sql`
+      INSERT INTO invoices_detail (id,product_id, price, quantity, size, color)
+        VALUES (${invoiceId.id},${productId},1000,1,${size},${color})
+    `
   } catch (error) {
     // If a database error occurs, return a more specific error.
     return {
       message: 'Database Error: Failed to Create Invoice.',
     };
   }
-
-  // Revalidate the cache for the invoices page and redirect the user.
-  revalidatePath('/admin/invoices');
-  redirect('/admin/invoices');
+  revalidatePath("/")
 }
 
 

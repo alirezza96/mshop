@@ -4,6 +4,9 @@ import LatestProducts from "@/app/components/templates/page/LatestProducts";
 import PopularProducts from "@/app/components/templates/page/PopularProducts";
 import ProductsContainer from "@/app/components/templates/page/ProductsContainer";
 import { CardsSkeleton } from "@/app/components/modules/skeletons";
+export const metadata = {
+  title: "صفحه اصلی | بنفش شاپ"
+}
 const Home = () => {
   return (
     <div className="space-y-4">
