@@ -3,7 +3,7 @@ import { ShoppingCartIcon, Bars3Icon, HomeIcon } from "@heroicons/react/24/outli
 import Search from "@/app/components/modules/Search"
 import Basket from "./Basket"
 import { Suspense } from "react"
-import { BasketContentSkeleton } from "../../modules/skeletons"
+import { BasketContentSkeleton } from "@/app/components/modules/skeletons"
 import ProfileOptions from "@/app/components/modules/profile-options"
 export default async function Navbar() {
 

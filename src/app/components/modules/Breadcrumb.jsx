@@ -1,6 +1,6 @@
 
 import { ChevronLeftIcon } from "@heroicons/react/24/outline"
-import { NavLink } from "./form"
+import { NavLink } from "@/app/components/modules/form"
 import Link from "next/link"
 const Breadcrumb = ({ breadcrumbs }) => {
   return (

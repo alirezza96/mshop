@@ -1,7 +1,7 @@
 import { logout } from "@/app/lib/actions"
 import { UserIcon } from "@heroicons/react/24/outline"
 import { tokenPayload } from "@/app/lib/auth"
-import { NavLink } from "./form"
+import { NavLink } from "@/app/components/modules/form"
 
 export default async function ProfileOptions() {
     const {name} = await tokenPayload()

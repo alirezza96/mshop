@@ -1,3 +1,4 @@
+import { ArrowLeftIcon } from "@heroicons/react/24/outline"
 import { Button } from "../../modules/form"
 const ProductsContainer = ({ title, href = "#", children, className }) => {
     return (
@@ -20,7 +21,14 @@ const ProductsHeader = ({ children, href }) => {
                 {children}
             </h2>
             <div className="bg-Purple h-px flex-grow"></div>
-            <Button  href={href}>مشاهده تمامی محصولات</Button>
+            <Button
+                href={href}
+                className="flex gap-1 items-center group"
+            >
+
+                مشاهده تمامی محصولات
+                <ArrowLeftIcon className="w-4 h-4 rotate-45 group-hover:rotate-0 transition-transform delay-75" />
+            </Button>
         </div>
     )
 }

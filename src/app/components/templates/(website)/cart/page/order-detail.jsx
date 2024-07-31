@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { formatCurrency } from "@/app/lib/utils"
+import Counter from "@/app/components/modules/Counter"
 export default async function PrePreOrderDetail({ preOrders, className }) {
     return (
         <ol className={`flex-1 space-y-1 text-sm ${className}`}>
@@ -44,7 +45,10 @@ export default async function PrePreOrderDetail({ preOrders, className }) {
                                             {preOrder.color}
                                         </td>
                                         <td>
-                                            1
+                                            <Counter
+                                                invoiceId={preOrder.id}
+                                                productId={preOrder.product_id}
+                                                quantity={preOrder.quantity} />
                                         </td>
                                         <td>
                                             {formatCurrency(preOrder.quantity * preOrder.price)}

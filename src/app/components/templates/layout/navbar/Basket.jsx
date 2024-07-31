@@ -2,8 +2,8 @@ import Image from "next/image"
 import { formatCurrency, formatNumber } from "@/app/lib/utils"
 import { fetchPreOrders } from "@/app/lib/data"
 import { FaceFrownIcon } from "@heroicons/react/24/outline"
-import { Button } from "../../modules/form"
-import PreOrderDetail from "../(website)/cart/page/order-detail"
+import { Button } from "../../../modules/form"
+import PreOrderDetail from "../../(website)/cart/page/order-detail"
 const Basket = async ({ className }) => {
     const { preOrders, rowCount } = await fetchPreOrders()
     return (

@@ -136,6 +136,25 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
   redirect("/admin/invoices")
 
 }
+// website 
+export async function updateInvoiceQuantity(id: string, productId: string, amount: number) {
+  console.log("props =>", id, productId, amount)
+  try {
+    const invoice = await sql`
+      UPDATE invoices_detail SET quantity = quantity + ${amount}
+        WHERE id = ${id}
+        AND product_id = ${productId}
+        RETURNING quantity
+    `
+    console.log("invoice res =>", invoice)
+  } catch (error) {
+    console.error("Database Error =>", error)
+    return {
+      message: "Database Error: Failed to Edit Invoice Quantity."
+    }
+  }
+  revalidatePath("/cart")
+}
 
 export async function deleteInvoice(id: string) {
   // throw new Error('Failed to Delete Invoice');
@@ -202,6 +221,7 @@ export const createProduct = async (prevState: State, formData: FormData) => {
   revalidatePath("/admin/products")
   redirect("admin/products")
 }
+// update invoice quantity
 
 // products
 // export const createProducts = async (formData: FormData) => {

@@ -1,4 +1,4 @@
-import Navbar from "@/app/components/templates/layout/Navbar";
+import Navbar from "@/app/components/templates/layout/navbar/Navbar";
 import Footer from "@/app/components/templates/layout/Footer";
 
 const layout = ({ children }) => {

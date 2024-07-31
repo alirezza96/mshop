@@ -2,7 +2,6 @@ import { Button, Input } from "@/app/components/modules/form"
 import Roadmap from "@/app/components/templates/(website)/cart/layout/roadmap"
 import { ArrowLeftIcon } from "@heroicons/react/24/outline"
 export default function layout({ children }) {
-    
     return (
         <div>
             <Roadmap />
