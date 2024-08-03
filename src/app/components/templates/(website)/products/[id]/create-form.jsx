@@ -3,7 +3,26 @@ import { createInvoice } from "@/app/lib/actions"
 import { formatCurrency } from "@/app/lib/utils"
 import { useActionState } from "react"
 import { InputRadio } from "@/app/components/modules/form"
+import { useSearchParams, useRouter, usePathname } from "next/navigation"
+// import { useSearchParams } from "next/navigation"
 export default function Form({ colors, sizes, id }) {
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+    const params = new URLSearchParams(searchParams)
+    const { push } = useRouter()
+    const changeHandler = (key, value) => {
+        if (value) {
+            params.set(key, value)
+        } else {
+            params.delete(key)
+        }
+        push(`${pathname}/?${params.toString()}`)
+        console.log("changeHandler fired =>", key, value)
+
+
+    }
+
+
 
     const totalPrice = 1_180_000
     const initialState = { errors: {}, message: null }
@@ -21,8 +40,17 @@ export default function Form({ colors, sizes, id }) {
                     <div className="flex gap-x-[6px]">
                         {
                             colors?.map((item) => (
-                                <InputRadio key={item} name="color" id={item} value={item} color={item} className="w-6 h-6" />
+                                <InputRadio
+                                    onChange={(e) => changeHandler("color", e.target.value)}
+                                    disabled={!item.quantity}
+                                    key={item.color}
+                                    name="color"
+                                    id={item.color}
+                                    value={item.color}
+                                    color={item.color}
+                                    className={`w-6 h-6 ${!item.quantity ? "cursor-not-allowed" : "cursor-pointer"}`} />
                             ))
+
                         }
                     </div>
                 </div>
@@ -45,7 +73,14 @@ export default function Form({ colors, sizes, id }) {
                     <div className="flex gap-x-[6px]">
                         {
                             sizes?.map((item) => (
-                                <InputRadio key={item} name="size" id={item} value={item} label={item} className={"border border-solid border-gray min-w-6"} />
+                                <InputRadio
+                                    onChange={e => changeHandler("size", e.target.value)}
+                                    key={item}
+                                    name="size"
+                                    id={item}
+                                    value={item}
+                                    label={item}
+                                    className={"border border-solid border-gray min-w-6"} />
                             ))
                         }
                     </div>

@@ -1,5 +1,15 @@
 import { db } from '@vercel/postgres';
-import { invoices, invoicesDetail, customers, revenue, users, products, categories } from '@/app/lib/placeHolderData';
+import {
+  invoices,
+  invoicesDetail,
+  customers,
+  revenue,
+  users,
+  products,
+  categories,
+  colors,
+  sizes,
+} from '@/app/lib/placeHolderData';
 import { hashPassword } from '@/app/lib/auth';
 
 const client = await db.connect();
@@ -85,8 +95,6 @@ async function seedInvoicesDetail() {
 
 
 
-
-
 async function seedCustomers() {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
   await client.sql`DROP TABLE IF EXISTS customers`;
@@ -115,7 +123,6 @@ async function seedCustomers() {
 
 async function seedRevenue() {
   await client.sql`DROP TABLE IF EXISTS revenue`;
-
   await client.sql`
     CREATE TABLE revenue (
       month VARCHAR(4) NOT NULL UNIQUE,
@@ -142,21 +149,59 @@ async function seedCategories() {
 
   await client.sql`CREATE TABLE categories(
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    fa VARCHAR(255) NOT NULL,
-    en VARCHAR(255) NOT NULL
+    title VARCHAR(255) NOT NULL,
+    label VARCHAR(255) NOT NULL
   );`
 
   const insertedCategories = await Promise.all(
     categories.map(
       (category) => client.sql`
-        INSERT INTO categories (id, fa, en) 
-        VALUES (${category.id}, ${category.fa}, ${category.en})
+        INSERT INTO categories (id, title, label) 
+        VALUES (${category.id}, ${category.title}, ${category.label})
       `
     )
   )
   return insertedCategories
 }
+async function seedColors() {
+  await client.sql`DROP TABLE IF EXISTS colors`
+  await client.sql`
+    CREATE TABLE colors (
+      title VARCHAR(12),
+      hex VARCHAR(12)
+    )
+  `
+  const insertedColors = await Promise.all(
+    colors.map(
+      (item) => client.sql`
+        INSERT INTO colors (title, hex)
+        VALUES (${item.title}, ${item.hex})
+      `
+    )
+  )
+  return insertedColors
+}
+async function seedSizes() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
+  await client.sql`DROP TABLE IF EXISTS sizes`
+  await client.sql`
+    CREATE TABLE sizes (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      title VARCHAR(20),
+      size VARCHAR(20)
+    )
+  `
+  const insertedSizes = await Promise.all(
+    sizes.map(
+      (item) => client.sql`
+        INSERT INTO sizes (id,title, size)
+        VALUES (${item.id},${item.title}, ${item.size})
+      `
+    )
+  )
+  return insertedSizes
+}
 
 
 
@@ -166,8 +211,10 @@ async function seedProducts() {
   await client.sql`
     CREATE TABLE products (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-      fa VARCHAR(255) NOT NULL,
-      en VARCHAR(255),
+      title VARCHAR(255) NOT NULL,
+      label VARCHAR(255),
+      hex CHAR(12),
+      size_id UUID,
       category_id UUID NOT NULL,
       thumbnail_url VARCHAR(255) NOT NULL
     );
@@ -176,13 +223,20 @@ async function seedProducts() {
   const insertedProducts = await Promise.all(
     products.map(
       (product) => client.sql`
-        INSERT INTO products (id, fa, en, category_id, thumbnail_url)
-        VALUES (${product.id} ,${product.fa}, ${product.en}, ${product.category_id}, ${product.thumbnail_url})
+        INSERT INTO products (id, title, label, hex, size_id, category_id, thumbnail_url)
+        VALUES (${product.id} ,${product.title}, ${product.label},${product.hex},${product.size_id}, ${product.category_id}, ${product.thumbnail_url})
       `,
     ),
   );
   return insertedProducts;
 }
+
+
+
+
+
+
+
 export async function GET() {
   try {
     await client.sql`BEGIN`;
@@ -193,6 +247,8 @@ export async function GET() {
     await seedRevenue();
     await seedCategories();
     await seedProducts();
+    await seedColors();
+    await seedSizes();
     await client.sql`COMMIT`;
 
     return Response.json({ message: 'Database seeded successfully' });

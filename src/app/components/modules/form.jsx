@@ -76,12 +76,12 @@ export const NavLink = ({ children, href, className, ...rest }) => {
 
 export const InputRadio = ({ className, ...rest }) => {
     const color = (
-        <input
-            {...rest}
-            type="radio"
-            className={`rounded-md border border-solid border-gray appearance-none ring-offset-1 ring-Purple/80 checked:ring ${className}`}
-            style={{ backgroundColor: rest.color }}
-            name={rest.name} />
+            <input
+                {...rest}
+                type="radio"
+                className={`disabled: rounded-md border border-solid border-gray appearance-none ring-offset-1 ring-Purple/80 checked:ring ${className}`}
+                style={{ backgroundColor: rest.color }}
+                name={rest.name} />
     )
     const size = (
         <label className="relative">

@@ -15,8 +15,8 @@ const page = async ({ searchParams }) => {
                             <CardProduct
                                 key={product.id}
                                 href={product.id}
-                                fa={product.fa}
-                                en={product.en}
+                                fa={product.name}
+                                en={product.label}
                                 src={product.thumbnail_url}
                             />
                         ))

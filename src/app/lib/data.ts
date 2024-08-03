@@ -79,10 +79,10 @@ export async function fetchLatestInvoices() {
 
 export async function fetchPreOrders() {
   const payload = await tokenPayload()
-  if(!payload) return false
+  if (!payload) return false
   try {
     const data = await sql`
-      SELECT h.date,d.*,p.fa,p.category_id, p.en, p.thumbnail_url FROM invoices as h
+      SELECT h.date,d.*,p.name,p.category_id, p.en, p.thumbnail_url FROM invoices as h
         LEFT OUTER JOIN invoices_detail as d
           ON h.id = d.id
         LEFT OUTER JOIN products as p
@@ -93,7 +93,7 @@ export async function fetchPreOrders() {
     const preOrders = data.rows
     return { preOrders, rowCount: data.rowCount }
   } catch (error) {
-    console.log("Database error =>", error)
+    console.error("Database error =>", error)
     throw new Error("Failed to fetch pre order")
   }
 }
@@ -177,12 +177,27 @@ export async function fetchProductsPages(query: string) {
   }
 }
 
-export async function fetchProductById(id: string) {
+export async function fetchProductById(id: string, size: string, color: string) {
   try {
     const data = await sql`
-    SELECT  * FROM products where id = ${id}
-`
-    return data.rows[0]
+       select 
+        p.id,
+        p.title,
+        p.label,
+        p.size_id,
+        p.category_id,
+        p.thumbnail_url,
+        p.hex as color_label,
+        colors.title as color_title,
+        sizes.title as size_title,
+        sizes.size as size_label
+		 from products as p
+	      left outer join colors
+		      on colors.hex=p.hex
+	      left outer join sizes
+		      on sizes.id = p.size_id where p.id =${id}
+  `
+    return data.rows
   } catch (error) {
     console.error("Database error =>", error)
     throw new Error("failed to fetch product by id")

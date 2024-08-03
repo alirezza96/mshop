@@ -84,7 +84,7 @@ const Form = () => {
 //                                         className="text-Fuchsia font-bold"
 //                                         href={`/search?${params.toString()}`}
 //                                     >
-//                                         {category.fa}
+//                                         {category.name}
 //                                     </Link>
 //                                     <span className="text-xs text-gray">({category.products_count} محصول)</span>
 //                                 </li>
@@ -110,11 +110,11 @@ const Form = () => {
 //                                     width={48}
 //                                     height={48}
 //                                     src={product.thumbnail_url}
-//                                     alt={`تصویر محصول ${product.fa}`}
+//                                     alt={`تصویر محصول ${product.name}`}
 //                                 />
 //                             </Link>
 //                             <Link href={`/products/${product.id}`}>
-//                                 {product.fa}
+//                                 {product.name}
 //                             </Link>
 //                         </li>
 //                     ))

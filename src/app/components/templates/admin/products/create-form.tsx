@@ -41,9 +41,9 @@ export default function Form({ categories }: { categories: CategoryField[] }) {
             categories?.map(category => (
               <option
                 key={category.id}
-                value={category.fa}
+                value={category.name}
               >
-                {category.fa}
+                {category.name}
               </option>
             ))
           }

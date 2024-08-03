@@ -8,14 +8,14 @@ export default async function PrePreOrderDetail({ preOrders, className }) {
             {
                 preOrders?.map(preOrder => (
                     <li
-                        key={preOrder.fa}
+                        key={preOrder.name}
                         className="min-h-20 flex odd:bg-white   first:rounded-t-lg last:rounded-b-lg overflow-hidden">
                         {preOrder?.thumbnail_url ?
                             <Image
                                 height={72}
                                 width={72}
                                 src={preOrder.thumbnail_url}
-                                alt={`تصویر محصول ${preOrder.fa}`}
+                                alt={`تصویر محصول ${preOrder.name}`}
                                 className="object-contain aspect-square"
                             />
                             : null
@@ -23,7 +23,7 @@ export default async function PrePreOrderDetail({ preOrders, className }) {
                         <div className="space-y-2">
 
                             <Link href={`/products/${preOrder.id}`}>
-                                {preOrder.fa}
+                                {preOrder.name}
                             </Link>
                             <table className="table-fixed w-full text-center">
                                 <thead>

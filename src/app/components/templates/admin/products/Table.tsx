@@ -32,12 +32,12 @@ const Table = async ({ query, currentPage }: { query: string, currentPage: numbe
                                                 className="rounded-full"
                                                 width={48}
                                                 height={48}
-                                                alt={`${product.en}'s product picture`}
+                                                alt={`${product.label}'s product picture`}
                                             />
                                             : null
                                     }
                                     <p className="line-clamp-2">
-                                        {product.fa}
+                                        {product.name}
                                     </p>
                                 </div>
                             </td>

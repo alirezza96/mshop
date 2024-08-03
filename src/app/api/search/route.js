@@ -9,11 +9,11 @@ export const POST = async (req) => {
          LIMIT 10
         `
         const categories = await sql`
-        SELECT c.fa, c.en, c.id, count(1) as products_count FROM products as p
+        SELECT c.name, c.en, c.id, count(1) as products_count FROM products as p
         LEFT OUTER JOIN categories as c 
             on c.id = p.category_id
-        WHERE p.fa LIKE ${`%${query}%`}
-        GROUP BY c.fa, c.en, c.id
+        WHERE p.name LIKE ${`%${query}%`}
+        GROUP BY c.name, c.en, c.id
         `
         return Response.json({
             message: "products fetch successfully",

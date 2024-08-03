@@ -73,7 +73,7 @@ const BasketCard = (props) => {
                         props?.thumbnail_url ?
                             <Image
                                 src={props.thumbnail_url}
-                                alt={`تصویر محصول ${props.fa}`}
+                                alt={`تصویر محصول ${props.name}`}
                                 width={60}
                                 height={80}
                                 className="aspect-[3/4] object-contain rounded-lg"
@@ -83,7 +83,7 @@ const BasketCard = (props) => {
                     <div>
 
                         <p className="font-bold">
-                            {props.fa}
+                            {props.name}
                         </p>
                         <p>
                             تعداد:

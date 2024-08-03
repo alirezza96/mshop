@@ -67,65 +67,110 @@ const customers = [
 const categories = [
   {
     id: randomUUID(),
-    fa: 'جوراب',
-    en: 'tights',
+    title: 'جوراب',
+    label: 'tights',
   },
   {
     id: randomUUID(),
-    fa: 'تیشرت',
-    en: 'tee-shirt',
+    title: 'تیشرت',
+    label: 'tee-shirt',
   },
   {
     id: randomUUID(),
-    fa: 'هودی',
-    en: 'hoodies',
+    title: 'هودی',
+    label: 'hoodies',
   },
   {
     id: randomUUID(),
-    fa: 'جین',
-    en: 'jeans',
+    title: 'جین',
+    label: 'jeans',
   },
 ];
 
-
-
+const colors = [
+  {
+    title: "قرمز",
+    hex: "ff0000",
+  },
+  {
+    title: "زرد",
+    hex: "ffff00",
+  },
+  {
+    title: "آبی",
+    hex: "0000ff",
+  },
+  {
+    title: "صورتی",
+    hex: "ff00ff",
+  },
+]
+const sizes = [
+  {
+    id: randomUUID(),
+    title: "کوچک",
+    size: "sm",
+  },
+  {
+    id: randomUUID(),
+    title: "بزرگ",
+    size: "lg",
+  },
+  {
+    id: randomUUID(),
+    title: "متوسط",
+    size: "md",
+  },
+  {
+    id: randomUUID(),
+    title: "خیلی بزرگ",
+    size: "xl",
+  },
+]
 const products = [
-  { id: randomUUID(), fa: "جوراب زنانه ماییلدا مدل 4216 بسته 5 عددی", en: "", category_id: categories[0].id, thumbnail_url: "/products/03.jpg" },
-  { id: randomUUID(), fa: "تی شرت آستین کوتاه زنانه مدل سه خرس و نوشیدنی", en: "", category_id: categories[1].id, thumbnail_url: "/products/02.jpg" },
-  { id: randomUUID(), fa: "هودی زنانه مدل فانتزی کره ای", en: "", category_id: categories[2].id, thumbnail_url: "/products/01.jpg" },
-  { id: randomUUID(), fa: "شلوار جین زنانه ایزی دو مدل 6264990873", en: "", category_id: categories[3].id, thumbnail_url: "/products/04.jpg" },
-  { id: randomUUID(), fa: "جوراب زنانه ماییلدا مدل 4216 بسته 5 عددی", en: "", category_id: categories[0].id, thumbnail_url: "/products/03.jpg" },
-  { id: randomUUID(), fa: "تی شرت آستین کوتاه زنانه مدل سه خرس و نوشیدنی", en: "", category_id: categories[1].id, thumbnail_url: "/products/02.jpg" },
-  { id: randomUUID(), fa: "هودی زنانه مدل فانتزی کره ای", en: "", category_id: categories[2].id, thumbnail_url: "/products/01.jpg" },
-  { id: randomUUID(), fa: "شلوار جین زنانه ایزی دو مدل 6264990873", en: "", category_id: categories[3].id, thumbnail_url: "/products/04.jpg" },
-  { id: randomUUID(), fa: "جوراب زنانه ماییلدا مدل 4216 بسته 5 عددی", en: "", category_id: categories[0].id, thumbnail_url: "/products/03.jpg" },
-  { id: randomUUID(), fa: "تی شرت آستین کوتاه زنانه مدل سه خرس و نوشیدنی", en: "", category_id: categories[1].id, thumbnail_url: "/products/02.jpg" },
-  { id: randomUUID(), fa: "هودی زنانه مدل فانتزی کره ای", en: "", category_id: categories[2].id, thumbnail_url: "/products/01.jpg" },
-  { id: randomUUID(), fa: "شلوار جین زنانه ایزی دو مدل 6264990873", en: "", category_id: categories[3].id, thumbnail_url: "/products/04.jpg" },
-  { id: randomUUID(), fa: "جوراب زنانه ماییلدا مدل 4216 بسته 5 عددی", en: "", category_id: categories[0].id, thumbnail_url: "/products/03.jpg" },
-  { id: randomUUID(), fa: "تی شرت آستین کوتاه زنانه مدل سه خرس و نوشیدنی", en: "", category_id: categories[1].id, thumbnail_url: "/products/02.jpg" },
-  { id: randomUUID(), fa: "هودی زنانه مدل فانتزی کره ای", en: "", category_id: categories[2].id, thumbnail_url: "/products/01.jpg" },
-  { id: randomUUID(), fa: "شلوار جین زنانه ایزی دو مدل 6264990873", en: "", category_id: categories[3].id, thumbnail_url: "/products/04.jpg" },
-  { id: randomUUID(), fa: "جوراب زنانه ماییلدا مدل 4216 بسته 5 عددی", en: "", category_id: categories[0].id, thumbnail_url: "/products/03.jpg" },
-  { id: randomUUID(), fa: "تی شرت آستین کوتاه زنانه مدل سه خرس و نوشیدنی", en: "", category_id: categories[1].id, thumbnail_url: "/products/02.jpg" },
-  { id: randomUUID(), fa: "هودی زنانه مدل فانتزی کره ای", en: "", category_id: categories[2].id, thumbnail_url: "/products/01.jpg" },
-  { id: randomUUID(), fa: "شلوار جین زنانه ایزی دو مدل 6264990873", en: "", category_id: categories[3].id, thumbnail_url: "/products/04.jpg" },
-  { id: randomUUID(), fa: "جوراب زنانه ماییلدا مدل 4216 بسته 5 عددی", en: "", category_id: categories[0].id, thumbnail_url: "/products/03.jpg" },
-  { id: randomUUID(), fa: "تی شرت آستین کوتاه زنانه مدل سه خرس و نوشیدنی", en: "", category_id: categories[1].id, thumbnail_url: "/products/02.jpg" },
-  { id: randomUUID(), fa: "هودی زنانه مدل فانتزی کره ای", en: "", category_id: categories[2].id, thumbnail_url: "/products/01.jpg" },
-  { id: randomUUID(), fa: "شلوار جین زنانه ایزی دو مدل 6264990873", en: "", category_id: categories[3].id, thumbnail_url: "/products/04.jpg" },
-  { id: randomUUID(), fa: "جوراب زنانه ماییلدا مدل 4216 بسته 5 عددی", en: "", category_id: categories[0].id, thumbnail_url: "/products/03.jpg" },
-  { id: randomUUID(), fa: "تی شرت آستین کوتاه زنانه مدل سه خرس و نوشیدنی", en: "", category_id: categories[1].id, thumbnail_url: "/products/02.jpg" },
-  { id: randomUUID(), fa: "هودی زنانه مدل فانتزی کره ای", en: "", category_id: categories[2].id, thumbnail_url: "/products/01.jpg" },
-  { id: randomUUID(), fa: "شلوار جین زنانه ایزی دو مدل 6264990873", en: "", category_id: categories[3].id, thumbnail_url: "/products/04.jpg" },
-  { id: randomUUID(), fa: "جوراب زنانه ماییلدا مدل 4216 بسته 5 عددی", en: "", category_id: categories[0].id, thumbnail_url: "/products/03.jpg" },
-  { id: randomUUID(), fa: "تی شرت آستین کوتاه زنانه مدل سه خرس و نوشیدنی", en: "", category_id: categories[1].id, thumbnail_url: "/products/02.jpg" },
-  { id: randomUUID(), fa: "هودی زنانه مدل فانتزی کره ای", en: "", category_id: categories[2].id, thumbnail_url: "/products/01.jpg" },
-  { id: randomUUID(), fa: "شلوار جین زنانه ایزی دو مدل 6264990873", en: "", category_id: categories[3].id, thumbnail_url: "/products/04.jpg" },
-  { id: randomUUID(), fa: "جوراب زنانه ماییلدا مدل 4216 بسته 5 عددی", en: "", category_id: categories[0].id, thumbnail_url: "/products/03.jpg" },
-  { id: randomUUID(), fa: "تی شرت آستین کوتاه زنانه مدل سه خرس و نوشیدنی", en: "", category_id: categories[1].id, thumbnail_url: "/products/02.jpg" },
-  { id: randomUUID(), fa: "هودی زنانه مدل فانتزی کره ای", en: "", category_id: categories[2].id, thumbnail_url: "/products/01.jpg" },
-  { id: randomUUID(), fa: "شلوار جین زنانه ایزی دو مدل 6264990873", en: "", category_id: categories[3].id, thumbnail_url: "/products/04.jpg" },
+  {
+    id: randomUUID(),
+    title: "جوراب زنانه ماییلدا مدل 4216 بسته 5 عددی",
+    label: "",
+    hex: colors[0].hex,
+    size_id: sizes[0].id,
+    inventory: 2000,
+    category_id: categories[0].id,
+    thumbnail_url: "/products/03.jpg"
+  },
+
+  {
+    id: randomUUID(),
+    title: "تی شرت آستین کوتاه زنانه مدل سه خرس و نوشیدنی",
+    label: "",
+    hex: colors[1].hex,
+    size_id: sizes[1].id,
+    inventory: 2000,
+    category_id: categories[1].id,
+    thumbnail_url: "/products/02.jpg"
+  },
+
+  {
+    id: randomUUID(),
+    title: "هودی زنانه مدل فانتزی کره ای",
+    label: "",
+    hex: colors[2].hex,
+    size_id: sizes[2].id,
+    inventory: 2000,
+    category_id: categories[2].id,
+    thumbnail_url: "/products/01.jpg"
+  },
+
+  {
+    id: randomUUID(),
+    title: "شلوار جین زنانه ایزی دو مدل 6264990873",
+    label: "",
+    hex: colors[3].hex,
+    size_id: sizes[3].id,
+    inventory: 2000,
+    category_id: categories[3].id,
+    thumbnail_url: "/products/04.jpg"
+  },
 ]
 const invoices = [
   {
@@ -237,4 +282,14 @@ const revenue = [
 
 
 
-export { users, customers, invoices, invoicesDetail, revenue, products, categories };
+export {
+  users
+  , customers
+  , invoices
+  , invoicesDetail
+  , revenue
+  , products
+  , sizes
+  , colors
+  , categories
+};

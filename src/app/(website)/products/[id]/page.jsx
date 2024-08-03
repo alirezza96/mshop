@@ -4,12 +4,13 @@ import cover from "/public/products/01.webp"
 import { HeartIcon } from "@heroicons/react/24/outline"
 import Form from "@/app/components/templates/(website)/products/[id]/create-form"
 import { fetchProductById } from "@/app/lib/data"
+import { notFound } from "next/navigation"
 
 export const generateMetadata = async ({ params }) => {
-    const id = params.id
-    const product = await fetchProductById(id)
+    const product = await fetchProductById(params.id)
+    if (!product) return notFound()
     return {
-        title: product.fa
+        title: product.name
     }
 }
 
@@ -26,26 +27,45 @@ const colors = [
 const sizes = [
     "xs", "sm", "ms", "lg", "xl", "xxl"
 ]
-const page = async ({ params }) => {
+const page = async ({ params, searchParams }) => {
     const id = params.id
-    const product = await fetchProductById(id)
+    const data = await fetchProductById(id)
+    console.log("res =>", data)
+    return "product page"
+    const colors = data.map(product => {
+        return {
+            name: product.name,
+            color: product.color,
+            quantity: product.quantity
+        }
+    }
+    )
+    const sizes = data.map(product => {
+        return {
+            name: product.name,
+            size: product.size,
+            quantity: product.quantity
+        }
+    }
+    )
+    console.log("colors =>", colors)
     const like = true
     return (
         <div>
             <Breadcrumb breadcrumbs={breadcrumbs} />
             <div className="my-3 flex gap-x-8 ">
-                <Image
-                    src={product?.thumbnail_url ? product.thumbnail_url : cover}
-                    alt={`تصویر محصول ${product.fa}`}
-                    height={540}
-                    width={405}
-                    className="rounded-lg disabled-drag" />
+                 <Image
+                 src={product?.thumbnail_url ? product.thumbnail_url : cover}
+                 alt={`تصویر محصول ${product.name}`}
+                 height={540}
+                 width={405}
+                 className="rounded-lg disabled-drag" />
                 <div className="flex-auto flex flex-col justify-between min-h-[540px] ">
                     <div className="space-y-[10px]">
 
                         <div className="flex justify-between gap-4">
                             <h2 className="text-base">
-                                {product.fa}
+                                {product.name}
                             </h2>
                             <HeartIcon className={`w-6 h-6 cursor-pointer hover:fill-Fuchsia/40 hover:text-Fuchsia ${like ? "fill-Purple text-Purple" : ""}`} />
                         </div>
