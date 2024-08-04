@@ -82,7 +82,7 @@ export async function fetchPreOrders() {
   if (!payload) return false
   try {
     const data = await sql`
-      SELECT h.date,d.*,p.name,p.category_id, p.en, p.thumbnail_url FROM invoices as h
+      SELECT h.date,d.*,p.name, p.en, p.thumbnail_url FROM invoices as h
         LEFT OUTER JOIN invoices_detail as d
           ON h.id = d.id
         LEFT OUTER JOIN products as p
@@ -180,30 +180,37 @@ export async function fetchProductsPages(query: string) {
 export async function fetchProductById(id: string, size: string, color: string) {
   try {
     const data = await sql`
-       select 
-        p.id,
-        p.title,
-        p.label,
-        p.size_id,
-        p.category_id,
-        p.thumbnail_url,
-        p.hex as color_label,
-        colors.title as color_title,
-        sizes.title as size_title,
-        sizes.size as size_label
+    select *
 		 from products as p
-	      left outer join colors
-		      on colors.hex=p.hex
-	      left outer join sizes
-		      on sizes.id = p.size_id where p.id =${id}
+       where p.id =${id}
   `
-    return data.rows
+    return data.rows[0]
   } catch (error) {
     console.error("Database error =>", error)
     throw new Error("failed to fetch product by id")
   }
 
 }
+export async function fetchProductColorsById(id: string) {
+  const colors = await sql`
+    select c.name, c.color, pv.inventory from product_variants as pv
+      inner join colors as c
+        on c.id = pv.color_id
+      where pv.product_id = ${id}
+  `
+  return colors.rows.map(color => ({ ...color, color: `#${color.color}` }))
+}
+
+export async function fetchProductSizesById(id: string) {
+  const sizes = await sql`
+    SELECT s.name, s.size, pv.inventory FROM product_variants as pv
+      INNER JOIN sizes as s 
+        ON s.id = pv.size_id
+    WHERE pv.product_id = ${id}  
+  `
+  return sizes.rows
+}
+
 
 export async function fetchInvoiceById(id: string) {
   noStore()

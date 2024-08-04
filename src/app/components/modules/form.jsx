@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation"
 import Link from "next/link"
 
 export const Button = ({ children, className, ...rest }) => {
-    const classname = `font-morabba  bg-Purple/10 hover:text-Purple hover:bg-Purple/20  rounded-xl p-2 text-sm  ${className}`
+    const classname = `font-morabba text-Fuchsia  bg-Purple/10 hover:text-Purple hover:bg-Purple/20  rounded-xl p-2 text-sm  ${className}`
     // return <button {...rest} className={`button transition-colors ${className}`}>{children}</button>
     const elem = rest.href ?
         <Link className={classname} {...rest}>{children}</Link>
@@ -73,21 +73,17 @@ export const NavLink = ({ children, href, className, ...rest }) => {
     )
 }
 
+export const InputRadio = ({ children, className, ...rest }) => {
 
-export const InputRadio = ({ className, ...rest }) => {
-    const color = (
-            <input
-                {...rest}
-                type="radio"
-                className={`disabled: rounded-md border border-solid border-gray appearance-none ring-offset-1 ring-Purple/80 checked:ring ${className}`}
-                style={{ backgroundColor: rest.color }}
-                name={rest.name} />
+    return (
+
+        <button {...rest}
+            type="radio"
+            style={{ backgroundColor: rest.color }}
+            className="relative  min-w-12 leading-2 px-4 py-1 rounded-full border border-gray checked:ring-2 disabled:text-gray disabled:cursor-not-allowed  disabled:before:absolute before:inset-x-0 before:h-px before:bg-gray before:-z-10 z-10 before:-rotate-45 flex justify-center items-center overflow-hidden"
+        >
+            {children}
+        </button>
+
     )
-    const size = (
-        <label className="relative">
-            <input {...rest} type="radio" className="peer appearance-none absolute" name={rest.name} />
-            <span className={`block  text-center rounded-md ring-offset-1 ring-Purple/80 peer-checked:ring ${className}`} >{rest.label}</span>
-        </label>
-    )
-    return rest.color ? color : size
 }

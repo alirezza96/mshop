@@ -9,6 +9,7 @@ import {
   categories,
   colors,
   sizes,
+  productVariants,
 } from '@/app/lib/placeHolderData';
 import { hashPassword } from '@/app/lib/auth';
 
@@ -157,7 +158,7 @@ async function seedCategories() {
     categories.map(
       (category) => client.sql`
         INSERT INTO categories (id, title, label) 
-        VALUES (${category.id}, ${category.title}, ${category.label})
+        VALUES (${category.id}, ${category.title}, ${category.english_name})
       `
     )
   )
@@ -167,42 +168,65 @@ async function seedColors() {
   await client.sql`DROP TABLE IF EXISTS colors`
   await client.sql`
     CREATE TABLE colors (
-      title VARCHAR(12),
-      hex VARCHAR(12)
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(12) NOT NULL,
+      color VARCHAR(8) NOT NULL
     )
   `
   const insertedColors = await Promise.all(
     colors.map(
       (item) => client.sql`
-        INSERT INTO colors (title, hex)
-        VALUES (${item.title}, ${item.hex})
+        INSERT INTO colors (name, color)
+        VALUES (${item.name}, ${item.color})
       `
     )
   )
   return insertedColors
 }
-async function seedSizes() {
-  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
+async function seedSizes() {
   await client.sql`DROP TABLE IF EXISTS sizes`
   await client.sql`
     CREATE TABLE sizes (
-      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-      title VARCHAR(20),
-      size VARCHAR(20)
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(20) NOT NULL,
+      size VARCHAR(20) NOT NULL
     )
   `
   const insertedSizes = await Promise.all(
     sizes.map(
       (item) => client.sql`
-        INSERT INTO sizes (id,title, size)
-        VALUES (${item.id},${item.title}, ${item.size})
+        INSERT INTO sizes (name, size)
+        VALUES (${item.name}, ${item.size})
       `
     )
   )
   return insertedSizes
 }
 
+
+async function seedProductVariants() {
+  await client.sql`DROP TABLE IF EXISTS product_variants`
+
+  await client.sql`
+    CREATE TABLE product_variants(
+      id SERIAL PRIMARY KEY,
+      product_id UUID NOT NULL REFERENCES products(id),
+      color_id INT NOT NULL REFERENCES colors(id),
+      size_id INT NOT NULL REFERENCES sizes(id),
+      inventory INT NOT NULL
+    )
+  `
+  const insertedProductsVariants = Promise.all(
+    productVariants.map(
+      (item) => client.sql`
+        INSERT INTO product_variants(product_id, color_id, size_id, inventory)
+        VALUES (${item.product_id},${item.color_id},${item.size_id},${item.inventory})
+      `
+    )
+  )
+  return insertedProductsVariants
+}
 
 
 async function seedProducts() {
@@ -211,11 +235,8 @@ async function seedProducts() {
   await client.sql`
     CREATE TABLE products (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-      title VARCHAR(255) NOT NULL,
-      label VARCHAR(255),
-      hex CHAR(12),
-      size_id UUID,
-      category_id UUID NOT NULL,
+      name VARCHAR(255) NOT NULL,
+      english_name VARCHAR(255),
       thumbnail_url VARCHAR(255) NOT NULL
     );
   `;
@@ -223,8 +244,8 @@ async function seedProducts() {
   const insertedProducts = await Promise.all(
     products.map(
       (product) => client.sql`
-        INSERT INTO products (id, title, label, hex, size_id, category_id, thumbnail_url)
-        VALUES (${product.id} ,${product.title}, ${product.label},${product.hex},${product.size_id}, ${product.category_id}, ${product.thumbnail_url})
+        INSERT INTO products (id, name, english_name, thumbnail_url)
+        VALUES (${product.id} ,${product.name}, ${product.english_name}, ${product.thumbnail_url})
       `,
     ),
   );
@@ -245,10 +266,11 @@ export async function GET() {
     await seedInvoices();
     await seedInvoicesDetail();
     await seedRevenue();
-    await seedCategories();
+    // await seedCategories();
     await seedProducts();
     await seedColors();
     await seedSizes();
+    await seedProductVariants();
     await client.sql`COMMIT`;
 
     return Response.json({ message: 'Database seeded successfully' });

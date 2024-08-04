@@ -17,7 +17,7 @@ export default function Roadmap() {
                         className={pathname === item.href ? "scale-105" : "scale-95 grayscale text-black/60"}
                     >
                         <div className="w-6 leading-6 bg-pink/30 rounded-full mx-auto">{index + 1}</div>
-                        <div>{item.label}</div>
+                        <div>{item.english_name}</div>
                     </li>
 
                 ))

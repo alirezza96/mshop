@@ -1,9 +1,8 @@
 import Breadcrumb from "@/app/components/modules/Breadcrumb"
 import Image from "next/image"
-import cover from "/public/products/01.webp"
 import { HeartIcon } from "@heroicons/react/24/outline"
 import Form from "@/app/components/templates/(website)/products/[id]/create-form"
-import { fetchProductById } from "@/app/lib/data"
+import { fetchProductById, fetchProductColorsById, fetchProductSizesById } from "@/app/lib/data"
 import { notFound } from "next/navigation"
 
 export const generateMetadata = async ({ params }) => {
@@ -21,45 +20,23 @@ const breadcrumbs = [
     { label: "زنانه", href: "womans" },
     { label: "دامن", href: "skirt" },
 ]
-const colors = [
-    "red", "yellow", "blue", "purple", "black", "white"
-]
-const sizes = [
-    "xs", "sm", "ms", "lg", "xl", "xxl"
-]
-const page = async ({ params, searchParams }) => {
+
+const page = async ({ params }) => {
     const id = params.id
-    const data = await fetchProductById(id)
-    console.log("res =>", data)
-    return "product page"
-    const colors = data.map(product => {
-        return {
-            name: product.name,
-            color: product.color,
-            quantity: product.quantity
-        }
-    }
-    )
-    const sizes = data.map(product => {
-        return {
-            name: product.name,
-            size: product.size,
-            quantity: product.quantity
-        }
-    }
-    )
-    console.log("colors =>", colors)
+    const product = await fetchProductById(id)
+    const colors = await fetchProductColorsById(id)
+    const sizes = await fetchProductSizesById(id)
     const like = true
     return (
         <div>
             <Breadcrumb breadcrumbs={breadcrumbs} />
             <div className="my-3 flex gap-x-8 ">
-                 <Image
-                 src={product?.thumbnail_url ? product.thumbnail_url : cover}
-                 alt={`تصویر محصول ${product.name}`}
-                 height={540}
-                 width={405}
-                 className="rounded-lg disabled-drag" />
+                <Image
+                    src={ product.thumbnail_url}
+                    alt={`تصویر محصول ${product.name}`}
+                    height={540}
+                    width={405}
+                    className="rounded-lg disabled-drag" />
                 <div className="flex-auto flex flex-col justify-between min-h-[540px] ">
                     <div className="space-y-[10px]">
 
@@ -76,7 +53,6 @@ const page = async ({ params, searchParams }) => {
                                 {product.id}
                             </span>
                         </p>
-
                         <Form id={id} colors={colors} sizes={sizes} />
 
                     </div>

@@ -12,7 +12,7 @@ const Breadcrumb = ({ breadcrumbs }) => {
               <ChevronLeftIcon className={`w-4 h-4 text-Purple stroke-2 ${index === 0 ? "hidden" : ""}`} />
               <Link href={breadcrumb.href} className={`text-sm font-medium text-Fuchsia hover:bg-Purple/10 hover:text-Purple rounded-xl p-2 ${breadcrumb.active ? "font-bold text-Purple child:stroke-Purple" : ""}`}>
 
-                {breadcrumb.label}
+                {breadcrumb.english_name}
               </Link>
             </div>
           </li>

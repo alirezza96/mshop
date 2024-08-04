@@ -16,7 +16,7 @@ const page = async ({ searchParams }) => {
                                 key={product.id}
                                 href={product.id}
                                 fa={product.name}
-                                en={product.label}
+                                en={product.english_name}
                                 src={product.thumbnail_url}
                             />
                         ))

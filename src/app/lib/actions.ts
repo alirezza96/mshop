@@ -8,7 +8,7 @@ import { z } from "zod"
 import path from "path"
 import { writeFile } from "fs/promises"
 import { comparePassword, generateToken, tokenPayload } from "@/app/lib/auth"
-import { cookies } from "next/headers"
+import { cookies, headers } from "next/headers"
 import { formatDateToLocal } from "./utils"
 //invoices
 const InvoiceFormSchema = z.object({
@@ -52,6 +52,7 @@ export type State = {
 };
 
 export async function createInvoice(productId: string, prevState: State, formData: FormData) {
+  const header = headers()
   // Validate form using Zod
   const data = {
     color: formData.get("color"),
@@ -66,8 +67,9 @@ export async function createInvoice(productId: string, prevState: State, formDat
   }
   const { color, size } = validateFields.data
   const payload = await tokenPayload()
+  const pathname = header.get("referer")
   if (!payload) {
-    return redirect("/register")
+    return redirect(`/register?fallback=${pathname}`)
   }
   const customerId = payload.id
   try {
@@ -322,6 +324,11 @@ export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
 ) {
+  const pathname = headers().get("referer")
+  const url = new URL(pathname)
+  const searchParams = new URLSearchParams(url.search)
+
+
   const validatedFields = authenticateFormSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password")
@@ -361,6 +368,7 @@ export async function authenticate(
       message: "Database Error"
     }
   }
+  if (searchParams.has("fallback")) return redirect(searchParams.get("fallback"))
   redirect("/dashboard")
 }
 

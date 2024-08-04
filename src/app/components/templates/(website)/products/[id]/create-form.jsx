@@ -1,9 +1,10 @@
 "use client"
 import { createInvoice } from "@/app/lib/actions"
 import { formatCurrency } from "@/app/lib/utils"
-import { useActionState } from "react"
-import { InputRadio } from "@/app/components/modules/form"
+import { useActionState, useOptimistic } from "react"
+import { InputRadio, Button } from "@/app/components/modules/form"
 import { useSearchParams, useRouter, usePathname } from "next/navigation"
+import ErrorMessage from "@/app/components/modules/ErrorMessage"
 // import { useSearchParams } from "next/navigation"
 export default function Form({ colors, sizes, id }) {
     const pathname = usePathname()
@@ -23,104 +24,78 @@ export default function Form({ colors, sizes, id }) {
     }
 
 
-
     const totalPrice = 1_180_000
     const initialState = { errors: {}, message: null }
     const add2CartWithId = createInvoice.bind(null, id)
+
+
     const [errorsMessage, formAction, pending] = useActionState(add2CartWithId, initialState)
     return (
-        <form
-            action={formAction}
+        <div
+            // action={formAction}
+            className="space-y-[10px]"
         >
-            <div className="space-y-[10px]">
-                <div className="flex items-center justify-between">
-                    <span>
-                        رنگ بندی:
-                    </span>
-                    <div className="flex gap-x-[6px]">
-                        {
-                            colors?.map((item) => (
-                                <InputRadio
-                                    onChange={(e) => changeHandler("color", e.target.value)}
-                                    disabled={!item.quantity}
-                                    key={item.color}
-                                    name="color"
-                                    id={item.color}
-                                    value={item.color}
-                                    color={item.color}
-                                    className={`w-6 h-6 ${!item.quantity ? "cursor-not-allowed" : "cursor-pointer"}`} />
-                            ))
+            <div>
+                <p className="font-morabba py-1">
+                    رنگ:
+                </p>
+                <div className="flex gap-x-[6px]">
+                    {
+                        colors?.map((item) => (
+                            <InputRadio
+                                key={item.color}
+                                name="color"
+                                type="button"
+                                onClick={() => changeHandler(item.color)}
+                                disabled={!item.inventory}
+                            >
+                                {item.name}
+                            </InputRadio>
+                        ))
 
-                        }
-                    </div>
-                </div>
-                <div>
-                    {
-                        errorsMessage &&
-                        errorsMessage.errors.color?.map((error) => (
-                            <p
-                                key={error}
-                                className="mt-2 text-sm text-pink bg-pink/5">
-                                {error}
-                            </p>
-                        ))
                     }
-                </div>
-                <div className="flex items-center justify-between">
-                    <span>
-                        سایز بندی:
-                    </span>
-                    <div className="flex gap-x-[6px]">
-                        {
-                            sizes?.map((item) => (
-                                <InputRadio
-                                    onChange={e => changeHandler("size", e.target.value)}
-                                    key={item}
-                                    name="size"
-                                    id={item}
-                                    value={item}
-                                    label={item}
-                                    className={"border border-solid border-gray min-w-6"} />
-                            ))
-                        }
-                    </div>
-                </div>
-                <div>
-                    {
-                        errorsMessage &&
-                        errorsMessage.errors.size?.map((error) => (
-                            <p
-                                key={error}
-                                className="mt-2 text-sm text-pink bg-pink/5">
-                                {error}
-                            </p>
-                        ))
-                    }
-                </div>
-                <div className="border-t border-dashed ">
-                    <div>
-                        {
-                            errorsMessage &&
-                            <p className="mt-2 text-sm text-pink bg-pink/5">
-                                {errorsMessage.message}
-                            </p>
-                        }
-                    </div>
-                    <div className="flex justify-between items-center ">
-                        <button
-                            type="submit"
-                            disabled={pending}
-                            className={`${pending && "animate-pulse cursor-not-allowed"} bg-Purple hover:bg-dark-purple text-white p-2 my-1 rounded-md min-w-24 cursor-pointer font-morabba`}>
-                            افزودن به سبد خرید
-                        </button>
-                        <span className="font-bold">
-                            {formatCurrency(totalPrice)}
-                        </span>
-                    </div>
                 </div>
             </div>
-
-        </form>
+            {
+                errorsMessage.errors.color?.map(error => <ErrorMessage key={error} error={error} />)
+            }
+            <div>
+                <p className="font-morabba py-1">
+                    سایز:
+                </p>
+                <div className="flex gap-x-[6px]">
+                    {
+                        sizes?.map((item) => (
+                            <InputRadio
+                                key={item.size}
+                                name="size"
+                                type="button"
+                                onClick={() => changeHandler("size", item.size)}
+                                disabled={!item.inventory}
+                            >
+                                {item.size}
+                            </InputRadio>
+                        ))
+                    }
+                </div>
+            </div>
+            <div>
+                {
+                    errorsMessage.errors.size?.map(error => <ErrorMessage key={error} error={error} />)
+                }
+            </div>
+            <div className="flex justify-between items-center ">
+                <Button
+                    type="submit"
+                    disabled={pending}
+                    className={`${pending && "animate-pulse cursor-not-allowed"} `}>
+                    افزودن به سبد خرید
+                </Button>
+                <span className="font-bold">
+                    {formatCurrency(totalPrice)}
+                </span>
+            </div>
+        </div>
     )
 }
 

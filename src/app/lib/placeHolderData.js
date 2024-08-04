@@ -67,111 +67,120 @@ const customers = [
 const categories = [
   {
     id: randomUUID(),
-    title: 'جوراب',
-    label: 'tights',
+    name: 'جوراب',
+    english_name: 'tights',
   },
   {
     id: randomUUID(),
-    title: 'تیشرت',
-    label: 'tee-shirt',
+    name: 'تیشرت',
+    english_name: 'tee-shirt',
   },
   {
     id: randomUUID(),
-    title: 'هودی',
-    label: 'hoodies',
+    name: 'هودی',
+    english_name: 'hoodies',
   },
   {
     id: randomUUID(),
-    title: 'جین',
-    label: 'jeans',
+    name: 'جین',
+    english_name: 'jeans',
   },
 ];
 
 const colors = [
   {
-    title: "قرمز",
-    hex: "ff0000",
+    name: "زرد",
+    color: "ffff00",
   },
   {
-    title: "زرد",
-    hex: "ffff00",
+    name: "قرمز",
+    color: "ff0000",
   },
   {
-    title: "آبی",
-    hex: "0000ff",
+    name: "صورتی",
+    color: "ff00ff",
   },
   {
-    title: "صورتی",
-    hex: "ff00ff",
+    name: "فیروزه ای",
+    color: "00ffff",
   },
 ]
 const sizes = [
   {
-    id: randomUUID(),
-    title: "کوچک",
+    name: "کوچک",
     size: "sm",
   },
   {
-    id: randomUUID(),
-    title: "بزرگ",
+    name: "بزرگ",
     size: "lg",
   },
   {
-    id: randomUUID(),
-    title: "متوسط",
+    name: "متوسط",
     size: "md",
   },
   {
-    id: randomUUID(),
-    title: "خیلی بزرگ",
+    name: "خیلی بزرگ",
     size: "xl",
   },
 ]
+
 const products = [
   {
     id: randomUUID(),
-    title: "جوراب زنانه ماییلدا مدل 4216 بسته 5 عددی",
-    label: "",
-    hex: colors[0].hex,
-    size_id: sizes[0].id,
-    inventory: 2000,
-    category_id: categories[0].id,
+    name: "جوراب زنانه ماییلدا مدل 4216 بسته 5 عددی",
+    english_name: "",
     thumbnail_url: "/products/03.jpg"
   },
 
   {
     id: randomUUID(),
-    title: "تی شرت آستین کوتاه زنانه مدل سه خرس و نوشیدنی",
-    label: "",
-    hex: colors[1].hex,
-    size_id: sizes[1].id,
-    inventory: 2000,
-    category_id: categories[1].id,
+    name: "تی شرت آستین کوتاه زنانه مدل سه خرس و نوشیدنی",
+    english_name: "",
     thumbnail_url: "/products/02.jpg"
   },
 
   {
     id: randomUUID(),
-    title: "هودی زنانه مدل فانتزی کره ای",
-    label: "",
-    hex: colors[2].hex,
-    size_id: sizes[2].id,
-    inventory: 2000,
-    category_id: categories[2].id,
+    name: "هودی زنانه مدل فانتزی کره ای",
+    english_name: "",
     thumbnail_url: "/products/01.jpg"
   },
 
   {
     id: randomUUID(),
-    title: "شلوار جین زنانه ایزی دو مدل 6264990873",
-    label: "",
-    hex: colors[3].hex,
-    size_id: sizes[3].id,
-    inventory: 2000,
-    category_id: categories[3].id,
+    name: "شلوار جین زنانه ایزی دو مدل 6264990873",
+    english_name: "",
     thumbnail_url: "/products/04.jpg"
   },
 ]
+
+const productVariants = [
+  {
+    product_id: products[0].id,
+    color_id: 1,
+    size_id: 1,
+    inventory: 50
+  },
+  {
+    product_id: products[1].id,
+    color_id: 1,
+    size_id: 2,
+    inventory: 30
+  },
+  {
+    product_id: products[2].id,
+    color_id: 2,
+    size_id: 1,
+    inventory: 20
+  },
+  {
+    product_id: products[3].id,
+    color_id: 2,
+    size_id: 2,
+    inventory: 10
+  },
+]
+
 const invoices = [
   {
     id: randomUUID(),
@@ -289,6 +298,7 @@ export {
   , invoicesDetail
   , revenue
   , products
+  , productVariants
   , sizes
   , colors
   , categories

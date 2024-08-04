@@ -32,7 +32,7 @@ const Table = async ({ query, currentPage }: { query: string, currentPage: numbe
                                                 className="rounded-full"
                                                 width={48}
                                                 height={48}
-                                                alt={`${product.label}'s product picture`}
+                                                alt={`${product.english_name}'s product picture`}
                                             />
                                             : null
                                     }
