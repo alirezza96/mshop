@@ -1,8 +1,8 @@
-import Breadcrumb from "@/app/components/modules/Breadcrumb"
-import Pagination from "@/app/components/modules/pagination"
-import Table from "@/app/components/templates/admin/customers/Table"
-import TableHeader from "@/app/components/templates/admin/TableHeader"
-import { fetchCustomers, fetchCustomersPage, fetchFilteredCustomers } from "@/app/lib/data"
+import Breadcrumb from "@/components/modules/Breadcrumb"
+import Pagination from "@/components/modules/pagination"
+import Table from "@/components/templates/admin/customers/Table"
+import TableHeader from "@/components/templates/admin/TableHeader"
+import { fetchCustomers, fetchCustomersPage, fetchFilteredCustomers } from "@/lib/data"
 import { Suspense } from "react"
 const breadcrumbs = [
     { label: "داشبورد", href: "/admin" },

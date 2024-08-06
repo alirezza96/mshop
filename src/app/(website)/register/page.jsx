@@ -1,8 +1,8 @@
 
 import cover from "/public/products/01.webp"
 import Image from "next/image"
-import RegisterForm from "@/app/components/templates/register/RegisterForm"
-import { tokenPayload } from "@/app/lib/auth"
+import RegisterForm from "@/components/templates/register/RegisterForm"
+import { tokenPayload } from "@/lib/auth"
 import { redirect } from "next/navigation"
 
 export const metadata = {

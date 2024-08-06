@@ -1,4 +1,4 @@
-import { Button } from "@/app/components/modules/form"
+import { Button } from "@/components/modules/form"
 import { FaceFrownIcon, HomeIcon } from '@heroicons/react/24/outline';
 const NotFound = () => {
   return (

@@ -1,8 +1,8 @@
-import Breadcrumb from "@/app/components/modules/Breadcrumb"
+import Breadcrumb from "@/components/modules/Breadcrumb"
 import Image from "next/image"
 import { HeartIcon } from "@heroicons/react/24/outline"
-import Form from "@/app/components/templates/(website)/products/[id]/create-form"
-import { fetchProductById, fetchProductColorsById, fetchProductSizesById } from "@/app/lib/data"
+import Form from "@/components/templates/(website)/products/[id]/create-form"
+import { fetchProductById, fetchProductColorsById, fetchProductSizesById } from "@/lib/data"
 import { notFound } from "next/navigation"
 
 export const generateMetadata = async ({ params }) => {

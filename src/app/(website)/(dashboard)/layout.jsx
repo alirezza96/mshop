@@ -1,4 +1,4 @@
-import { tokenPayload } from "@/app/lib/auth"
+import { tokenPayload } from "@/lib/auth"
 import { redirect } from "next/navigation"
 
 export default async function layout({ children }) {

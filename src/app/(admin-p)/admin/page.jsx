@@ -1,12 +1,12 @@
-import CardWrapper from '@/app/components/templates/(admin-p)/admin/cards';
-import RevenueChart from '@/app/components/templates/(admin-p)/admin/revenue-chart';
-// import LatestInvoices from '@/app/components/templates/(admin-p)/admin/latest-invoices';
+import CardWrapper from '@/components/templates/(admin-p)/admin/cards';
+import RevenueChart from '@/components/templates/(admin-p)/admin/revenue-chart';
+// import LatestInvoices from '@/components/templates/(admin-p)/admin/latest-invoices';
 import { Suspense } from 'react';
 import {
   RevenueChartSkeleton,
   LatestInvoicesSkeleton,
   CardsSkeleton,
-} from '@/app/components/modules/skeletons';
+} from '@/components/modules/skeletons';
 
 export default async function Page() {
   return (

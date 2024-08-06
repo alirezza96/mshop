@@ -1,11 +1,11 @@
-import Breadcrumb from '@/app/components/modules/Breadcrumb';
-import TableHeader from '@/app/components/templates/admin/TableHeader';
-import Table from "@/app/components/templates/admin/products/Table"
+import Breadcrumb from '@/components/modules/Breadcrumb';
+import TableHeader from '@/components/templates/admin/TableHeader';
+import Table from "@/components/templates/admin/products/Table"
 import { Metadata } from 'next';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { Suspense } from 'react';
-import Pagination from '@/app/components/modules/pagination';
-import { fetchProductsPages } from '@/app/lib/data';
+import Pagination from '@/components/modules/pagination';
+import { fetchProductsPages } from '@/lib/data';
 
 export const metadata: Metadata = {
   title: "محصولات"

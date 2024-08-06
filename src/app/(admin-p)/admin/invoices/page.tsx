@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
 import { Suspense } from 'react';
-import { fetchInvoicesPages } from '@/app/lib/data';
-import Table from '@/app/components/templates/admin/invoices/table';
-import Breadcrumb from '@/app/components/modules/Breadcrumb';
+import { fetchInvoicesPages } from '@/lib/data';
+import Table from '@/components/templates/admin/invoices/table';
+import Breadcrumb from '@/components/modules/Breadcrumb';
 import { PlusIcon } from '@heroicons/react/24/outline';
-import Pagination from '@/app/components/modules/pagination';
-import { TableRowSkeleton } from '@/app/components/modules/skeletons';
-import TableHeader from "@/app/components/templates/admin/TableHeader"
+import Pagination from '@/components/modules/pagination';
+import { TableRowSkeleton } from '@/components/modules/skeletons';
+import TableHeader from "@/components/templates/admin/TableHeader"
 export const metadata: Metadata = {
     title: 'سفارشات',
 };

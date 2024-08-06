@@ -10,8 +10,8 @@ import {
   colors,
   sizes,
   productVariants,
-} from '@/app/lib/placeHolderData';
-import { hashPassword } from '@/app/lib/auth';
+} from '@/lib/placeHolderData';
+import { hashPassword } from '@/lib/auth';
 
 const client = await db.connect();
 
