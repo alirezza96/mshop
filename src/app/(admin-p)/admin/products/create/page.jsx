@@ -1,6 +1,6 @@
-import Form from "@/components/templates/admin/products/create-form"
+import Form from "@templates/admin/products/create-form"
 import { fetchCategories, fetchCustomers } from '@/lib/data';
-import Breadcrumb from '@/components/modules/Breadcrumb';
+import Breadcrumb from '@modules/Breadcrumb';
 const breadcrumbs = [
   { label: 'داشبورد', href: '/admin' },
   { label: 'محصولات', href: '.' },

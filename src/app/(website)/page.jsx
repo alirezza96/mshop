@@ -1,9 +1,9 @@
 import { Suspense } from "react";
-import Landing from "@/components/templates/page/Landing";
-import LatestProducts from "@/components/templates/page/LatestProducts";
-import PopularProducts from "@/components/templates/page/PopularProducts";
-import ProductsContainer from "@/components/templates/page/ProductsContainer";
-import { CardsSkeleton } from "@/components/modules/skeletons";
+import Landing from "@templates/page/Landing";
+import LatestProducts from "@templates/page/LatestProducts";
+import PopularProducts from "@templates/page/PopularProducts";
+import ProductsContainer from "@templates/page/ProductsContainer";
+import { CardsSkeleton } from "@modules/skeletons";
 export const metadata = {
   title: "صفحه اصلی | بنفش شاپ"
 }

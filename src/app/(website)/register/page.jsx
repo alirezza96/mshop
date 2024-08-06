@@ -1,7 +1,7 @@
 
 import cover from "/public/products/01.webp"
 import Image from "next/image"
-import RegisterForm from "@/components/templates/register/RegisterForm"
+import RegisterForm from "@templates/register/RegisterForm"
 import { tokenPayload } from "@/lib/auth"
 import { redirect } from "next/navigation"
 

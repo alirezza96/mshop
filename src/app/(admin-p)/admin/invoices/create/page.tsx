@@ -1,6 +1,6 @@
-import Form from '@/components/templates/admin/invoices/create-form';
+import Form from '@templates/admin/invoices/create-form';
 import { fetchCustomers } from '@/lib/data';
-import Breadcrumb from '@/components/modules/Breadcrumb';
+import Breadcrumb from '@modules/Breadcrumb';
 const breadcrumbs = [
     { label: 'داشبورد', href: '/admin' },
     { label: 'سفارشات', href: '/admin/invoices', },

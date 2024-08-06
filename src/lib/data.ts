@@ -10,9 +10,9 @@ import {
   Product,
   Revenue,
 } from './definitions';
-
 import { formatCurrency, formatDateToLocal, formatNumber } from './utils';
 import { tokenPayload } from './auth';
+import {validate, v4} from 'uuid';
 
 export async function fetchRevenue() {
   try {
@@ -179,17 +179,18 @@ export async function fetchProductsPages(query: string) {
 
 export async function fetchProductById(id: string, size: string, color: string) {
   try {
+
+    if(!validate(id)) return false
     const data = await sql`
     select *
-		 from products as p
-       where p.id =${id}
-  `
+    from products as p
+    where p.id =${id}
+    `
     return data.rows[0]
   } catch (error) {
     console.error("Database error =>", error)
     throw new Error("failed to fetch product by id")
   }
-
 }
 export async function fetchProductColorsById(id: string) {
   const colors = await sql`

@@ -34,7 +34,7 @@ const CardProduct = ({ href, fa, en, src }) => {
                     }
                 </div>
             </Link>
-            <div className="p-1 text-sm flex flex-col justify-between  min-h-40">
+            <div className="p-1 text-sm flex flex-col justify-between  min-h-40 overflow-hidden">
                 <div className="space-y-1   ">
                     <Link href={`/products/${href}`} className="line-clamp-2 min-h-10">
                         {fa}

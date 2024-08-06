@@ -1,7 +1,7 @@
-import CardProduct from "@/components/modules/cards/CardProduct"
+import CardProduct from "@modules/cards/CardProduct"
 import { fetchFilteredProducts, fetchProducts, fetchProductsPages } from "@/lib/data"
-import ProductsContainer from "@/components/templates/page/ProductsContainer"
-import Pagination from "@/components/modules/pagination"
+import ProductsContainer from "@templates/page/ProductsContainer"
+import Pagination from "@modules/pagination"
 const page = async ({ searchParams }) => {
     const { q: query, page: currentPage = 1 } = searchParams
     const products = await fetchFilteredProducts(query, currentPage)

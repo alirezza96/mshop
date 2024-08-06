@@ -1,5 +1,5 @@
 import { fetchPreOrders } from "@/lib/data"
-import PreOrderDetail from "@/components/templates/(website)/cart/page/order-detail"
+import PreOrderDetail from "@templates/(website)/cart/page/order-detail"
 import { Suspense } from "react"
 
 export const metadata = {

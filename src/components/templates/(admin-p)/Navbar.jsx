@@ -1,6 +1,6 @@
-import { Button, NavLink } from "@/components/modules/form"
+import { Button, NavLink } from "@modules/form"
 import { Bars3Icon, GlobeAltIcon, HomeIcon } from "@heroicons/react/24/outline"
-import ProfileOptions from "@/components/modules/profile-options"
+import ProfileOptions from "@modules/profile-options"
 const Navbar = () => {
     return (
         <div style={{ padding: "0 5px" }} className="h-12 flex items-center gap-x-1 lg:gap-x-2">

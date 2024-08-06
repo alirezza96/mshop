@@ -1,4 +1,4 @@
-import Breadcrumb from "@/components/modules/Breadcrumb"
+import Breadcrumb from "@modules/Breadcrumb"
 import { fetchCustomers, fetchInvoiceById } from "@/lib/data"
 
 const page = async ({ params }) => {

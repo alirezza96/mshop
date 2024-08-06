@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { createInvoice, State } from '@/lib/actions';
 import { useActionState } from 'react';
-import { Select } from '@/components/modules/form';
+import { Select } from '@modules/form';
 export default function Form({ customers }: { customers: CustomerField[] }) {
   const initialState: State = { message: null, errors: {} };
   const [state, formAction] = useActionState(createInvoice, initialState);

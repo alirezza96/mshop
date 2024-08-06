@@ -1,4 +1,4 @@
-import { Button } from "@/components/modules/form"
+import { Button } from "@modules/form"
 import { fetchFilteredProducts } from "@/lib/data"
 import { formatNumber } from "@/lib/utils"
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline"

@@ -1,4 +1,4 @@
-import { Button, Input } from "@/components/modules/form"
+import { Button, Input } from "@modules/form"
 import { createCustomer } from "@/lib/actions"
 const Form = () => {
     return (

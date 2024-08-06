@@ -3,7 +3,7 @@ import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { formatNumber, generatePagination } from '@/lib/utils';
-import { Button } from '@/components/modules/form';
+import { Button } from '@modules/form';
 
 export default function Pagination({ totalPages }: { totalPages: number }) {
   const pathname = usePathname()

@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { formatCurrency } from "@/lib/utils"
-import Counter from "@/components/modules/Counter"
+import Counter from "@modules/Counter"
 export default async function PrePreOrderDetail({ preOrders, className }) {
     return (
         <ol className={`flex-1 space-y-1 text-sm ${className}`}>

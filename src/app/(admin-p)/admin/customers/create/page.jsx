@@ -1,6 +1,6 @@
-import Breadcrumbs from '@/components/modules/Breadcrumb';
+import Breadcrumbs from '@modules/Breadcrumb';
 import { fetchCategories, fetchCustomers } from '@/lib/data';
-import Form from "@/components/templates/admin/customers/create-form"
+import Form from "@templates/admin/customers/create-form"
 export default async function Page() {
     const categories = await fetchCategories();
     const customers = await fetchCustomers()

@@ -1,5 +1,5 @@
 "use client"
-import { Button, Input } from "@/components/modules/form"
+import { Button, Input } from "@modules/form"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { useSearchParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"

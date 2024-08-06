@@ -1,5 +1,5 @@
-import { Button } from '@/components/modules/form';
-import Search from '@/components/modules/Search';
+import { Button } from '@modules/form';
+import Search from '@modules/Search';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 
 const TableHeader = ({ title, href }) => {

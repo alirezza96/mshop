@@ -1,10 +1,10 @@
-import { Button, NavLink } from "@/components/modules/form"
+import { Button, NavLink } from "@modules/form"
 import { ShoppingCartIcon, Bars3Icon, HomeIcon } from "@heroicons/react/24/outline"
-import Search from "@/components/modules/Search"
+import Search from "@modules/Search"
 import Basket from "./Basket"
 import { Suspense } from "react"
-import { BasketContentSkeleton } from "@/components/modules/skeletons"
-import ProfileOptions from "@/components/modules/profile-options"
+import { BasketContentSkeleton } from "@modules/skeletons"
+import ProfileOptions from "@modules/profile-options"
 export default async function Navbar() {
 
 

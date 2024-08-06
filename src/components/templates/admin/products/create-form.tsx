@@ -1,6 +1,6 @@
 "use client"
 import { createProduct } from '@/lib/actions';
-import { Button, Input, Select } from '@/components/modules/form';
+import { Button, Input, Select } from '@modules/form';
 import { useActionState } from 'react';
 import { CategoryField } from '@/lib/definitions';
 

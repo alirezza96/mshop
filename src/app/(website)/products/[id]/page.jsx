@@ -1,17 +1,17 @@
-import Breadcrumb from "@/components/modules/Breadcrumb"
+import Breadcrumb from "@modules/Breadcrumb"
 import Image from "next/image"
 import { HeartIcon } from "@heroicons/react/24/outline"
-import Form from "@/components/templates/(website)/products/[id]/create-form"
+import Form from "@templates/(website)/products/[id]/create-form"
 import { fetchProductById, fetchProductColorsById, fetchProductSizesById } from "@/lib/data"
 import { notFound } from "next/navigation"
 
-export const generateMetadata = async ({ params }) => {
-    const product = await fetchProductById(params.id)
-    if (!product) return notFound()
-    return {
-        title: product.name
-    }
-}
+// export const generateMetadata = async ({ params }) => {
+//     const product = await fetchProductById(params.id)
+//     if (!product) return notFound()
+//     return {
+//         title: product.name
+//     }
+// }
 
 
 
@@ -24,6 +24,7 @@ const breadcrumbs = [
 const page = async ({ params }) => {
     const id = params.id
     const product = await fetchProductById(id)
+    if(!product) notFound()
     const colors = await fetchProductColorsById(id)
     const sizes = await fetchProductSizesById(id)
     const like = true

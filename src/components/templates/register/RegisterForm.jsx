@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { Input } from "@/components/modules/form"
+import { Input } from "@modules/form"
 import { useActionState } from 'react';
 import { authenticate } from '@/lib/actions';
 const RegisterForm = () => {

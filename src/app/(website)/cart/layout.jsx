@@ -1,5 +1,5 @@
-import { Button, Input } from "@/components/modules/form"
-import Roadmap from "@/components/templates/(website)/cart/layout/roadmap"
+import { Button, Input } from "@modules/form"
+import Roadmap from "@templates/(website)/cart/layout/roadmap"
 import { ArrowLeftIcon } from "@heroicons/react/24/outline"
 export default function layout({ children }) {
     return (

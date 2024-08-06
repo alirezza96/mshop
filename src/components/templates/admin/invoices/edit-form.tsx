@@ -10,7 +10,7 @@ import {
 import Link from 'next/link';
 // import { updateInvoice, State } from '@/lib/actions';
 import { useActionState } from 'react';
-import { Button, Input, InputRadio, Select } from '@/components/modules/form';
+import { Button, Input, InputRadio, Select } from '@modules/form';
 import { updateInvoice, State } from '@/lib/actions';
 
 export default function EditInvoiceForm({

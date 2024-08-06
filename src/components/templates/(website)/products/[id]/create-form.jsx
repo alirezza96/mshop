@@ -2,9 +2,9 @@
 import { createInvoice } from "@/lib/actions"
 import { formatCurrency } from "@/lib/utils"
 import { useActionState, useOptimistic } from "react"
-import { InputRadio, Button } from "@/components/modules/form"
+import { InputRadio, Button } from "@modules/form"
 import { useSearchParams, useRouter, usePathname } from "next/navigation"
-import ErrorMessage from "@/components/modules/ErrorMessage"
+import ErrorMessage from "@modules/ErrorMessage"
 // import { useSearchParams } from "next/navigation"
 export default function Form({ colors, sizes, id }) {
     const pathname = usePathname()

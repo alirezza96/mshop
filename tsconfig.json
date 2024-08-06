@@ -19,7 +19,13 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ]
+      ],
+      "@modules/*": [
+        "./src/components/modules/*"
+      ],
+      "@templates/*": [
+        "./src/components/templates/*"
+      ],
     },
     "plugins": [
       {

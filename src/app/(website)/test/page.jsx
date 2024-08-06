@@ -1,4 +1,4 @@
-import { Button } from "@/components/modules/form"
+import { Button } from "@modules/form"
 
 const arr = [
     {

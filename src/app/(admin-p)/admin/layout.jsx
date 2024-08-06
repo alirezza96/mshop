@@ -1,6 +1,6 @@
-import Navbar from "@/components/templates/(admin-p)/Navbar"
-import SideNav from "@/components/templates/(admin-p)/SideNav"
-import Footer from "@/components/templates/(admin-p)/Footer"
+import Navbar from "@templates/(admin-p)/Navbar"
+import SideNav from "@templates/(admin-p)/SideNav"
+import Footer from "@templates/(admin-p)/Footer"
 export default async function layout({ children }){
     return (
         <main className="flex flex-col justify-between min-h-screen ">
