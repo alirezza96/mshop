@@ -24,36 +24,30 @@ const breadcrumbs = [
 const page = async ({ params }) => {
     const id = params.id
     const product = await fetchProductById(id)
-    if(!product) notFound()
+    if (!product) notFound()
     const colors = await fetchProductColorsById(id)
     const sizes = await fetchProductSizesById(id)
-    const like = true
+    const like = false
     return (
-        <div>
+        <div className="container">
             <Breadcrumb breadcrumbs={breadcrumbs} />
-            <div className="my-3 flex gap-x-8 ">
+            <div className="my-3 flex flex-col  md:flex-row gap-4 md:gap-8 ">
                 <Image
-                    src={ product.thumbnail_url}
+                    src={product.thumbnail_url}
                     alt={`تصویر محصول ${product.name}`}
                     height={540}
                     width={405}
-                    className="rounded-lg disabled-drag" />
-                <div className="flex-auto flex flex-col justify-between min-h-[540px] ">
+                    className="rounded-lg disabled-drag mx-auto" />
+                <div className="flex-auto flex flex-col justify-between  ">
                     <div className="space-y-[10px]">
 
                         <div className="flex justify-between gap-4">
-                            <h2 className="text-base">
+                            <h2 className="text-base font-morabba">
                                 {product.name}
                             </h2>
                             <HeartIcon className={`w-6 h-6 cursor-pointer hover:fill-Fuchsia/40 hover:text-Fuchsia ${like ? "fill-Purple text-Purple" : ""}`} />
                         </div>
                         <div className="h-px mt-4 bg-gray"></div>
-                        <p className="text-sm/7 text-black/60">
-                            کد محصول:
-                            <span className="text-ltr">
-                                {product.id}
-                            </span>
-                        </p>
                         <Form id={id} colors={colors} sizes={sizes} />
 
                     </div>

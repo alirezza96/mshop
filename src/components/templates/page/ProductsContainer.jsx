@@ -16,7 +16,7 @@ const ProductsContainer = ({ title, href = "#", children, className }) => {
 
 const ProductsHeader = ({ children, href }) => {
     return (
-        <div className="text-Fuchsia flex items-center gap-1 font-morabba divide-x-4 divide-y-4 divide-Fuchsia ">
+        <div className="text-Fuchsia flex items-center gap-1 font-morabba divide-x-4 divide-y-4 divide-Fuchsia">
             <h2 className="text-xl">
                 {children}
             </h2>

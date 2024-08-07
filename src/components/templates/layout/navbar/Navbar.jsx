@@ -9,13 +9,13 @@ export default async function Navbar() {
 
 
     return (
-        <div style={{ padding: "0 5px" }} className="h-12 flex items-center gap-x-1 lg:gap-x-2 fixed inset-x-0 bottom-0 md:top-2  md:container  box   z-50">
-            <div className="flex  items-center justify-between grow ">
+        <div className="p-2 h-12 flex items-center gap-x-1 lg:gap-x-2 fixed inset-x-0 bottom-0 md:top-2  md:container  box    z-50">
+            <div className="flex  items-center justify-between grow">
                 <div className="h-12 flex flex-row-reverse md:flex-row items-center gap-x-2">
                     <NavLink href="/" >
                         <HomeIcon className="w-6 h-6" />
                     </NavLink>
-                    <div className="hidden md:block w-px bg-gray h-8"></div>
+                    <Divider />
                     <div className="hidden md:flex md:gap-x-2 lg:gap-x-4 font-morabba">
                         <NavLink href={"/products"} className="group">
                             محصولات
@@ -45,12 +45,12 @@ export default async function Navbar() {
                 </div>
 
             </div>
-            <Search globalSearch={true} className="fixed top-0 inset-x-0 shadow-md md:shadow-none  md:relative md:rounded-xl" />
-            <div className="hidden md:block w-px bg-gray h-8"></div>
+            <Search globalSearch={true} className="fixed top-0 inset-x-0 shadow-md md:shadow-none  md:relative md:rounded-xl bg-pink" />
+            <Divider />
             <div className="group">
-                <NavLink href="/cart" className="p-2 inline-flex">
+                <button href="/cart" className="p-2 inline-flex">
                     <ShoppingCartIcon className="w-6 h-6 stroke-Fuchsia" />
-                </NavLink>
+                </button>
                 <Suspense fallback={<BasketContentSkeleton />}>
                     <Basket className=" invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200" />
                 </Suspense>
@@ -62,11 +62,9 @@ export default async function Navbar() {
         </div>
     )
 }
-
-
-
-
-
+const Divider = () => (
+    <div className="hidden md:block w-px bg-gray h-8"></div>
+)
 
 
 const LoggedIn = (isLoggedIn) => {

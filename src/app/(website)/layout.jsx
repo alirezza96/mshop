@@ -6,7 +6,7 @@ const layout = ({ children }) => {
         <div className="md:container  flex flex-col justify-between min-h-screen ">
             <div>
                 <Navbar />
-                <div className="h-16 "></div>
+                <div className="h-12 "></div>
                 {children}
             </div>
             <Footer className="my-12" />

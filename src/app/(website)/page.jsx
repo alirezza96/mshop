@@ -11,6 +11,7 @@ const Home = () => {
   return (
     <div className="space-y-4">
       <Landing />
+      <div className="container space-y-2">
       <ProductsContainer title="آخرین محصولات" href="/products?orderBy=latests">
         <Suspense fallback={<CardsSkeleton cards={4} />}>
           <LatestProducts />
@@ -21,6 +22,7 @@ const Home = () => {
           <PopularProducts />
         </Suspense>
       </ProductsContainer>
+      </div>
 
     </div>
   );

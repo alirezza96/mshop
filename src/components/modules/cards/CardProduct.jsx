@@ -13,11 +13,10 @@ const sizes = [
 const CardProduct = ({ href, fa, en, src }) => {
     const price = 1_800_000
     return (
-        <div className="group">
+        <div className="group bg-white rounded-lg">
             {/* image  */}
             <Link
                 href={`/products/${href}`}
-                target="_blank"
                 className="disabled-drag"
             >
                 <div className="h-64 w-48 mx-auto">
@@ -34,47 +33,45 @@ const CardProduct = ({ href, fa, en, src }) => {
                     }
                 </div>
             </Link>
-            <div className="p-1 text-sm flex flex-col justify-between  min-h-40 overflow-hidden">
-                <div className="space-y-1   ">
-                    <Link href={`/products/${href}`} className="line-clamp-2 min-h-10">
+            <div className="p-1 text-sm flex flex-col justify-between  min-h-32 overflow-hidden">
+                    <Link href={`/products/${href}`} className="line-clamp-2 min-h-10 font-morabba font-thin">
                         {fa}
                     </Link>
-                    <div className="flex items-center justify-between">
-                        <span>
-                            رنگ بندی:
-                        </span>
-                        <div className="flex gap-x-1">
-                            {
-                                colors?.map((item, index) => (
-                                    <InputRadio key={index} name="color" disabled={true} color={item} className="w-3 h-3" />
-                                ))
-                            }
-                        </div>
-                    </div>
-                    <div className="flex items-center justify-between  ">
-                        <span className="">
-                            سایز بندی:
-                        </span>
-                        <div className=" flex gap-x-1 ">
 
-
-                            {
-                                sizes?.map((item, index) => (
-                                    <InputRadio key={index} name="size" label={item} disabled={true} />
-                                ))
-                            }
-                        </div>
+                    <div className="flex gap-x-1">
+                        {
+                            colors?.map(item => (
+                                <InputRadio
+                                    key={item}
+                                    name="color"
+                                    disabled={true}
+                                    color={item}
+                                    className="w-3 h-3"
+                                />
+                            ))
+                        }
                     </div>
-                    <div className="flex items-center justify-between  ">
-                        <span className="">
-                            قیمت:
-                        </span>
+                    <div className=" flex gap-x-1 ">
+                        {
+                            sizes?.map(item => (
+                                <InputRadio
+                                    key={item}
+                                    name="size"
+                                    disabled={true}
+                                    className="min-w-8"
+                                    >
+                                    {item}
+
+                                </InputRadio>
+                            ))
+                        }
+                    </div>
+                    <p>
                         {formatCurrency(price)}
-                    </div>
+                    </p>
 
 
 
-                </div>
             </div>
         </div>
     )

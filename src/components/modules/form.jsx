@@ -80,7 +80,7 @@ export const InputRadio = ({ children, className, ...rest }) => {
         <button {...rest}
             type="radio"
             style={{ backgroundColor: rest.color }}
-            className="relative  min-w-12 leading-2 px-4 py-1 rounded-full border border-gray checked:ring-2 disabled:text-gray disabled:cursor-not-allowed  disabled:before:absolute before:inset-x-0 before:h-px before:bg-gray before:-z-10 z-10 before:-rotate-45 flex justify-center items-center overflow-hidden"
+            className={`${className} relative   rounded-full border border-gray checked:ring-2 disabled:text-gray disabled:cursor-not-allowed  disabled:before:absolute before:inset-x-0 before:h-px before:bg-gray before:-z-10 z-10 before:-rotate-45 flex justify-center items-center overflow-hidden`}
         >
             {children}
         </button>

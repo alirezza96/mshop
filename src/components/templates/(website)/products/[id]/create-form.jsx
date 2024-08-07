@@ -4,7 +4,6 @@ import { formatCurrency } from "@/lib/utils"
 import { useActionState, useOptimistic } from "react"
 import { InputRadio, Button } from "@modules/form"
 import { useSearchParams, useRouter, usePathname } from "next/navigation"
-import ErrorMessage from "@modules/ErrorMessage"
 // import { useSearchParams } from "next/navigation"
 export default function Form({ colors, sizes, id }) {
     const pathname = usePathname()
@@ -26,10 +25,10 @@ export default function Form({ colors, sizes, id }) {
 
     const totalPrice = 1_180_000
     const initialState = { errors: {}, message: null }
-    const add2CartWithId = createInvoice.bind(null, id)
+    // const add2CartWithId = createInvoice.bind(null, id)
 
 
-    const [errorsMessage, formAction, pending] = useActionState(add2CartWithId, initialState)
+    // const [errorsMessage, formAction, pending] = useActionState(add2CartWithId, initialState)
     return (
         <div
             // action={formAction}
@@ -49,6 +48,7 @@ export default function Form({ colors, sizes, id }) {
                                 role="radio"
                                 onClick={() => changeHandler(item.color)}
                                 disabled={!item.inventory}
+                                className="min-w-14 min-h-2 px-4 py-1"
                             >
                                 {item.name}
                             </InputRadio>
@@ -57,9 +57,9 @@ export default function Form({ colors, sizes, id }) {
                     }
                 </div>
             </div>
-            {
+            {/* {
                 errorsMessage.errors.color?.map(error => <ErrorMessage key={error} error={error} />)
-            }
+            } */}
             <div>
                 <p className="font-morabba py-1">
                     سایز:
@@ -73,6 +73,8 @@ export default function Form({ colors, sizes, id }) {
                                 type="button"
                                 onClick={() => changeHandler("size", item.size)}
                                 disabled={!item.inventory}
+                                className="min-w-14 min-h-2 px-4 py-1"
+
                             >
                                 {item.size}
                             </InputRadio>
@@ -81,15 +83,16 @@ export default function Form({ colors, sizes, id }) {
                 </div>
             </div>
             <div>
-                {
+                {/* {
                     errorsMessage.errors.size?.map(error => <ErrorMessage key={error} error={error} />)
-                }
+                } */}
             </div>
             <div className="flex justify-between items-center ">
                 <Button
                     type="submit"
-                    disabled={pending}
-                    className={`${pending && "animate-pulse cursor-not-allowed"} `}>
+                // disabled={pending}
+                // className={`${pending && "animate-pulse cursor-not-allowed"} `}
+                >
                     افزودن به سبد خرید
                 </Button>
                 <span className="font-bold">

@@ -5,19 +5,19 @@ import { useSearchParams, useRouter } from "next/navigation"
 import { Suspense, useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-export default function Search() {
+export default function Search({className}) {
 
     return (
         <div className="group">
             <Suspense fallback="loading...">
-                <Form />
+                <Form className={className} />
             </Suspense>
             {/* <Result/> */}
         </div>
     )
 }
 
-const Form = () => {
+const Form = ({className}) => {
     const searchParams = useSearchParams()
     const params = new URLSearchParams(searchParams)
     const { replace } = useRouter()
@@ -36,7 +36,7 @@ const Form = () => {
 
     return (
 
-        <form onSubmit={submitHandler} className="bg-white px-2">
+        <form onSubmit={submitHandler} className={`bg-white px-2 ${className}`}>
             <Input
                 placeholder="جستجو"
                 name="search" type="search"
