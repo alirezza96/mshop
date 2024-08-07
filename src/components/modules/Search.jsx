@@ -2,14 +2,16 @@
 import { Button, Input } from "@modules/form"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { useSearchParams, useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 export default function Search() {
 
     return (
         <div className="group">
-            <Form />
+            <Suspense fallback="loading...">
+                <Form />
+            </Suspense>
             {/* <Result/> */}
         </div>
     )
@@ -18,8 +20,8 @@ export default function Search() {
 const Form = () => {
     const searchParams = useSearchParams()
     const params = new URLSearchParams(searchParams)
-    const {replace} = useRouter()
-    const changeHandler = (term: string) => {
+    const { replace } = useRouter()
+    const changeHandler = (term) => {
         if (term) {
             params.set("q", term)
         } else {
@@ -33,6 +35,7 @@ const Form = () => {
     }
 
     return (
+
         <form onSubmit={submitHandler} className="bg-white px-2">
             <Input
                 placeholder="جستجو"

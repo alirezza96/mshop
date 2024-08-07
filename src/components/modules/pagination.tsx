@@ -2,7 +2,7 @@
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { formatNumber, generatePagination } from '@/lib/utils';
+import {  generatePagination } from '@/lib/utils';
 import { Button } from '@modules/form';
 
 export default function Pagination({ totalPages }: { totalPages: number }) {
@@ -37,15 +37,11 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
             allPages.map(page => (
               <li key={page} className=' min-w-8 text-center '>
                 {
-                  isNaN(page) ?
-                    <span>
-                      {page}
-                    </span>
-                    :
+                  
                     <Link
                       className={`${currentPage === page ? "font-bold bg-Purple/20 text-Purple " : ""}  px-1 rounded-md hover:bg-Purple/10 hover:text-Purple block`}
                       href={createPageURL(page)}>
-                      {formatNumber(page)}
+                      {page}
                     </Link>
                 }
               </li>

@@ -9,23 +9,22 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 // import { updateInvoice, State } from '@/lib/actions';
-import { useActionState } from 'react';
+// import { useActionState } from 'react';
 import { Button, Input, InputRadio, Select } from '@modules/form';
 import { updateInvoice, State } from '@/lib/actions';
 
 export default function EditInvoiceForm({
     invoice,
     customers,
-}: {
-    invoice: InvoiceForm;
-    customers: CustomerField[];
 }) {
     const updateInvoiceWithId = updateInvoice.bind(null, invoice.id)
     const initialState = { errors: {}, message: null }
-    const [state, action] = useActionState(updateInvoiceWithId, initialState)
+    // const [state, action] = useActionState(updateInvoiceWithId, initialState)
 
     return (
-        <form action={action}>
+        <form
+        //  action={action}
+        >
             {/* Customer Name */}
             <div className="mb-4">
                 <Select
@@ -47,14 +46,14 @@ export default function EditInvoiceForm({
                     ))}
                 </Select>
 
-                <div id="customer-error" aria-live="polite" aria-atomic="true">
+                {/* <div id="customer-error" aria-live="polite" aria-atomic="true">
                         {state.errors?.customerId &&
                             state.errors.customerId.map((error: string) => (
                                 <p className="mt-2 text-sm text-red-500 bg-pink" key={error}>
                                     {error}
                                 </p>
                             ))}
-                    </div>
+                    </div> */}
             </div>
 
             {/* Invoice Amount */}

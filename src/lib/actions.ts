@@ -112,7 +112,6 @@ export async function createInvoice(productId: string, prevState: State, formDat
 export async function updateInvoice(id: string, prevState: State, formData: FormData) {
   const validatedFields = UpdateInvoice.safeParse({
     customerId: formData.get("customerId"),
-    amount: formData.get("amount"),
     status: formData.get("status")
   })
   if (!validatedFields.success) {
@@ -121,11 +120,11 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
       errors: validatedFields.error.flatten().fieldErrors
     }
   }
-  const { customerId, amount, status } = validatedFields.data
+  const { customerId, status } = validatedFields.data
   try {
     await sql`
       UPDATE invoices
-        SET customer_id = ${customerId}, amount = ${amount}, status = ${status}
+        SET customer_id = ${customerId}, status = ${status}
         WHERE id = ${id}
     `
   } catch (error) {
@@ -150,7 +149,7 @@ export async function updateInvoiceQuantity(id: string, productId: string, amoun
     `
     console.log("invoice res =>", invoice)
   } catch (error) {
-    console.error("Database Error =>", error)
+    console.error("Database Error (updateInvoiceQuantity) =>", error)
     return {
       message: "Database Error: Failed to Edit Invoice Quantity."
     }
@@ -179,10 +178,10 @@ export async function deleteInvoice(id: string) {
 //products
 const ProductFormSchema = z.object({
   id: z.string(),
-  fa: z.string({
+  name: z.string({
     invalid_type_error: "وارد کردن نام محصول اجباری است."
   }),
-  en: z.string({
+  english_name: z.string({
     invalid_type_error: "وارد کردن نام محصول اجباری است."
   }),
   categoryId: z.string({
@@ -197,23 +196,26 @@ const CreateProduct = ProductFormSchema.omit({ id: true })
 
 export const createProduct = async (prevState: State, formData: FormData) => {
   const data = {
-    fa: formData.get("fa"),
-    en: formData.get("en"),
-    thumbnailUrl: formData.get("thumbnailUrl").name,
+    name: formData.get("name"),
+    english_name: formData.get("english_name"),
+    thumbnailUrl: "/",
     categoryId: formData.get("categoryId"),
   }
-  const validatedFields = CreateProduct.safeParse(data)
+
+  const validatedFields = CreateProduct.safeParse(
+    data
+  )
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "err"
     }
   }
-  const { fa, en, categoryId, thumbnailUrl } = validatedFields.data
+  const { name, english_name, categoryId, thumbnailUrl } = validatedFields.data
   try {
     await sql`
-    INSERT INTO products (fa,en, category_id, thumbnail_url) VALUES
-    (${fa},${en},${categoryId},${thumbnailUrl})
+    INSERT INTO products (name,english_name, category_id, thumbnail_url) VALUES
+    (${name},${english_name},${categoryId},${thumbnailUrl})
 `
   } catch (err) {
     return {
@@ -273,7 +275,7 @@ export const createCustomer = async (formData: FormData) => {
       errors: { imageUrl: ["تصویر نامعتبر است"] },
     }
   }
-  const newImageName = img ? `${img.lastModified}_${img.name}` : null
+  const newImageName = img instanceof File ? `${img.lastModified}_${img.name}` : null
   const validatedFields = CreateCustomer.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -294,7 +296,7 @@ export const createCustomer = async (formData: FormData) => {
  INSERT INTO customers (name, email, image_url)
         VALUES ( ${name}, ${email}, ${newImgUrl})
   `
-    if (img) {
+    if (img instanceof File) {
       const pathname = path.join(process.cwd(), "public/customers", newImageName)
       const buffer = Buffer.from(await img.arrayBuffer())
       await writeFile(pathname, buffer)
@@ -363,7 +365,7 @@ export async function authenticate(
     const cookie = cookies()
     cookie.set("token", token, { httpOnly: true, path: "/" })
   } catch (error) {
-    console.error("Database error =>", error)
+    console.error("Database error (authenticate) =>", error)
     return {
       message: "Database Error"
     }

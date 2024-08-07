@@ -1,6 +1,5 @@
 import { hash, compare } from "bcrypt"
 import { sign, verify } from "jsonwebtoken"
-import { cookies } from "next/headers"
 import { sql } from "@vercel/postgres"
 export const hashPassword = async (password) => {
     return await hash(password, 10)
@@ -19,10 +18,9 @@ export const verifyToken = (token) => {
 }
 
 // token payload
-export const tokenPayload = async () => {
+export const tokenPayload = async (token) => {
     try {
-        const token = cookies().get("token")
-        // is token exists?
+
         if (!token) return false
         // verified token
         const tokenPayload = verifyToken(token.value)
@@ -36,7 +34,7 @@ export const tokenPayload = async () => {
         if (!user) return false
         return user
     } catch (error) {
-        console.error("Database Error =>", error)
+        console.error("Database Error (tokenPayload) =>", error)
         return {
             message: "Database error"
         }

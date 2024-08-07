@@ -12,7 +12,7 @@ import {
 } from './definitions';
 import { formatCurrency, formatDateToLocal, formatNumber } from './utils';
 import { tokenPayload } from './auth';
-import {validate, v4} from 'uuid';
+import { validate, v4 } from 'uuid';
 
 export async function fetchRevenue() {
   try {
@@ -78,22 +78,21 @@ export async function fetchLatestInvoices() {
 }
 
 export async function fetchPreOrders() {
-  const payload = await tokenPayload()
-  if (!payload) return false
+  
   try {
     const data = await sql`
-      SELECT h.date,d.*,p.name, p.en, p.thumbnail_url FROM invoices as h
+      SELECT h.date,d.*,p.name, p.english_name, p.thumbnail_url FROM invoices as h
         LEFT OUTER JOIN invoices_detail as d
           ON h.id = d.id
         LEFT OUTER JOIN products as p
           ON p.id = d.product_id
-          WHERE h.customer_id = ${payload.id}
+          WHERE h.customer_id = 'c9c173bd-9f67-4ff1-bdec-7d1e20f797ca'
             AND h.status = 'pending'
     `
     const preOrders = data.rows
     return { preOrders, rowCount: data.rowCount }
   } catch (error) {
-    console.error("Database error =>", error)
+    console.error("Database error (fetchPreOrders) =>", error)
     throw new Error("Failed to fetch pre order")
   }
 }
@@ -106,21 +105,22 @@ export async function fetchCardData() {
     // how to initialize multiple queries in parallel with JS.
     const invoiceCountPromise = sql`SELECT COUNT(*) FROM invoices`;
     const customerCountPromise = sql`SELECT COUNT(*) FROM customers`;
-    const invoiceStatusPromise = sql`SELECT
-         SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
-         SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
-         FROM invoices`;
+    const invoiceStatusPromise = sql`select 
+	sum(d.price * d.quantity) as total_price,
+  h.status
+  from invoices as h
+	inner join invoices_detail as d on h.id = d.id
+	group by h.status`;
 
     const data = await Promise.all([
       invoiceCountPromise,
       customerCountPromise,
       invoiceStatusPromise,
     ]);
-
     const numberOfInvoices = formatNumber(Number(data[0].rows[0].count));
     const numberOfCustomers = formatNumber(Number(data[1].rows[0].count));
-    const totalPaidInvoices = formatCurrency(Number(data[2].rows[0].paid));
-    const totalPendingInvoices = formatCurrency(Number(data[2].rows[0].pending));
+    const totalPaidInvoices = formatCurrency(Number(data[2].rows.filter(item => item.status === "paid")[0]?.total_price));
+    const totalPendingInvoices = formatCurrency(Number(data[2].rows.filter(item => item.status === "pending")[0]?.total_price));
 
     return {
       numberOfCustomers,
@@ -135,6 +135,7 @@ export async function fetchCardData() {
 }
 
 const ITEMS_PER_PAGE = 2;
+
 export async function fetchFilteredProducts(
   query: string,
   currentPage: number,
@@ -147,14 +148,13 @@ export async function fetchFilteredProducts(
         *
       FROM products
       WHERE
-      fa ILIKE ${`%${query}%`} OR
-      en ILIKE ${`%${query}%`}
+      name ILIKE ${`%${query}%`} OR
+      english_name ILIKE ${`%${query}%`}
       ORDER BY id DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
 
     return invoices.rows;
-
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch products.');
@@ -166,8 +166,8 @@ export async function fetchProductsPages(query: string) {
     const count = await sql`SELECT COUNT(*)
       FROM products
       WHERE
-     fa ILIKE ${`%${query}%`} OR
-     en ILIKE ${`%${query}%`}
+     name ILIKE ${`%${query}%`} OR
+     english_name ILIKE ${`%${query}%`}
   `;
     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
     return totalPages;
@@ -180,7 +180,7 @@ export async function fetchProductsPages(query: string) {
 export async function fetchProductById(id: string, size: string, color: string) {
   try {
 
-    if(!validate(id)) return false
+    if (!validate(id)) return false
     const data = await sql`
     select *
     from products as p
@@ -188,7 +188,7 @@ export async function fetchProductById(id: string, size: string, color: string) 
     `
     return data.rows[0]
   } catch (error) {
-    console.error("Database error =>", error)
+    console.error("Database error (fetchProductById) =>", error)
     throw new Error("failed to fetch product by id")
   }
 }

@@ -1,25 +1,25 @@
 "use client"
 import { createProduct } from '@/lib/actions';
 import { Button, Input, Select } from '@modules/form';
-import { useActionState } from 'react';
-import { CategoryField } from '@/lib/definitions';
+// import { useActionState } from 'react';
 
-export default function Form({ categories }: { categories: CategoryField[] }) {
+export default function Form({ categories }) {
   const initialState = { message: null, errors: {} };
-  console.log("categories =>>>", categories)
-  const [state, action] = useActionState(createProduct, initialState)
+  // const [state, action] = useActionState(createProduct, initialState)
   return (
-    <form action={action} >
+    <form
+    // action={action} 
+    >
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         <Input
           type="text"
-          name="fa"
+          name="name"
           label="نام"
           placeholder="نام محصول را وارد نمایید"
         />
         <Input
           type="text"
-          name="en"
+          name="english_name"
           label="نام انگلیسی"
           placeholder="نام انگلیسی محصول را وارد نمایید"
         />

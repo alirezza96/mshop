@@ -6,6 +6,7 @@ export const metadata = {
     title: "اطلاعات سفارش"
 }
 export default async function page() {
+
     const { preOrders } = await fetchPreOrders()
 
 
