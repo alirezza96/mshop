@@ -323,13 +323,18 @@ const authenticateFormSchema = z.object({
     .max(8, "حداکثر رمز عبور 8 حرف میباشد")
 })
 export async function authenticate(
-  prevState: string | undefined,
+  // prevState: string | undefined,
   formData: FormData,
 ) {
   const pathname = headers().get("referer")
   const url = new URL(pathname)
   const searchParams = new URLSearchParams(url.search)
-
+  const data = {
+    email: formData.get("email"),
+    password: formData.get("password")
+  }
+  console.log("data =>", data)
+return "1"
 
   const validatedFields = authenticateFormSchema.safeParse({
     email: formData.get("email"),

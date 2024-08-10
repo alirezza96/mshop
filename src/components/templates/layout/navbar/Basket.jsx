@@ -9,7 +9,7 @@ const Basket = async ({ className }) => {
     return (
         <>
             {/* counter  */}
-            <div className={`${!rowCount && "hidden"} w-6 text-center rounded-full text-white bg-pink/80 e absolute top-1 `}>
+            <div className={`${!rowCount && "hidden"} w-6 text-center rounded-full text-white bg-pink/80 e absolute top-1 select-none`}>
                 {rowCount}
             </div>
             <div className={` absolute bottom-12 md:bottom-auto md:top-14 inset-x-0 box p-2  z-50 ${className} `}>

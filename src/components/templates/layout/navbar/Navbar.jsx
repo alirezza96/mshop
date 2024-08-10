@@ -9,8 +9,8 @@ export default async function Navbar() {
 
 
     return (
-        <div className="p-2 h-12 flex items-center gap-x-1 lg:gap-x-2 fixed inset-x-0 bottom-0 md:top-2  md:container  box    z-50">
-            <div className="flex  items-center justify-between grow">
+        <div className="px-8  md:px-2 h-12 flex items-center gap-x-1 lg:gap-x-2 fixed inset-x-0 bottom-0  md:top-0  md:container  box    z-50">
+            <div className="flex  items-center justify-between grow ">
                 <div className="h-12 flex flex-row-reverse md:flex-row items-center gap-x-2">
                     <NavLink href="/" >
                         <HomeIcon className="w-6 h-6" />
@@ -39,7 +39,7 @@ export default async function Navbar() {
                         <NavLink href={"/contact-us"}>تماس با ما</NavLink>
                         <NavLink href={"/about-us"}>درباره ما</NavLink>
                     </div>
-                    <Button className="md:hidden p-2">
+                    <Button className="md:hidden p-2 bg-transparent">
                         <Bars3Icon className="w-6 h-6 stroke-Fuchsia" />
                     </Button>
                 </div>

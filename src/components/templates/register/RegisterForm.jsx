@@ -1,20 +1,21 @@
 "use client"
 import Link from "next/link"
 import { Input } from "@modules/form"
-import { useActionState } from 'react';
+// import { useActionState } from 'react';
 import { authenticate } from '@/lib/actions';
-const RegisterForm = () => {
+export default function RegisterForm() {
   const initialState = { message: null, errors: {} }
-  const [errorMessages, formAction, isPending] = useActionState(
-    authenticate,
-    initialState,
-  );
+  // const [errorMessages, formAction, isPending] = useActionState(
+  //   authenticate,
+  //   initialState,
+  // );
   // console.log("isPending =>", isPending)
-  console.log("errorMessage =>", errorMessages)
   return (
-    <div className="py-4 space-y-2 min-w-64 max-w-80 mx-auto">
+    <div className=" space-y-2 bg-white py-6 px-4  grow">
 
-      <form action={formAction} >
+      <form
+        action={authenticate}
+      >
         <Input
           type="text"
           name="email"
@@ -75,5 +76,3 @@ const RegisterForm = () => {
 
   )
 }
-
-export default RegisterForm

@@ -3,13 +3,10 @@ import Footer from "@templates/layout/Footer";
 
 const layout = ({ children }) => {
     return (
-        <div className="md:container  flex flex-col justify-between min-h-screen ">
-            <div>
-                <Navbar />
-                <div className="h-12 "></div>
-                {children}
-            </div>
-            <Footer className="my-12" />
+        <div className="before:h-12 before:md:h-14   md:container flex flex-col justify-between min-h-screen">
+            <Navbar />
+            {children}
+            <Footer className="mb-12"/>
         </div>
     )
 }
