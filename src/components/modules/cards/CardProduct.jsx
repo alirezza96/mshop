@@ -13,7 +13,7 @@ const sizes = [
 const CardProduct = ({ href, fa, en, src }) => {
     const price = 1_800_000
     return (
-        <div className="group bg-white rounded-lg">
+        <div className="group bg-white rounded-lg overflow-hidden">
             {/* image  */}
             <Link
                 href={`/products/${href}`}

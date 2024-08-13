@@ -17,7 +17,7 @@ export const Input = ({ children, className, label, ...rest }) => {
     return rest.type === "submit" ?
         (
             <input {...rest}
-                className={`${className} bg-Purple hover:bg-dark-purple text-white p-2 my-1 rounded-md min-w-24 cursor-pointer font-morabba`}
+                className={`${className} bg-Purple hover:bg-dark-purple text-white p-2 my-1 rounded-md min-w-24 cursor-pointer font-morabba disabled:cursor-not-allowed disabled:bg-gray`}
             />
         )
         : rest.type === "textArea" ? (

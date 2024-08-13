@@ -1,20 +1,20 @@
 "use client"
 import Link from "next/link"
 import { Input } from "@modules/form"
-// import { useActionState } from 'react';
 import { authenticate } from '@/lib/actions';
+import { useActionState } from "react";
 export default function RegisterForm() {
   const initialState = { message: null, errors: {} }
-  // const [errorMessages, formAction, isPending] = useActionState(
-  //   authenticate,
-  //   initialState,
-  // );
-  // console.log("isPending =>", isPending)
+  const [formState, formAction, isPending] = useActionState(
+    authenticate,
+    initialState,
+  );
+  console.log("is pending =>", isPending)
   return (
     <div className=" space-y-2 bg-white py-6 px-4  grow">
 
       <form
-        action={authenticate}
+        action={formAction}
       >
         <Input
           type="text"
@@ -24,9 +24,9 @@ export default function RegisterForm() {
           label="ایمیل"
           autoFocus={true}
         />
-        {/* <div>
-          {errorMessages.errors.email ?
-            errorMessages.errors.email.map(message => (
+        <div>
+          {formState.errors.email ?
+            formState.errors.email.map(message => (
               <p
                 key={message}
                 className="mt-2 text-sm text-pink bg-pink/5">
@@ -34,36 +34,39 @@ export default function RegisterForm() {
               </p>
             )) : ""
           }
-        </div> */}
+        </div>
         <Input
           type="password"
           name="password"
           id="password"
+          required
           className="bg-Fuchsia/10 text-ltr"
           label="رمز عبور"
         />
-        {/* <div>
-          {errorMessages.errors?.password ?
-            errorMessages.errors?.password.map(message => (
+        <div>
+          {formState.errors?.password ?
+            formState.errors?.password.map(message => (
               <p key={message} className="mt-2 text-sm text-pink bg-pink/5">
                 {message}
               </p>
             )) : ""
           }
-        </div> */}
+        </div>
         <Input
           type="submit"
           value="ورود"
           className="w-full"
+          required
+          disabled={isPending}
         />
       </form>
-      {/* <div>
-        {errorMessages?.message ?
+      <div>
+        {formState?.message ?
           <p className="mt-2 text-sm text-pink bg-pink/5">
-            {errorMessages?.message}
+            {formState?.message}
           </p> : ""
         }
-      </div> */}
+      </div>
       <div className="text-sm text-center ">
         <span>
           حساب کاربری ندارید؟

@@ -323,7 +323,7 @@ const authenticateFormSchema = z.object({
     .max(8, "حداکثر رمز عبور 8 حرف میباشد")
 })
 export async function authenticate(
-  // prevState: string | undefined,
+  prevState: string | undefined,
   formData: FormData,
 ) {
   const pathname = headers().get("referer")
@@ -333,40 +333,37 @@ export async function authenticate(
     email: formData.get("email"),
     password: formData.get("password")
   }
-  console.log("data =>", data)
-return "1"
-
-  const validatedFields = authenticateFormSchema.safeParse({
-    email: formData.get("email"),
-    password: formData.get("password")
-  })
-  if (!validatedFields.success) {
-    return {
-      message: "لطفا مواردی که مشخص شده را تکمیل کنید",
-      errors: validatedFields.error.flatten().fieldErrors
-    }
+ const validatedFields = authenticateFormSchema.safeParse(data)
+ if(!validatedFields.success){
+  return{
+    message: "لطفا مواردی که مشخص شده را تکمیل کنید",
+    errors: validatedFields.error.flatten().fieldErrors,
   }
-  const { email, password } = validatedFields.data
+ }
+ const {email, password} = validatedFields.data
+
+
   try {
     const data = await sql`
-      SELECT * FROM users WHERE email = ${email}
+      SELECT id, email, password FROM users WHERE email = ${email}
     `
     const user = data.rows[0]
     // is user exists?
     if (!user) {
       return {
-        message: "نام کاربری یا رمز عبور اشتباه است"
+        message: "نام کاربری یا رمز عبور اشتباه است",
       }
     }
     // check password
     const comparedPassword = await comparePassword(password, user.password)
+
     if (!comparedPassword) {
       return {
-        message: "نام کاربری یا رمز عبور اشتباه است"
+        message: "نام کاربری یا رمز عبور اشتباه است",
       }
     }
     // generate token
-    const token = generateToken({ id: user.id, email: user.email })
+    const token = generateToken({ id: user.id, email })
     const cookie = cookies()
     cookie.set("token", token, { httpOnly: true, path: "/" })
   } catch (error) {
