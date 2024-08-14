@@ -4,12 +4,11 @@ import { Input } from "@modules/form"
 import { authenticate } from '@/lib/actions';
 import { useActionState } from "react";
 export default function RegisterForm() {
-  const initialState = { message: null, errors: {} }
+  const initialState = { message: null, errors: null, email: null, password: null }
   const [formState, formAction, isPending] = useActionState(
     authenticate,
     initialState,
   );
-  console.log("is pending =>", isPending)
   return (
     <div className=" space-y-2 bg-white py-6 px-4  grow">
 
@@ -22,11 +21,14 @@ export default function RegisterForm() {
           id="email"
           className="bg-Fuchsia/10 text-ltr "
           label="ایمیل"
+          placeholder="ایمیل خود را وارد نمایید"
+          defaultValue={formState.email}
+          required={true}
           autoFocus={true}
         />
         <div>
-          {formState.errors.email ?
-            formState.errors.email.map(message => (
+          { formState.errors ?
+            formState.errors.email?.map(message => (
               <p
                 key={message}
                 className="mt-2 text-sm text-pink bg-pink/5">
@@ -39,13 +41,18 @@ export default function RegisterForm() {
           type="password"
           name="password"
           id="password"
-          required
+          required={true}
+          minLength={4}
+          maxLength={8}
           className="bg-Fuchsia/10 text-ltr"
+          placeholder="رمز عبور خود را وارد نمایید"
+          defaultValue={formState.password}
           label="رمز عبور"
         />
         <div>
-          {formState.errors?.password ?
-            formState.errors?.password.map(message => (
+          {
+            formState.errors ?
+            formState.errors.password?.map(message => (
               <p key={message} className="mt-2 text-sm text-pink bg-pink/5">
                 {message}
               </p>
@@ -54,17 +61,17 @@ export default function RegisterForm() {
         </div>
         <Input
           type="submit"
-          value="ورود"
+          value={isPending ? "چند لحظه صبر کنید..." : "ورود"}
           className="w-full"
           required
           disabled={isPending}
         />
       </form>
       <div>
-        {formState?.message ?
+        {
           <p className="mt-2 text-sm text-pink bg-pink/5">
-            {formState?.message}
-          </p> : ""
+            {formState.message}
+          </p> 
         }
       </div>
       <div className="text-sm text-center ">

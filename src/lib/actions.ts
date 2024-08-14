@@ -333,25 +333,27 @@ export async function authenticate(
     email: formData.get("email"),
     password: formData.get("password")
   }
- const validatedFields = authenticateFormSchema.safeParse(data)
- if(!validatedFields.success){
-  return{
-    message: "لطفا مواردی که مشخص شده را تکمیل کنید",
-    errors: validatedFields.error.flatten().fieldErrors,
+  const validatedFields = authenticateFormSchema.safeParse(data)
+  if (!validatedFields.success) {
+    return {
+      message: "لطفا مواردی که مشخص شده را تکمیل کنید",
+      errors: validatedFields.error.flatten().fieldErrors,
+      email: data.email,
+      password: data.password
+    }
   }
- }
- const {email, password} = validatedFields.data
 
-
+  const { email, password } = validatedFields.data
   try {
-    const data = await sql`
+    const users = await sql`
       SELECT id, email, password FROM users WHERE email = ${email}
-    `
-    const user = data.rows[0]
+      `
+    const user = users.rows[0]
     // is user exists?
     if (!user) {
       return {
         message: "نام کاربری یا رمز عبور اشتباه است",
+        email
       }
     }
     // check password
@@ -360,6 +362,7 @@ export async function authenticate(
     if (!comparedPassword) {
       return {
         message: "نام کاربری یا رمز عبور اشتباه است",
+        email
       }
     }
     // generate token

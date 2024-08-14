@@ -17,6 +17,7 @@ export const Input = ({ children, className, label, ...rest }) => {
     return rest.type === "submit" ?
         (
             <input {...rest}
+  
                 className={`${className} bg-Purple hover:bg-dark-purple text-white p-2 my-1 rounded-md min-w-24 cursor-pointer font-morabba disabled:cursor-not-allowed disabled:bg-gray`}
             />
         )
@@ -38,7 +39,7 @@ export const Input = ({ children, className, label, ...rest }) => {
                         <input
                             {...rest}
                             id={rest.id}
-                            className=" w-full mx-2  bg-transparent outline-none focus-visible:border-b-2 border-Fuchsia/30 font-dana" />
+                            className=" w-full mx-2  bg-transparent outline-none focus-visible:border-b-2 border-Fuchsia/30 font-dana placeholder:text-right placeholder:text-sm" />
                         {children}
                     </div>
                 </>
