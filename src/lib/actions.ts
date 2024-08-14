@@ -4,7 +4,7 @@ import { randomUUID } from "crypto"
 import { sql } from "@vercel/postgres"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
-import { z } from "zod"
+import { isValid, z } from "zod"
 import path from "path"
 import { writeFile } from "fs/promises"
 import { comparePassword, generateToken, tokenPayload } from "@/lib/auth"
@@ -173,6 +173,31 @@ export async function deleteInvoice(id: string) {
     }
   }
 
+}
+
+export async function isFavoriteAction(isFavorite: boolean, product_id:string, user_id: string) {
+  try{
+    if(isFavorite){
+      console.log(product_id, user_id)
+     await sql`
+      INSERT INTO favorites (product_id, user_id)
+      VALUES(${product_id}, ${user_id})
+      `
+    }else{
+      await sql`
+      DELETE FROM favorites WHERE
+      product_id = ${product_id} 
+      and user_id = ${user_id}
+    `
+    }
+  }catch(error){
+    return {
+      message: "Database Error: Failed to favorite product."
+    }
+  }
+  console.log("create function fired isFavorite =>", isFavorite)
+  console.log("create function fired product_id =>", product_id)
+  console.log("create function fired user_id =>", user_id)
 }
 
 //products
@@ -369,14 +394,18 @@ export async function authenticate(
     const token = generateToken({ id: user.id, email })
     const cookie = cookies()
     cookie.set("token", token, { httpOnly: true, path: "/" })
+    return {
+      message: "با موفقیت وارد شدید",
+      isValid: true
+    }
   } catch (error) {
     console.error("Database error (authenticate) =>", error)
     return {
       message: "Database Error"
     }
   }
-  if (searchParams.has("fallback")) return redirect(searchParams.get("fallback"))
-  redirect("/dashboard")
+  // if (searchParams.has("fallback")) return redirect(searchParams.get("fallback"))
+  // redirect("/dashboard")
 }
 
 // logout

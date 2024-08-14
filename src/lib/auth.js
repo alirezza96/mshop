@@ -1,6 +1,7 @@
 import { hash, compare } from "bcrypt"
 import { sign, verify } from "jsonwebtoken"
 import { sql } from "@vercel/postgres"
+import { cookies } from "next/headers"
 export const hashPassword = async (password) => {
     return await hash(password, 10)
 }
@@ -18,16 +19,16 @@ export const verifyToken = (token) => {
 }
 
 // token payload
-export const tokenPayload = async (token) => {
+export const tokenPayload = async () => {
     try {
-
+        const token = cookies().get("token")
         if (!token) return false
         // verified token
         const tokenPayload = verifyToken(token.value)
         if (!tokenPayload) return false
         const data = await sql`
-            SELECT id ,name, email FROM users
-                 WHERE id = ${tokenPayload.id}
+        SELECT id ,name, email FROM users
+        WHERE id = ${tokenPayload.id}
         `
         const user = data.rows[0]
         // if user not exists

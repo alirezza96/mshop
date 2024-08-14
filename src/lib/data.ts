@@ -379,3 +379,18 @@ export const fetchCustomersPage = async (query: string) => {
     throw new Error('Failed to fetch total number of customers.');
   }
 }
+
+export const fetchFavorite = async (product_id, user_id) => {
+  try {
+    const favorites = await sql`
+      SELECT 1 FROM favorites WHERE 
+        product_id=${product_id} 
+        AND user_id=${user_id}
+    `
+    const isFavorite = Boolean(favorites.rowCount)
+    return isFavorite
+  }catch(error){
+    console.error("Database error =>",error)
+    throw new Error("failed to fetch favorite")
+  }
+}

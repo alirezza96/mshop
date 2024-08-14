@@ -253,7 +253,16 @@ async function seedProducts() {
 }
 
 
-
+async function seedFavorites(){
+  await client.sql`DROP TABLE IF EXISTS favorites `
+  await client.sql`
+   CREATE TABLE favorites (
+    id SERIAL PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES users(id), 
+    product_id UUID NOT NULL REFERENCES products(id)
+   )
+  `
+}
 
 
 
@@ -271,6 +280,7 @@ export async function GET() {
     await seedColors();
     await seedSizes();
     await seedProductVariants();
+    await seedFavorites();
     await client.sql`COMMIT`;
 
     return Response.json({ message: 'Database seeded successfully' });

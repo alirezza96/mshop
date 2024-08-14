@@ -4,7 +4,7 @@ import { Input } from "@modules/form"
 import { authenticate } from '@/lib/actions';
 import { useActionState } from "react";
 export default function RegisterForm() {
-  const initialState = { message: null, errors: null, email: null, password: null }
+  const initialState = { message: null, errors: null, email: null, password: null , isValid: false}
   const [formState, formAction, isPending] = useActionState(
     authenticate,
     initialState,
@@ -69,7 +69,7 @@ export default function RegisterForm() {
       </form>
       <div>
         {
-          <p className="mt-2 text-sm text-pink bg-pink/5">
+          <p className={`mt-2 text-sm ${!formState.isValid ? "text-pink bg-pink/5" : "text-green bg-green/15"}`}>
             {formState.message}
           </p> 
         }

@@ -1,10 +1,10 @@
 import Breadcrumb from "@modules/Breadcrumb"
 import Image from "next/image"
-import { HeartIcon } from "@heroicons/react/24/outline"
 import Form from "@templates/(website)/products/[id]/create-form"
-import { fetchProductById, fetchProductColorsById, fetchProductSizesById } from "@/lib/data"
+import { fetchFavorite, fetchProductById, fetchProductColorsById, fetchProductSizesById } from "@/lib/data"
 import { notFound } from "next/navigation"
-
+import Favorite from "@templates/(website)/products/[id]/Favorite"
+import { tokenPayload } from "@/lib/auth"
 // export const generateMetadata = async ({ params }) => {
 //     const product = await fetchProductById(params.id)
 //     if (!product) return notFound()
@@ -25,9 +25,10 @@ const page = async ({ params }) => {
     const id = params.id
     const product = await fetchProductById(id)
     if (!product) notFound()
+    const { id: user_id } = await tokenPayload()
     const colors = await fetchProductColorsById(id)
     const sizes = await fetchProductSizesById(id)
-    const like = false
+    const isFavorite = await fetchFavorite(id, user_id)
     return (
         <div className="container">
             <Breadcrumb breadcrumbs={breadcrumbs} />
@@ -45,7 +46,12 @@ const page = async ({ params }) => {
                             <h2 className="text-base font-morabba">
                                 {product.name}
                             </h2>
-                            <HeartIcon className={`w-6 h-6 cursor-pointer hover:fill-Fuchsia/40 hover:text-Fuchsia ${like ? "fill-Purple text-Purple" : ""}`} />
+
+                            <Favorite
+                                isFavorite={isFavorite}
+                                user_id={user_id}
+                                product_id={id}
+                            />
                         </div>
                         <div className="h-px mt-4 bg-gray"></div>
                         <Form id={id} colors={colors} sizes={sizes} />
