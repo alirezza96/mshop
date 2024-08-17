@@ -175,22 +175,23 @@ export async function deleteInvoice(id: string) {
 
 }
 
-export async function isFavoriteAction(isFavorite: boolean, product_id:string, user_id: string) {
-  try{
-    if(isFavorite){
-      console.log(product_id, user_id)
-     await sql`
+export async function isFavoriteAction(isFavorite: boolean, product_id: string, user_id: string) {
+  try {
+    if (isFavorite) {
+      console.log(product_id, user_id, 1)
+      await sql`
       INSERT INTO favorites (product_id, user_id)
       VALUES(${product_id}, ${user_id})
       `
-    }else{
+    } else {
+      console.log(product_id, user_id, 2)
       await sql`
       DELETE FROM favorites WHERE
       product_id = ${product_id} 
       and user_id = ${user_id}
     `
     }
-  }catch(error){
+  } catch (error) {
     return {
       message: "Database Error: Failed to favorite product."
     }
@@ -342,6 +343,8 @@ export const createCustomer = async (formData: FormData) => {
 const authenticateFormSchema = z.object({
   email: z
     .string()
+    .trim()
+    .toLowerCase()
     .email("ایمیل وارد شده نامعتبر است."),
   password: z.string()
     .min(4, "حداقل رمز عبور 4 حرف میباشد")
@@ -369,6 +372,7 @@ export async function authenticate(
   }
 
   const { email, password } = validatedFields.data
+
   try {
     const users = await sql`
       SELECT id, email, password FROM users WHERE email = ${email}
@@ -394,10 +398,6 @@ export async function authenticate(
     const token = generateToken({ id: user.id, email })
     const cookie = cookies()
     cookie.set("token", token, { httpOnly: true, path: "/" })
-    return {
-      message: "با موفقیت وارد شدید",
-      isValid: true
-    }
   } catch (error) {
     console.error("Database error (authenticate) =>", error)
     return {

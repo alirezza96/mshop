@@ -1,18 +1,23 @@
+"use client"
 import { logout } from "@/lib/actions"
 import { UserIcon } from "@heroicons/react/24/outline"
-import { tokenPayload } from "@/lib/auth"
-import { NavLink } from "@modules/form"
+import { Button, NavLink } from "@modules/form"
+import { useRouter } from "next/navigation"
 
-export default async function ProfileOptions() {
-    const {name} = await tokenPayload()
+export default function ProfileOptions({ name }) {
+    const { push } = useRouter()
+    const navigateHandler = () => {
+        if (name) return
+        push("/register")
+    }
     return (
         <div className="group">
-            <NavLink
-                href={name ? "/dashboard" : "/register"}
-                className="inline-flex"
+            <Button
+                onClick={navigateHandler}
+                className="inline-flex bg-transparent"
             >
                 <Icon name={name} />
-            </NavLink>
+            </Button>
             {
                 name && <Options />
             }
@@ -45,10 +50,10 @@ const Options = () => {
 const Icon = ({ name }) => {
     const elem = !name
         ?
-        <UserIcon className="w-6 h-6 " />
+        <UserIcon className="w-6" />
         :
-        <div className="w-6 leading-6 rounded-full text-center bg-Fuchsia/10">
+        <span className="w-6 leading-6 bg-Fuchsia/10 rounded-full">
             {name[0].toUpperCase()}
-        </div>
+        </span>
     return elem
 }

@@ -5,8 +5,9 @@ import Basket from "./Basket"
 import { Suspense } from "react"
 import { BasketContentSkeleton } from "@modules/skeletons"
 import ProfileOptions from "@modules/profile-options"
+import { tokenPayload } from "@/lib/auth"
 export default async function Navbar() {
-
+    const {name} = await tokenPayload()
 
     return (
         <div className="px-8  md:px-2 h-12 flex items-center gap-x-1 lg:gap-x-2 fixed inset-x-0 bottom-0  md:top-0  md:container  box    z-50">
@@ -56,7 +57,7 @@ export default async function Navbar() {
                 </Suspense>
             </div>
 
-            <ProfileOptions />
+            <ProfileOptions name={name} />
 
 
         </div>

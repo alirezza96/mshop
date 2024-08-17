@@ -1,8 +1,9 @@
 "use client"
+import Link from "next/link"
 import ErrorMessage from "@modules/ErrorMessage"
 import { authenticate } from '@/lib/actions';
 import { useActionState } from "react";
-import { Email, Password, RePassword, Submit } from "@templates/register/Form"
+import { Email, Password, Submit } from "@templates/register/Form"
 export default function LoginForm() {
   const initialState = { message: null, errors: null, email: null, password: null }
   const [formState, formAction, isPending] = useActionState(
@@ -26,16 +27,6 @@ export default function LoginForm() {
           }
         </>
         <Password defaultValue={formState.password} />
-        <>
-          {formState.errors &&
-            formState.errors.password?.map(message =>
-              <ErrorMessage key={message}>
-                {message}
-              </ErrorMessage>
-            )
-          }
-        </>
-        <RePassword defaultValue={formState.password} />
         <>
           {formState.errors &&
             formState.errors.password?.map(message =>

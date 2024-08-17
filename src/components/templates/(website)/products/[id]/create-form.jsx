@@ -3,25 +3,8 @@ import { createInvoice } from "@/lib/actions"
 import { formatCurrency } from "@/lib/utils"
 import { useActionState, useOptimistic } from "react"
 import { InputRadio, Button } from "@modules/form"
-import { useSearchParams, useRouter, usePathname } from "next/navigation"
 // import { useSearchParams } from "next/navigation"
 export default function Form({ colors, sizes, id }) {
-    const pathname = usePathname()
-    const searchParams = useSearchParams()
-    const params = new URLSearchParams(searchParams)
-    const { push } = useRouter()
-    const changeHandler = (key, value) => {
-        if (value) {
-            params.set(key, value)
-        } else {
-            params.delete(key)
-        }
-        push(`${pathname}/?${params.toString()}`)
-        console.log("changeHandler fired =>", key, value)
-
-
-    }
-
 
     const totalPrice = 1_180_000
     const initialState = { errors: {}, message: null }
@@ -34,44 +17,38 @@ export default function Form({ colors, sizes, id }) {
             // action={formAction}
             className="space-y-[10px]"
         >
-            <div>
-                <p className="font-morabba py-1">
-                    رنگ:
-                </p>
-                <div className="flex gap-x-[6px]" role="radiogroup">
-                    {
-                        colors?.map((item) => (
-                            <InputRadio
-                                key={item.color}
-                                name="color"
-                                type="button"
-                                role="radio"
-                                onClick={() => changeHandler(item.color)}
-                                disabled={!item.inventory}
-                                className="min-w-14 min-h-2 px-4 py-1"
-                            >
-                                {item.name}
-                            </InputRadio>
-                        ))
 
-                    }
-                </div>
-            </div>
             {/* {
                 errorsMessage.errors.color?.map(error => <ErrorMessage key={error} error={error} />)
             } */}
             <div>
-                <p className="font-morabba py-1">
-                    سایز:
-                </p>
-                <div className="flex gap-x-[6px]">
+                <Picker
+                    title="رنگ"
+                >
+                    {
+                        colors?.map((item) => (
+                            <button
+                                key={item.color}
+                                name="color"
+                                type="button"
+                                role="radio"
+                                disabled={!item.inventory}
+                                className="min-w-14 min-h-2 px-4 py-1"
+                            >
+                                {item.name}
+                            </button>
+                        ))
+
+                    }
+                </Picker>
+                <Picker title="سایز">
                     {
                         sizes?.map((item) => (
                             <InputRadio
                                 key={item.size}
                                 name="size"
                                 type="button"
-                                onClick={() => changeHandler("size", item.size)}
+                                role="radio"
                                 disabled={!item.inventory}
                                 className="min-w-14 min-h-2 px-4 py-1"
 
@@ -80,7 +57,7 @@ export default function Form({ colors, sizes, id }) {
                             </InputRadio>
                         ))
                     }
-                </div>
+                </Picker>
             </div>
             <div>
                 {/* {
@@ -104,3 +81,17 @@ export default function Form({ colors, sizes, id }) {
 }
 
 
+
+
+const Picker = ({ title, children }) => {
+    return (
+        <div>
+            <p className="font-morabba py-1">
+                {title}:
+            </p>
+            <div className="flex gap-x-[6px]" role="radiogroup">
+                {children}
+            </div>
+        </div>
+    )
+}
