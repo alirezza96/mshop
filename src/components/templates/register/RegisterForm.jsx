@@ -1,20 +1,33 @@
 "use client"
 import ErrorMessage from "@modules/ErrorMessage"
-import { authenticate } from '@/lib/actions';
+import { register } from '@/lib/actions';
 import { useActionState } from "react";
-import { Email, Password, RePassword, Submit } from "@templates/register/Form"
+import { Name, Email, Password, RePassword, Submit } from "@templates/register/Form"
 export default function LoginForm() {
-  const initialState = { message: null, errors: null, email: null, password: null }
+  const initialState = { message: null, errors: null, name: null, email: null, password: null, rePassword: null }
   const [formState, formAction, isPending] = useActionState(
-    authenticate,
+    register,
     initialState,
   );
   return (
-    <div className=" space-y-2 bg-white py-6 px-4  grow">
+    <div className="space-y-4">
 
       <form
         action={formAction}
       >
+        <Name
+          autoFocus={true}
+          defaultValue={formState.name}
+        />
+        <>
+          {formState.errors &&
+            formState.errors.name?.map(message =>
+              <ErrorMessage key={message}>
+                {message}
+              </ErrorMessage>
+            )
+          }
+        </>
         <Email defaultValue={formState.email} />
         <>
           {formState.errors &&
@@ -35,7 +48,7 @@ export default function LoginForm() {
             )
           }
         </>
-        <RePassword defaultValue={formState.password} />
+        <RePassword defaultValue={formState.rePassword} />
         <>
           {formState.errors &&
             formState.errors.password?.map(message =>

@@ -1,5 +1,4 @@
 "use client"
-import Link from "next/link"
 import ErrorMessage from "@modules/ErrorMessage"
 import { authenticate } from '@/lib/actions';
 import { useActionState } from "react";
@@ -11,12 +10,15 @@ export default function LoginForm() {
     initialState,
   );
   return (
-    <div className=" space-y-2 bg-white py-6 px-4  grow">
+    <div className="space-y-2">
 
       <form
         action={formAction}
       >
-        <Email defaultValue={formState.email} />
+        <Email
+          autoFocus={true}
+          defaultValue={formState.email}
+        />
         <>
           {formState.errors &&
             formState.errors.email?.map(message =>

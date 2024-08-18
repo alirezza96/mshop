@@ -7,7 +7,7 @@ import { redirect } from "next/navigation"
 import { isValid, z } from "zod"
 import path from "path"
 import { writeFile } from "fs/promises"
-import { comparePassword, generateToken, tokenPayload } from "@/lib/auth"
+import { comparePassword, generateToken, hashPassword, tokenPayload } from "@/lib/auth"
 import { cookies, headers } from "next/headers"
 import { formatDateToLocal } from "./utils"
 //invoices
@@ -341,6 +341,11 @@ export const createCustomer = async (formData: FormData) => {
 
 // authenticate
 const authenticateFormSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(3, "حداقل طول نام و نام خانوادگی 3 حرف میباشد")
+  ,
   email: z
     .string()
     .trim()
@@ -348,8 +353,13 @@ const authenticateFormSchema = z.object({
     .email("ایمیل وارد شده نامعتبر است."),
   password: z.string()
     .min(4, "حداقل رمز عبور 4 حرف میباشد")
+    .max(8, "حداکثر رمز عبور 8 حرف میباشد"),
+  rePassword: z.string()
+    .min(4, "حداقل رمز عبور 4 حرف میباشد")
     .max(8, "حداکثر رمز عبور 8 حرف میباشد")
 })
+const Login = authenticateFormSchema.omit({ name: true, rePassword: true })
+const Register = authenticateFormSchema
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
@@ -361,7 +371,7 @@ export async function authenticate(
     email: formData.get("email"),
     password: formData.get("password")
   }
-  const validatedFields = authenticateFormSchema.safeParse(data)
+  const validatedFields = Login.safeParse(data)
   if (!validatedFields.success) {
     return {
       message: "لطفا مواردی که مشخص شده را تکمیل کنید",
@@ -407,6 +417,76 @@ export async function authenticate(
   // if (searchParams.has("fallback")) return redirect(searchParams.get("fallback"))
   // redirect("/dashboard")
 }
+export async function register(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  const pathname = headers().get("referer")
+  const url = new URL(pathname)
+  const searchParams = new URLSearchParams(url.search)
+  const data = {
+    name: formData.get("name"),
+    email: formData.get("email"),
+    password: formData.get("password"),
+    rePassword: formData.get("rePassword"),
+  }
+  const validatedFields = Register.safeParse(data)
+  if (!validatedFields.success) {
+    return {
+      message: "لطفا مواردی که مشخص شده را تکمیل کنید",
+      errors: validatedFields.error.flatten().fieldErrors,
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      rePassword: data.rePassword
+
+    }
+  }
+
+  const { name, email, password, rePassword } = validatedFields.data
+  if (password !== rePassword) {
+    return {
+      message: "رمز عبور یکسان نیست"
+    }
+  }
+  try {
+    const users = await sql`
+      SELECT 1 FROM users WHERE email = ${email}
+      `
+    const user = users.rowCount
+    // is user exists?
+    if (user) {
+      return {
+        message: "این ایمیل قبلا در سایت ثبت نام کرده است",
+        email
+      }
+    }
+    // hash password
+    const hashedPassword = await hashPassword(password)
+    // is user
+    const {rowCount: isUser} = await sql`
+      SELECT 1 FROM users LIMIT 1
+    `
+    const newUser = await sql`
+      INSERT INTO users (name ,email, password, role)
+      VALUES (${name}, ${email}, ${hashedPassword}, ${isUser ? "user" : "admin"})
+      RETURNING id
+    `
+    console.log("newUser =>", newUser)
+    // generate token
+    const token = generateToken({ id: newUser.rows[0].id, email })
+    const cookie = cookies()
+    cookie.set("token", token, { httpOnly: true, path: "/" })
+  } catch (error) {
+    console.error("Database error (register) =>", error)
+    return {
+      message: "Database Error (register)"
+    }
+  }
+  // if (searchParams.has("fallback")) return redirect(searchParams.get("fallback"))
+  // redirect("/dashboard")
+}
+
 
 // logout
 export const logout = () => {
