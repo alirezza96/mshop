@@ -10,7 +10,7 @@ export default async function Navbar() {
     const {name} = await tokenPayload()
 
     return (
-        <div className="px-8  md:px-2 h-12 flex items-center gap-x-1 lg:gap-x-2 fixed inset-x-0 bottom-0  md:top-0  md:container  box    z-50">
+        <div className="px-8  md:px-2 h-12 flex items-center gap-x-1 lg:gap-x-2 fixed inset-x-0 bottom-0  md:top-1  md:container  box    z-50">
             <div className="flex  items-center justify-between grow ">
                 <div className="h-12 flex flex-row-reverse md:flex-row items-center gap-x-2">
                     <NavLink href="/" >
@@ -46,7 +46,7 @@ export default async function Navbar() {
                 </div>
 
             </div>
-            <Search globalSearch={true} className="fixed top-0 inset-x-0 shadow-md md:shadow-none  md:relative md:rounded-xl bg-pink" />
+            <Search globalSearch={true} className="fixed top-0 inset-x-0 md:relative md:rounded-xl " />
             <Divider />
             <div className="group">
                 <button href="/cart" className="p-2 inline-flex">

@@ -6,7 +6,7 @@ export const Name = (props) => {
       type="text"
       name="name"
       id="name"
-      className="bg-Fuchsia/10"
+      className="bg-lavender"
       label="نام و نام خانوادگی"
       placeholder="نام و نام خانوادگی خود را وارد نمایید"
       required={true}
@@ -24,7 +24,7 @@ export const Email = (props) => {
       name="email"
       id="email"
       autoComplete="email"
-      className="bg-Fuchsia/10 text-ltr "
+      className="bg-lavender text-ltr "
       label="ایمیل"
       placeholder="ایمیل خود را وارد نمایید"
       required={true}
@@ -41,7 +41,7 @@ export const Password = (props) => {
       required={true}
       minLength={4}
       maxLength={8}
-      className="bg-Fuchsia/10 text-ltr"
+      className="bg-lavender text-ltr"
       placeholder="رمز عبور خود را وارد نمایید"
       label="رمز عبور"
       {...props}
@@ -57,7 +57,7 @@ export const RePassword = (props) => {
       required={true}
       minLength={4}
       maxLength={8}
-      className="bg-Fuchsia/10 text-ltr"
+      className="bg-lavender text-ltr"
       placeholder="رمز عبور خود را وارد نمایید"
       label="تکرار رمز عبور"
       {...props}
@@ -68,7 +68,7 @@ export const Submit = ({ isPending, ...props }) => {
   return (
     <Input
       type="submit"
-      value={isPending ? "چند لحظه صبر کنید..." : "ورود"}
+      value={isPending ? "چند لحظه صبر کنید..." : "ادامه"}
       className="w-full"
       disabled={isPending}
       {...props}

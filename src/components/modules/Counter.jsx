@@ -20,7 +20,7 @@ const Counter = ({ className, disabled, onClick, ...res }) => {
                 <button onClick={() => updateQuantity(1)}>
                     <PlusIcon className="w-4 h-4" />
                 </button>
-                <span className=" bg-Fuchsia/10 min-w-8 px-1 text-center font-bold ">
+                <span className=" bg-lavender min-w-8 px-1 text-center font-bold ">
                     {optimisticQuantity}
                 </span>
                 <button onClick={() => updateQuantity(-1)}>

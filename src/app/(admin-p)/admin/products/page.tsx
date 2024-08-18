@@ -2,7 +2,6 @@ import Breadcrumb from '@modules/Breadcrumb';
 import TableHeader from '@templates/admin/TableHeader';
 import Table from "@templates/admin/products/Table"
 import { Metadata } from 'next';
-import { PlusIcon } from '@heroicons/react/24/outline';
 import { Suspense } from 'react';
 import Pagination from '@modules/pagination';
 import { fetchProductsPages } from '@/lib/data';

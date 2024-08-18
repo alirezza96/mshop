@@ -17,18 +17,16 @@ export default async function page() {
     if (payload) redirect("/dashboard")
 
     return (
-        <div className=" flex items-end md:items-center justify-center h-svh">
-            <div className="bg-white rounded-xl overflow-hidden flex gap-2 items-center grow  md:grow-0">
-                <Content />
-                <Image
-                    src={cover}
-                    alt="register page image"
-                    height={560}
-                    width={420}
-                    className="disabled-drag hidden md:block"
-                    priority={true}
-                />
-            </div>
+        <div className="bg-white rounded-xl overflow-hidden flex  gap-2  md:mx-auto items-center ">
+            <Content />
+            <Image
+                src={cover}
+                alt="register page image "
+                height={560}
+                width={420}
+                className="disabled-drag hidden md:block"
+                priority={true}
+            />
         </div>
     )
 }

@@ -54,7 +54,7 @@ export function Card({
       </div>
       <p
         className={`
-             rounded-xl  p-2 text-center  bg-Fuchsia/10`}
+             rounded-xl  p-2 text-center  bg-lavender`}
       >
         {value}
       </p>

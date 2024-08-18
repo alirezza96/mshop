@@ -11,7 +11,8 @@ const breadcrumbs = [
 const page = async ({ searchParams }) => {
     const { q: query = "", page: currentPage = 1 } = searchParams
     const customers = await fetchFilteredCustomers(query)
-    const totalPages = await fetchCustomersPage(query)
+    // const totalPages = await fetchCustomersPage(query)
+    return 1
     // const customers = await fetchCustomers()
     return (
         <main>

@@ -29,17 +29,17 @@ export default function ProfileOptions({ name }) {
 const Options = () => {
     return (
         <ul className="font-morabba w-full md:w-48 absolute left-0 bottom-14 md:top-14 md:bottom-auto box py-4 px-2 space-y-2  z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200">
-            <li>
-                <NavLink href="/dashboard">حساب کاربری</NavLink>
+            <li >
+                <NavLink className="block" href="/dashboard">حساب کاربری</NavLink>
             </li>
             <li>
                 <form action={logout}>
-                    <button
+                    <Button
+                        className="w-full bg-transparent text-right"
                         type="submit"
-                        className="text-Fuchsia hover:bg-Purple/10 hover:text-Purple rounded-xl p-2 "
                     >
                         خروج از حساب کاربری
-                    </button>
+                    </Button>
                 </form>
             </li>
         </ul>
@@ -52,7 +52,7 @@ const Icon = ({ name }) => {
         ?
         <UserIcon className="w-6" />
         :
-        <span className="w-6 leading-6 bg-Fuchsia/10 rounded-full">
+        <span className="w-6 leading-6 bg-lavender rounded-full">
             {name[0].toUpperCase()}
         </span>
     return elem

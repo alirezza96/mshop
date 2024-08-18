@@ -269,6 +269,16 @@ export const createProduct = async (prevState: State, formData: FormData) => {
 //     redirect("/products")
 // }
 
+
+export const updateProduct = (formData: FormData) => {
+  const data = Object.fromEntries(formData.entries())
+  console.log("formData fired 🎆 =>", data)
+}
+
+
+
+
+
 // // customers
 // export const createCustomer = async (formData: FormData) => {
 //     const rawFormData = {
@@ -464,7 +474,7 @@ export async function register(
     // hash password
     const hashedPassword = await hashPassword(password)
     // is user
-    const {rowCount: isUser} = await sql`
+    const { rowCount: isUser } = await sql`
       SELECT 1 FROM users LIMIT 1
     `
     const newUser = await sql`

@@ -36,12 +36,13 @@ const Form = ({className}) => {
 
     return (
 
-        <form onSubmit={submitHandler} className={`bg-white px-2 ${className}`}>
+        <form onSubmit={submitHandler} className={` px-2  ${className}`}>
             <Input
                 placeholder="جستجو"
                 name="search" type="search"
                 onChange={(e) => changeHandler(e.target.value)}
                 defaultValue={searchParams.get("q")?.toString()}
+                className="shadow-md md:shadow-none text-sm"
             >
                 <button type="submit" className="p-2">
                     <MagnifyingGlassIcon className="w-6 h-6 text-Fuchsia hover:stroke-dark-purple" />

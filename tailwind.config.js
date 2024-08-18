@@ -12,6 +12,7 @@ module.exports = {
       "light-gray": "#f6f8fc",
       "gray": "#ccc",
       "green": "#25f7aa",
+      "lavender": "#E6E6FA",
       "pink": "#F72585",
       "Fuchsia": "#B5179E",
       "Purple": "#7209B7",

@@ -14,7 +14,7 @@ const Navbar = () => {
                     </NavLink>
                     <div className="hidden md:block w-px bg-gray h-8"></div>
                     <div className="hidden md:flex md:gap-x-2 lg:gap-x-4 font-morabba">
-                        <NavLink href={"admin/products"} className="group">
+                        <NavLink href={"/admin/products"} className="group">
                             محصولات
                             <div className=" absolute bottom-12 md:bottom-auto md:top-12 inset-x-0 shadow-md bg-white p-2  min-h-48 max-h-96 overflow-y-auto z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200">
                                 <nav>
@@ -33,8 +33,8 @@ const Navbar = () => {
                             </div>
 
                         </NavLink>
-                        <NavLink href={"admin/customers"}>مشتریان</NavLink>
-                        <NavLink href={"admin/invoices"}>سفارشات</NavLink>
+                        <NavLink href={"/admin/customers"}>مشتریان</NavLink>
+                        <NavLink href={"/admin/invoices"}>سفارشات</NavLink>
                     </div>
                     <Button className="md:hidden p-2">
                         <Bars3Icon className="w-6 h-6" />

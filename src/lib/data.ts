@@ -78,7 +78,7 @@ export async function fetchLatestInvoices() {
 }
 
 export async function fetchPreOrders() {
-  
+
   try {
     const data = await sql`
       SELECT h.date,d.*,p.name, p.english_name, p.thumbnail_url FROM invoices as h
@@ -182,9 +182,21 @@ export async function fetchProductById(id: string, size: string, color: string) 
 
     if (!validate(id)) return false
     const data = await sql`
-    select *
-    from products as p
-    where p.id =${id}
+    select 
+	    products.id,
+	    products.name,
+	    products.english_name,
+	    products.thumbnail_url,
+	    product_variants.inventory,
+	    colors.id as color_id,
+	    colors.name as color_name,
+	    sizes.id as size_id,
+	    sizes.name as size_name
+	    from products
+	    left outer join product_variants on products.id=product_variants.product_id
+	    left outer join colors on colors.id = product_variants.color_id
+	    left outer join sizes on sizes.id = product_variants.size_id
+    where products.id =${id}
     `
     return data.rows[0]
   } catch (error) {
@@ -389,8 +401,35 @@ export const fetchFavorite = async (product_id, user_id) => {
     `
     const isFavorite = Boolean(favorites.rowCount)
     return isFavorite
-  }catch(error){
-    console.error("Database error =>",error)
+  } catch (error) {
+    console.error("Database error =>", error)
     throw new Error("failed to fetch favorite")
+  }
+}
+
+export const fetchColors = async () => {
+  try {
+    const data = await sql`
+      SELECT * FROM colors
+    `
+    const colors = data.rows
+    return colors
+  } catch (error) {
+    console.error("database error =>", error)
+    throw new Error("failed to fetch colors")
+  }
+}
+
+
+export const fetchSizes = async () => {
+  try {
+    const data = await sql`
+      select * from sizes
+    `
+    const sizes = data.rows
+    return sizes
+  } catch (error) {
+    console.error("database error =>", error)
+    throw new Error("failed to fetch sizes")
   }
 }
