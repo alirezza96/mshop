@@ -1,17 +1,16 @@
 'use client';
 
-import { CustomerField } from '@/lib/definitions';
 import Link from 'next/link';
 import {
   CheckIcon,
   ClockIcon,
   CurrencyDollarIcon,
-  UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { createInvoice, State } from '@/lib/actions';
+import { Users } from "@modules/forms/users"
 // import { useActionState } from 'react';
 import { Select } from '@modules/form';
-export default function Form({ customers }: { customers: CustomerField[] }) {
+export default function Form() {
   const initialState: State = { message: null, errors: {} };
   // const [state, formAction] = useActionState(createInvoice, initialState);
 
@@ -22,24 +21,10 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
-          <Select
-            className="w-full"
-            id="customer"
-            name="customerId"
-            aria-describedby="customer-error"
-            defaultValue=""
-
-            label="مشتری"
-          >
-            <option value="" disabled>
-              انتخاب مشتری
-            </option>
-            {customers.map((customer) => (
-              <option key={customer.id} value={customer.id}>
-                {customer.name}
-              </option>
-            ))}
-          </Select>
+          <Users
+            defaultValueId="-1"
+            defaultValueName="انتخاب مشتری"
+          />
           {/* <div id="customer-error" aria-live="polite" aria-atomic="true">
             {state.errors?.customerId &&
               state.errors.customerId.map((error: string) => (

@@ -1,5 +1,5 @@
 import Form from "@templates/admin/products/create-form"
-import { fetchCategories, fetchCustomers } from '@/lib/data';
+import { fetchCategories, fetchUsers } from '@/lib/data';
 import Breadcrumb from '@modules/Breadcrumb';
 const breadcrumbs = [
   { label: 'داشبورد', href: '/admin' },

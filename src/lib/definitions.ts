@@ -1,3 +1,5 @@
+import { z } from "zod"
+
 // This file contains type definitions for your data.
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
@@ -85,7 +87,7 @@ export type FormattedTable = {
   total_paid: string;
 };
 
-export type CustomerField = {
+export type UsersField = {
   id: string;
   name: string;
 };
@@ -115,3 +117,22 @@ export type Product = {
   category_id: string,
   thumbnail_url: string,
 }
+
+export const sessionFormSchema = z.object({
+  name: z
+      .string()
+      .trim()
+      .min(3, "حداقل طول نام و نام خانوادگی 3 حرف میباشد")
+  ,
+  email: z
+      .string()
+      .trim()
+      .toLowerCase()
+      .email("ایمیل وارد شده نامعتبر است."),
+  password: z.string()
+      .min(4, "حداقل رمز عبور 4 حرف میباشد")
+      .max(8, "حداکثر رمز عبور 8 حرف میباشد"),
+  rePassword: z.string()
+      .min(4, "حداقل رمز عبور 4 حرف میباشد")
+      .max(8, "حداکثر رمز عبور 8 حرف میباشد")
+})

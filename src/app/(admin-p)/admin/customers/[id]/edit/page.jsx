@@ -1,5 +1,5 @@
 import Breadcrumb from "@modules/Breadcrumb"
-import { fetchCustomers, fetchInvoiceById } from "@/lib/data"
+import { fetchUsers, fetchInvoiceById } from "@/lib/data"
 
 const page = async ({ params }) => {
     const id = params.id
@@ -11,7 +11,7 @@ const page = async ({ params }) => {
     const [invoice , customers] = await Promise.all(
         [
             fetchInvoiceById(id)
-            , fetchCustomers
+            , fetchUsers
         ]
     )
     return (

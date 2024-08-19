@@ -4,7 +4,7 @@ import Form from "@templates/(website)/products/[id]/create-form"
 import { fetchFavorite, fetchProductById, fetchProductColorsById, fetchProductSizesById } from "@/lib/data"
 import { notFound } from "next/navigation"
 import Favorite from "@templates/(website)/products/[id]/Favorite"
-import { tokenPayload } from "@/lib/auth"
+import { tokenPayload } from "@/lib/auth/auth"
 // export const generateMetadata = async ({ params }) => {
 //     const product = await fetchProductById(params.id)
 //     if (!product) return notFound()

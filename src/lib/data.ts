@@ -2,13 +2,13 @@ import { sql } from '@vercel/postgres';
 import { unstable_noStore as noStore } from 'next/cache';
 import {
   Category,
-  CustomerField,
   TableType,
   InvoiceForm,
   InvoicesTable,
   LatestInvoiceRaw,
   Product,
   Revenue,
+  UsersField,
 } from './definitions';
 import { formatCurrency, formatDateToLocal, formatNumber } from './utils';
 import { tokenPayload } from './auth';
@@ -324,18 +324,17 @@ export async function fetchInvoicesPages(query: string) {
 }
 
 
-export async function fetchCustomers() {
+export async function fetchUsers() {
   try {
-    const data = await sql<CustomerField>`
+    const data = await sql<UsersField>`
       SELECT
         id,
         name
-      FROM customers
+      FROM users
       ORDER BY name ASC
     `;
-
-    const customers = data.rows;
-    return customers;
+    const users = data.rows;
+    return users;
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch all customers.');
@@ -375,7 +374,7 @@ export async function fetchFilteredCustomers(query: string) {
   }
 }
 
-export const fetchCustomersPage = async (query: string) => {
+export const fetchUsersPage = async (query: string) => {
   try {
     const count = await sql`SELECT COUNT(*)
   	FROM customers

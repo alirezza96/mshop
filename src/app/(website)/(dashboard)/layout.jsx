@@ -1,11 +1,8 @@
-import { tokenPayload } from "@/lib/auth"
-import { cookies } from "next/headers"
+import { tokenPayload } from "@/lib/auth/auth"
 import { redirect } from "next/navigation"
 
 export default async function layout({ children }) {
-    const cookieStore = cookies()
-    const token = cookieStore.get("token")
-    const payload = await tokenPayload(token)
+    const payload = await tokenPayload()
     if (!payload) redirect("/register")
     return (
         <>

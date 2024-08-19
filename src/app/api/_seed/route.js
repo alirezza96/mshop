@@ -11,7 +11,7 @@ import {
   sizes,
   productVariants,
 } from '@/lib/placeHolderData';
-import { hashPassword } from '@/lib/auth';
+import { hashPassword } from '@/lib/auth/auth';
 
 const client = await db.connect();
 

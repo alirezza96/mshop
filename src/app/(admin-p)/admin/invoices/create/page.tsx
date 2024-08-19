@@ -1,5 +1,4 @@
 import Form from '@templates/admin/invoices/create-form';
-import { fetchCustomers } from '@/lib/data';
 import Breadcrumb from '@modules/Breadcrumb';
 const breadcrumbs = [
     { label: 'داشبورد', href: '/admin' },
@@ -7,13 +6,12 @@ const breadcrumbs = [
     { label: 'ثبت سفارش', href: '/admin/invoices/create', },
 ]
 export default async function Page() {
-    const customers = await fetchCustomers();
     return (
         <main>
             <Breadcrumb
                 breadcrumbs={breadcrumbs}
             />
-            <Form customers={customers} />
+            <Form />
         </main>
     );
 }

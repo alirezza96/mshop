@@ -2,7 +2,7 @@ import Breadcrumb from "@modules/Breadcrumb"
 import Pagination from "@modules/pagination"
 import Table from "@templates/admin/customers/Table"
 import TableHeader from "@templates/admin/TableHeader"
-import { fetchCustomers, fetchCustomersPage, fetchFilteredCustomers } from "@/lib/data"
+import { fetchUsers, fetchUsersPage, fetchFilteredCustomers } from "@/lib/data"
 import { Suspense } from "react"
 const breadcrumbs = [
     { label: "داشبورد", href: "/admin" },
@@ -11,9 +11,9 @@ const breadcrumbs = [
 const page = async ({ searchParams }) => {
     const { q: query = "", page: currentPage = 1 } = searchParams
     const customers = await fetchFilteredCustomers(query)
-    // const totalPages = await fetchCustomersPage(query)
+    // const totalPages = await fetchUsersPage(query)
     return 1
-    // const customers = await fetchCustomers()
+    // const customers = await fetchUsers()
     return (
         <main>
             <Breadcrumb breadcrumbs={breadcrumbs} />

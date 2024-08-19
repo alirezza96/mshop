@@ -1,9 +1,8 @@
 
 import cover from "/public/products/01.webp"
 import Image from "next/image"
-import { tokenPayload } from "@/lib/auth"
+import { tokenPayload } from "@/lib/auth/auth"
 import { redirect } from "next/navigation"
-import { cookies } from "next/headers"
 import Content from "@templates/register/Content"
 export const metadata = {
     title: "ورود | ثبت نام"
@@ -11,9 +10,7 @@ export const metadata = {
 
 
 export default async function page() {
-    const cookieStore = cookies()
-    const token = cookieStore.get("token")
-    const payload = await tokenPayload(token)
+    const payload = await tokenPayload()
     if (payload) redirect("/dashboard")
 
     return (

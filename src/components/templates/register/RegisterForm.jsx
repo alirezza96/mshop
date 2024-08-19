@@ -1,14 +1,15 @@
 "use client"
 import ErrorMessage from "@modules/ErrorMessage"
-import { register } from '@/lib/actions';
 import { useActionState } from "react";
 import { Name, Email, Password, RePassword, Submit } from "@templates/register/Form"
+import { signUp } from "@/lib/auth/action";
 export default function LoginForm() {
   const initialState = { message: null, errors: null, name: null, email: null, password: null, rePassword: null }
   const [formState, formAction, isPending] = useActionState(
-    register,
+    signUp,
     initialState,
   );
+  console.log("formState =>", formState)
   return (
     <div className="space-y-4">
 
@@ -20,8 +21,8 @@ export default function LoginForm() {
           defaultValue={formState.name}
         />
         <>
-          {formState.errors &&
-            formState.errors.name?.map(message =>
+          {
+            formState.errors?.name?.map(message =>
               <ErrorMessage key={message}>
                 {message}
               </ErrorMessage>
@@ -30,8 +31,8 @@ export default function LoginForm() {
         </>
         <Email defaultValue={formState.email} />
         <>
-          {formState.errors &&
-            formState.errors.email?.map(message =>
+          {
+            formState.errors?.email?.map(message =>
               <ErrorMessage key={message}>
                 {message}
               </ErrorMessage>
@@ -40,8 +41,8 @@ export default function LoginForm() {
         </>
         <Password defaultValue={formState.password} />
         <>
-          {formState.errors &&
-            formState.errors.password?.map(message =>
+          {
+            formState.errors?.password?.map(message =>
               <ErrorMessage key={message}>
                 {message}
               </ErrorMessage>
@@ -50,8 +51,8 @@ export default function LoginForm() {
         </>
         <RePassword defaultValue={formState.rePassword} />
         <>
-          {formState.errors &&
-            formState.errors.password?.map(message =>
+          {
+            formState.errors?.password?.map(message =>
               <ErrorMessage key={message}>
                 {message}
               </ErrorMessage>

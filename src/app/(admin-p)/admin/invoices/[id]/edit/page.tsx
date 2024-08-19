@@ -1,6 +1,6 @@
 import Form from '@templates/admin/invoices/edit-form';
 import Breadcrumb from '@modules/Breadcrumb';
-import { fetchInvoiceById, fetchCustomers } from '@/lib/data';
+import { fetchInvoiceById, fetchUsers } from '@/lib/data';
 import { notFound } from 'next/navigation';
 
 
@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
     const [invoice, customers] = await Promise.all([
         fetchInvoiceById(id),
-        fetchCustomers(),
+        fetchUsers(),
     ]);
     if (!invoice) {
         return notFound();

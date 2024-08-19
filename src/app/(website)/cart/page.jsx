@@ -7,9 +7,9 @@ export const metadata = {
 }
 export default async function page() {
 
-    const { preOrders } = await fetchPreOrders()
+    // const { preOrders } = await fetchPreOrders()
 
-
+return 1
     return (
         <>
             <Suspense fallback="loading...">

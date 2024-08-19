@@ -1,5 +1,5 @@
 "use client"
-import { logout } from "@/lib/actions"
+import { signOut } from "@/lib/auth/action"
 import { UserIcon } from "@heroicons/react/24/outline"
 import { Button, NavLink } from "@modules/form"
 import { useRouter } from "next/navigation"
@@ -33,7 +33,7 @@ const Options = () => {
                 <NavLink className="block" href="/dashboard">حساب کاربری</NavLink>
             </li>
             <li>
-                <form action={logout}>
+                <form action={signOut}>
                     <Button
                         className="w-full bg-transparent text-right"
                         type="submit"

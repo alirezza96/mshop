@@ -66,7 +66,7 @@ export const Select = ({ label, className, children, defaultValueId, defaultValu
                 className={`h-10 w-full px-2  flex  items-center justify-between   bg-lavender my-1  rounded-lg ${className}`}
                 {...rest}
             >
-                <option value={defaultValueId}>{defaultValueName}</option>
+                <option value={defaultValueId} >{defaultValueName}</option>
                 {children}
             </select>
         </>

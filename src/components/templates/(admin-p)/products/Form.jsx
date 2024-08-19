@@ -43,7 +43,7 @@ export const EnglishName = (props) => {
 
   )
 }
-export const Colors = async ({ label, defaultValueName, defaultValueId, ...rest }) => {
+export const Colors = async ({  defaultValueName, defaultValueId, ...rest }) => {
   const colors = await fetchColors()
   return (
     <Select {...rest}
@@ -66,7 +66,7 @@ export const Colors = async ({ label, defaultValueName, defaultValueId, ...rest 
 
   )
 }
-export const Sizes = async ({ label, defaultValueName, defaultValueId, ...rest }) => {
+export const Sizes = async ({  defaultValueName, defaultValueId, ...rest }) => {
   const colors = await fetchSizes()
   return (
     <Select {...rest}
