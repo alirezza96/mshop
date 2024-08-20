@@ -4,10 +4,10 @@ import { UserIcon } from "@heroicons/react/24/outline"
 import { Button, NavLink } from "@modules/form"
 import { useRouter } from "next/navigation"
 
-export default function ProfileOptions({ name }) {
+export default function ProfileOptions({ isAuth }) {
     const { push } = useRouter()
     const navigateHandler = () => {
-        if (name) return
+        if (!isAuth) return
         push("/register")
     }
     return (
@@ -16,10 +16,10 @@ export default function ProfileOptions({ name }) {
                 onClick={navigateHandler}
                 className="inline-flex bg-transparent"
             >
-                <Icon name={name} />
+                <Icon isAuth={isAuth} />
             </Button>
             {
-                name && <Options />
+                isAuth && <Options />
             }
 
         </div>
@@ -47,13 +47,13 @@ const Options = () => {
     )
 }
 
-const Icon = ({ name }) => {
-    const elem = !name
+const Icon = ({ isAuth }) => {
+    const elem = isAuth
         ?
-        <UserIcon className="w-6" />
-        :
         <span className="w-6 leading-6 bg-lavender rounded-full">
-            {name[0].toUpperCase()}
+            A
         </span>
+        :
+        <UserIcon className="w-6" />
     return elem
 }

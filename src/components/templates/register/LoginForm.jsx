@@ -2,7 +2,7 @@
 import ErrorMessage from "@modules/ErrorMessage"
 import { useActionState } from "react";
 import { Email, Password, Submit } from "@templates/register/Form"
-import {signIn} from "@/lib/auth/auth"
+import {signIn} from "@/lib/auth/action"
 export default function LoginForm() {
   const initialState = { message: null, errors: null, email: null, password: null }
   const [formState, formAction, isPending] = useActionState(

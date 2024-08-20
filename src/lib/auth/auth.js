@@ -1,8 +1,9 @@
-"use server"
 import { hash, compare } from "bcrypt"
-import { sign, verify } from "jsonwebtoken"
 import { sql } from "@vercel/postgres"
 import { cookies } from "next/headers"
+import { decrypt } from "@/lib/auth/session"
+
+
 
 export const hashPassword = async (password) => {
     return await hash(password, 10)
@@ -12,23 +13,7 @@ export const comparePassword = async (password, hashedPassword) => {
     return await compare(password, hashedPassword)
 }
 
-// encrypt token
-export const encrypt = async (payload) => {
-    try {
-        return await sign({ ...payload }, process.env.PRIVATE_KEY, { expiresIn: "60d" })
-    } catch (error) {
-        console.error("failed to encrypt =>", error)
-    }
-}
 
-// decrypt token
-export const decrypt = async (session) => {
-    try {
-        return await verify(session, process.env.PRIVATE_KEY)
-    } catch (error) {
-        return false
-    }
-}
 
 // token payload
 export const tokenPayload = async () => {

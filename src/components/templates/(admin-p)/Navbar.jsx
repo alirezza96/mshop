@@ -1,7 +1,7 @@
 import { Button, NavLink } from "@modules/form"
 import { Bars3Icon, GlobeAltIcon, HomeIcon } from "@heroicons/react/24/outline"
 import ProfileOptions from "@modules/profile-options"
-const Navbar = () => {
+const Navbar = async () => {
     return (
         <div style={{ padding: "0 5px" }} className="h-12 flex items-center gap-x-1 lg:gap-x-2">
             <div className="flex  items-center justify-between grow ">
