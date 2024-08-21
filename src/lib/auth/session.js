@@ -1,3 +1,4 @@
+"use server"
 import { cookies, headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { SignJWT, jwtVerify } from 'jose';
@@ -10,7 +11,7 @@ export const encrypt = async (payload) => {
         return new SignJWT(payload)
             .setProtectedHeader({ alg: 'HS256' })
             .setIssuedAt()
-            .setExpirationTime('1hr')
+            .setExpirationTime('1h')
             .sign(key);
     } catch (error) {
         console.error("failed to encrypt =>", error)
@@ -32,7 +33,6 @@ export const decrypt = async (session) => {
 
 
 
-const duration = 24 * 60 * 60 * 1000
 const cookie = {
     name: "session",
     options: {
@@ -40,31 +40,35 @@ const cookie = {
         secure: true,
         path: "/"
     },
-    duration,
-    updateDuration: 7 * duration
+    duration: 60 * 60 * 1000
 }
 
-const callback = (redirect) => {
-    const pathname = headers().get("referer")
-    const searchParams = new URLSearchParams(new URL(pathname).search)
-    searchParams.has("redirect") ? redirect(searchParams.get("redirect"))
-        : redirect(redirect)
-}
-
-export const createSession = async (userId) => {
+// const callback = (redirect) => {
+//     const pathname = headers().get("referer")
+//     const searchParams = new URLSearchParams(new URL(pathname).search)
+//     searchParams.has("redirect") ? redirect(searchParams.get("redirect"))
+//         : redirect(redirect)
+// }
+const setCookie = (session) => {
     const expires = new Date(Date.now() + cookie.duration)
-    const session = await encrypt({ userId, expires })
     cookies().set(cookie.name, session, { ...cookie.options, expires })
-    callback("/dashboard")
+
+}
+export const createSession = async (data) => {
+    const session = await encrypt({ ...data })
+    console.log("createSession =>>>>>", { ...data })
+    setCookie(session)
+    redirect("/dashboard")
 }
 
 
 export const verifySession = async () => {
     const cookieStore = cookies().get(cookie.name)?.value
     const session = await decrypt(cookieStore)
-    if (!session?.userId) callback("/register")
+    if (!session?.userId) redirect("/register")
     return {
         isAuth: true,
+        role: session.role,
         userId: session.userId
     }
 }
@@ -74,9 +78,7 @@ export const updateSession = async () => {
     const session = cookies().get(cookie.name)?.value
     const payload = await decrypt(session)
     if (!session || !payload) return null
-    const expires = new Date(Date.now + cookie.updateDuration)
-    cookies.set(cookie.name, session, { ...cookie.options, expires })
-
+    setCookie(payload)
 }
 
 export const deleteSession = () => {

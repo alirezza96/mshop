@@ -7,8 +7,10 @@ import {
   LatestInvoicesSkeleton,
   CardsSkeleton,
 } from '@modules/skeletons';
+import { banUser } from '@/lib/auth/action';
 
 export default async function Page() {
+  const isBan = await banUser()
   return (
     <main>
       <div className="flex gap-2">
