@@ -54,18 +54,20 @@ const setCookie = (session) => {
     cookies().set(cookie.name, session, { ...cookie.options, expires })
 
 }
+
+
 export const createSession = async (data) => {
     const session = await encrypt({ ...data })
-    console.log("createSession =>>>>>", { ...data })
     setCookie(session)
     redirect("/dashboard")
 }
 
 
 export const verifySession = async () => {
-    const cookieStore = cookies().get(cookie.name)?.value
-    const session = await decrypt(cookieStore)
-    if (!session?.userId) redirect("/register")
+    // const cookieStore = cookies().get(cookie.name)?.value
+    // const session = await decrypt(cookieStore)
+    const payload = await getPayload()
+    if (!payload?.userId) redirect("/register")
     return {
         isAuth: true,
         role: session.role,
@@ -75,9 +77,11 @@ export const verifySession = async () => {
 
 
 export const updateSession = async () => {
-    const session = cookies().get(cookie.name)?.value
-    const payload = await decrypt(session)
-    if (!session || !payload) return null
+    // const session = cookies().get(cookie.name)?.value
+    // const payload = await decrypt(session)
+    // if (!session || !payload) return null
+    const payload = await getPayload()
+    if (!payload) return null
     setCookie(payload)
 }
 
@@ -86,3 +90,8 @@ export const deleteSession = () => {
     redirect("/register")
 }
 
+export const getPayload = async () => {
+    const session = cookies().get(cookie.name)?.value
+    const payload = await decrypt(session)
+    return payload
+}

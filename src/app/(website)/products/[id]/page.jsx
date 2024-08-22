@@ -23,6 +23,7 @@ const breadcrumbs = [
 
 export default async function page({ params }) {
     const { id: productId } = params
+    // if product not found redirect to not-found page
     const product = await fetchProductById(productId)
     if (!product) notFound()
     const { id: userId } = await tokenPayload()

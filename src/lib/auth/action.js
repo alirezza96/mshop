@@ -8,13 +8,14 @@ export async function signUp(
     prevState,
     formData
 ) {
-    // 1. Validate form fields
-    const validationResult = SignUpFormSchema.safeParse({
+    const data = {
         name: formData.get("name"),
         email: formData.get("email"),
         password: formData.get("password"),
         rePassword: formData.get("rePassword"),
-    })
+    }
+    // 1. Validate form fields
+    const validationResult = SignUpFormSchema.safeParse(data)
     // If any form fields are invalid, return early
     if (!validationResult.success) {
         return {
@@ -55,19 +56,19 @@ export async function signUp(
         SELECT 1 FROM users LIMIT 1
       `
     // 3. Insert the user into the database  
-    const data = await sql`
+    const result = await sql`
         INSERT INTO users (name ,email, password, role)
         VALUES (${name}, ${email}, ${hashedPassword}, ${isUser ? "user" : "admin"})
         RETURNING id,role
       `
-    const user = data.rows[0]
+    const user = result.rows[0]
     if (!user) {
         return {
             message: "خطایی رخ داده است"
         }
     }
     // 4. Create a session for the user
-    await createSession({ userId: user.id, role: user.role })
+    await createSession({ userId: user.id, name, role: user.role })
 }
 
 
@@ -96,7 +97,7 @@ export async function signIn(
     const { email, password } = validationResult.data
     // 2. Query the database for the user with the given email
     const users = await sql`
-        SELECT id, email, password, is_ban, role FROM users WHERE email = ${email}
+        SELECT id, name, email, password, is_ban, role FROM users WHERE email = ${email}
         `
     const user = users.rows[0]
     // If user is not found, return early
@@ -125,7 +126,7 @@ export async function signIn(
     }
     // 4. If login successful, create a session for the user and redirect
     console.log(1)
-    await createSession({ userId: user.id, role: user.role })
+    await createSession({ userId: user.id, name: user.name, role: user.role })
 
 }
 

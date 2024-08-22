@@ -3,11 +3,10 @@ import { deleteSession } from "@/lib/auth/session"
 import { UserIcon } from "@heroicons/react/24/outline"
 import { Button, NavLink } from "@modules/form"
 import { useRouter } from "next/navigation"
-
-export default function ProfileOptions({ isAuth }) {
+export default function ProfileOptions({payload}) {
     const { push } = useRouter()
     const navigateHandler = () => {
-        if (!isAuth) return
+        if (payload) return
         push("/register")
     }
     return (
@@ -16,16 +15,14 @@ export default function ProfileOptions({ isAuth }) {
                 onClick={navigateHandler}
                 className="inline-flex bg-transparent"
             >
-                <Icon isAuth={isAuth} />
+                <Icon name={payload?.name} />
             </Button>
             {
-                isAuth && <Options />
+                payload && <Options />
             }
-
         </div>
     )
 }
-
 const Options = () => {
     return (
         <ul className="font-morabba w-full md:w-48 absolute left-0 bottom-14 md:top-14 md:bottom-auto box py-4 px-2 space-y-2  z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200">
@@ -46,12 +43,13 @@ const Options = () => {
 
     )
 }
-
-const Icon = ({ isAuth }) => {
-    const elem = isAuth
+const Icon = ({ name }) => {
+    const elem = name
         ?
         <span className="w-6 leading-6 bg-lavender rounded-full">
-            A
+            {
+                name[0]
+            }
         </span>
         :
         <UserIcon className="w-6" />

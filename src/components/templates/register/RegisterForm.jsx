@@ -20,25 +20,9 @@ export default function LoginForm() {
           autoFocus={true}
           defaultValue={formState.name}
         />
-        <>
-          {
-            formState.errors?.name?.map(message =>
-              <ErrorMessage key={message}>
-                {message}
-              </ErrorMessage>
-            )
-          }
-        </>
+        <ErrorMessage>{formState.errors?.name}</ErrorMessage>
         <Email defaultValue={formState.email} />
-        <>
-          {
-            formState.errors?.email?.map(message =>
-              <ErrorMessage key={message}>
-                {message}
-              </ErrorMessage>
-            )
-          }
-        </>
+        <ErrorMessage>{formState.errors?.email}</ErrorMessage>
         <Password defaultValue={formState.password} />
         <>
           {

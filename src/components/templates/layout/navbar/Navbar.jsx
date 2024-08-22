@@ -5,10 +5,11 @@ import Basket from "./Basket"
 import { Suspense } from "react"
 import { BasketContentSkeleton } from "@modules/skeletons"
 import ProfileOptions from "@modules/profile-options"
+import { getPayload } from "@/lib/auth/session"
 export default async function Navbar() {
-    const payload = {isAuth: true}
+    const payload = await getPayload()
     return (
-        <div className="px-8  md:px-2 h-12 flex items-center gap-x-1 lg:gap-x-2 fixed inset-x-0 bottom-0  md:top-1  md:container  box    z-50">
+        <div className="px-8 md:px-2 h-12 flex items-center gap-x-1 lg:gap-x-2 fixed inset-x-0 bottom-0  md:top-1  md:container  box    z-50">
             <div className="flex  items-center justify-between grow ">
                 <div className="h-12 flex flex-row-reverse md:flex-row items-center gap-x-2">
                     <NavLink href="/" >
@@ -55,7 +56,7 @@ export default async function Navbar() {
                 </Suspense>
             </div>
 
-            <ProfileOptions isAuth={payload?.isAuth} />
+            <ProfileOptions payload={payload} />
 
 
         </div>
