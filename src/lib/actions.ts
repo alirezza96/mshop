@@ -49,62 +49,7 @@ export type State = {
   message?: string | null;
 };
 
-export async function createInvoice(productId: string, prevState: State, formData: FormData) {
-  const header = headers()
-  // Validate form using Zod
-  const data = {
-    color: formData.get("color"),
-    size: formData.get("size")
-  }
-  const validationResult = CreateInvoiceByCustomer.safeParse(data)
-  if (!validationResult.success) {
-    return {
-      message: "انتخاب سایز و رنگ اجباری است",
-      errors: validationResult.error.flatten().fieldErrors
-    }
-  }
-  const { color, size } = validationResult.data
-  const payload = await tokenPayload()
-  const pathname = header.get("referer")
-  if (!payload) {
-    return redirect(`/register?fallback=${pathname}`)
-  }
-  const customerId = payload.id
-  try {
-    // if invoice exists, update values
-    const invoice = await sql`
-    SELECT * FROM invoices 
-    WHERE status = 'pending'
-    AND customer_id = ${customerId}
-    `
-    const invoiceId = { id: invoice.rows[0]?.id }
-    const jalaaliDate = formatDateToLocal(new Date())
-    if (invoice.rowCount > 0) {
-      await sql`
-      UPDATE invoices
-      SET date = ${jalaaliDate}
-      WHERE id = ${invoiceId.id}
-      `
-    } else {
-      const newInvoice = await sql`
-        INSERT INTO invoices(customer_id, status, date)
-        VALUES(${customerId},'pending',${jalaaliDate})
-        RETURNING id
-      `
-      invoiceId.id = newInvoice.rows[0].id
-    }
-    const invoiceDetail = await sql`
-      INSERT INTO invoices_detail (id,product_id, price, quantity, size, color)
-        VALUES (${invoiceId.id},${productId},1000,1,${size},${color})
-    `
-  } catch (error) {
-    // If a database error occurs, return a more specific error.
-    return {
-      message: 'Database Error: Failed to Create Invoice.',
-    };
-  }
-  revalidatePath("/")
-}
+
 
 
 export async function updateInvoice(id: string, prevState: State, formData: FormData) {

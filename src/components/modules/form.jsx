@@ -22,21 +22,45 @@ export const NavLink = ({ children, href, className, ...rest }) => {
 }
 
 export const Input = ({ children, className, label, ...rest }) => {
-    return rest.type === "submit" ?
-        (
-            <input {...rest}
-                className={`${className} bg-Purple hover:bg-dark-purple text-white p-2 my-1 rounded-md min-w-24 cursor-pointer font-morabba disabled:cursor-not-allowed disabled:bg-gray`}
-            />
-        )
-        : rest.type === "textArea" ? (
-            <div >
-                <label className="block">{label}</label>
-                <input {...rest} />
-            </div>
-        )
-            :
-
-            (
+    switch (rest.type) {
+        case "submit": {
+            return (
+                <input {...rest}
+                    className={`${className} bg-Purple hover:bg-dark-purple text-white p-2 my-1 rounded-md min-w-24 cursor-pointer font-morabba disabled:cursor-not-allowed disabled:bg-gray`}
+                />
+            )
+        }
+        case "textArea": {
+            return (
+                <div >
+                    <label className="block">{label}</label>
+                    <input {...rest} />
+                </div>
+            )
+        }
+        case "radio": {
+            return (
+                <>
+                    <input {...rest}
+                        type="radio"
+                        id={rest.id}
+                        className="peer appearance-none"
+                    />
+                    <label
+                        htmlFor={rest.id}
+                        style={{ backgroundColor: rest.color }}
+                        className={`${className} relative 
+                        before:bg-gray peer-disabled:text-gray peer-disabled:before:absolute before:inset-x-0 before:inset-y-1/2 before:-z-10 before:h-px before:-rotate-45  before:transition-transform
+                         text-sm overflow-hidden  border border-solid border-gray text-center rounded-3xl 
+                         peer-checked:ring ring-lavender `}
+                    >
+                        {children}
+                    </label>
+                </>
+            )
+        }
+        default: {
+            return (
                 <>
                     <label htmlFor={rest.id} className="font-morabba">
                         {label}
@@ -52,6 +76,8 @@ export const Input = ({ children, className, label, ...rest }) => {
                 </>
 
             )
+        }
+    }
 }
 
 
@@ -75,30 +101,15 @@ export const Select = ({ label, className, children, defaultValueId, defaultValu
 
 
 
-export const InputRadio = ({ children, className, ...rest }) => {
 
+
+export const Submit = ({ title, className, ...props }) => {
     return (
-
-        <button {...rest}
-            type="radio"
-            style={{ backgroundColor: rest.color }}
-            className={`${className} relative   rounded-full border border-gray checked:ring-2 disabled:text-gray disabled:cursor-not-allowed  disabled:before:absolute before:inset-x-0 before:h-px before:bg-gray before:-z-10 z-10 before:-rotate-45 flex justify-center items-center overflow-hidden`}
-        >
-            {children}
-        </button>
-
+        <Input
+            type="submit"
+            value={props.disabled ? "چند لحظه صبر کنید..." : `${title}`}
+            className={className}
+            {...props}
+        />
     )
 }
-
-
-export const Submit = ({ isPending, ...props }) => {
-    return (
-      <Input
-        type="submit"
-        value={isPending ? "چند لحظه صبر کنید..." : "ادامه"}
-        className="w-full"
-        disabled={isPending}
-        {...props}
-      />
-    )
-  }

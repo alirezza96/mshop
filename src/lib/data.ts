@@ -62,7 +62,7 @@ export async function fetchLatestInvoices() {
     const data = await sql<LatestInvoiceRaw>`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
       FROM invoices
-      JOIN customers ON invoices.customer_id = customers.id
+      JOIN customers ON invoices.user_id = customers.id
       ORDER BY invoices.date DESC
       LIMIT 5`;
 
@@ -86,7 +86,7 @@ export async function fetchPreOrders() {
           ON h.id = d.id
         LEFT OUTER JOIN products as p
           ON p.id = d.product_id
-          WHERE h.customer_id = 'c9c173bd-9f67-4ff1-bdec-7d1e20f797ca'
+          WHERE h.user_id = 'c9c173bd-9f67-4ff1-bdec-7d1e20f797ca'
             AND h.status = 'pending'
     `
     const preOrders = data.rows
@@ -231,7 +231,7 @@ export async function fetchInvoiceById(id: string) {
     const data = await sql<InvoiceForm>`
       SELECT
         invoices.id,
-        invoices.customer_id,
+        invoices.user_id,
         invoices.amount,
         invoices.status
       FROM invoices
@@ -285,7 +285,7 @@ export async function fetchFilteredInvoices(
         customers.email,
         customers.image_url
       FROM invoices
-      JOIN customers ON invoices.customer_id = customers.id
+      JOIN customers ON invoices.user_id = customers.id
       WHERE
         customers.name ILIKE ${`%${query}%`} OR
         customers.email ILIKE ${`%${query}%`} OR
@@ -306,7 +306,7 @@ export async function fetchInvoicesPages(query: string) {
   try {
     const count = await sql`SELECT COUNT(*)
     FROM invoices
-    JOIN customers ON invoices.customer_id = customers.id
+    JOIN customers ON invoices.user_id = customers.id
     WHERE
       customers.name ILIKE ${`%${query}%`} OR
       customers.email ILIKE ${`%${query}%`} OR
@@ -353,7 +353,7 @@ export async function fetchFilteredCustomers(query: string) {
 		  SUM(CASE WHEN invoices.status = 'pending' THEN invoices.amount ELSE 0 END) AS total_pending,
 		  SUM(CASE WHEN invoices.status = 'paid' THEN invoices.amount ELSE 0 END) AS total_paid
 		FROM customers
-		LEFT JOIN invoices ON customers.id = invoices.customer_id
+		LEFT JOIN invoices ON customers.id = invoices.user_id
 		WHERE
 		  customers.name ILIKE ${`%${query}%`} OR
         customers.email ILIKE ${`%${query}%`}

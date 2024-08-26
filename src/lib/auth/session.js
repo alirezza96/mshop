@@ -57,21 +57,31 @@ const setCookie = (session) => {
 
 
 export const createSession = async (data) => {
-    const session = await encrypt({ ...data })
-    setCookie(session)
-    redirect("/dashboard")
-}
+    const session = await encrypt({ ...data });
+    const referer  = headers().get("referer");
+    const url = new URL(referer);
+    const params = new URLSearchParams(url.search);
+    
+    setCookie(session);
+    console.log(1111111111111)
+    if (params.has("redirect")) {
+        const redirectUrl = params.get("redirect");
+        redirect(redirectUrl.toString());
+    } else {
+        redirect("/dashboard");
+    }
+};
 
 
 export const verifySession = async () => {
-    // const cookieStore = cookies().get(cookie.name)?.value
-    // const session = await decrypt(cookieStore)
     const payload = await getPayload()
-    if (!payload?.userId) redirect("/register")
+    const referer = headers().get("referer")
+    const registerUrl = `/register?redirect=${referer}`
+    if (!payload?.userId) redirect(registerUrl)
     return {
         isAuth: true,
-        role: session.role,
-        userId: session.userId
+        role: payload.role,
+        userId: payload.userId
     }
 }
 

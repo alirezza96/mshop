@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { formatCurrency } from "@/lib/utils"
 import Link from "next/link"
-import { InputRadio } from "../form"
+import { Input } from "@modules/form"
 
 
 const colors = [
@@ -41,7 +41,7 @@ const CardProduct = ({ href, fa, en, src }) => {
                     <div className="flex gap-x-1">
                         {
                             colors?.map(item => (
-                                <InputRadio
+                                <Input
                                     key={item}
                                     name="color"
                                     disabled={true}
@@ -54,7 +54,7 @@ const CardProduct = ({ href, fa, en, src }) => {
                     <div className=" flex gap-x-1 ">
                         {
                             sizes?.map(item => (
-                                <InputRadio
+                                <Input
                                     key={item}
                                     name="size"
                                     disabled={true}
@@ -62,7 +62,7 @@ const CardProduct = ({ href, fa, en, src }) => {
                                     >
                                     {item}
 
-                                </InputRadio>
+                                </Input>
                             ))
                         }
                     </div>

@@ -1,7 +1,8 @@
 "use client"
 import ErrorMessage from "@modules/ErrorMessage"
 import { useActionState } from "react";
-import { Name, Email, Password, RePassword, Submit } from "@templates/register/Form"
+import { Name, Email, Password, RePassword } from "@templates/register/Form"
+import { Submit } from "@/components/modules/form";
 import { signUp } from "@/lib/auth/action";
 export default function LoginForm() {
   const initialState = { message: null, errors: null, name: null, email: null, password: null, rePassword: null }
@@ -43,7 +44,7 @@ export default function LoginForm() {
             )
           }
         </>
-        <Submit isPending={isPending} />
+        <Submit title="ادامه" disabled={isPending} className="w-full" />
       </form>
       <ErrorMessage>{formState.message}</ErrorMessage>
 

@@ -64,15 +64,3 @@ export const RePassword = (props) => {
     />
   )
 }
-export const Submit = ({ isPending, ...props }) => {
-  return (
-    <Input
-      type="submit"
-      value={isPending ? "چند لحظه صبر کنید..." : "ادامه"}
-      className="w-full"
-      disabled={isPending}
-      {...props}
-    />
-  )
-}
-
