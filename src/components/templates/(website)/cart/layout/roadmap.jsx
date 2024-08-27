@@ -9,7 +9,7 @@ export default function Roadmap() {
     ]
     const pathname = usePathname()
     return (
-        <ol className="font-morabba  text-sm w-[80%] my-8  mx-auto flex justify-between  text-center">
+        <ol className="font-secondary  text-sm w-[80%] my-8  mx-auto flex justify-between  text-center">
             {
                 breadcrumb?.map((item, index) => (
                     <li

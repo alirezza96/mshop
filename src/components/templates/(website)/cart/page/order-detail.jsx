@@ -39,10 +39,10 @@ export default async function PrePreOrderDetail({ preOrders, className }) {
                                 <tbody>
                                     <tr className="child:align-middle">
                                         <td>
-                                            {preOrder.size}
+                                            {preOrder.size_name}
                                         </td>
                                         <td>
-                                            {preOrder.color}
+                                            {preOrder.color_name}
                                         </td>
                                         <td>
                                             <Counter

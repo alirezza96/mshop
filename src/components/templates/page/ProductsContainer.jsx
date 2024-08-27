@@ -15,7 +15,7 @@ export default function ProductsContainer({ title, href, children}) {
 
 const ProductsHeader = ({ title, href }) => {
     const elem = href ?
-        <div className="text-Fuchsia flex items-center gap-1 font-morabba" aria-label="products-header">
+        <div className="text-Fuchsia flex items-center gap-1 font-secondary" aria-label="products-header">
             <Button
                 href={href}
                 className="flex gap-1 items-center group"

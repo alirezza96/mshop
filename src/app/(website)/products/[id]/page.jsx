@@ -4,14 +4,14 @@ import Form from "@templates/(website)/products/[id]/create-form"
 import { fetchFavorite, fetchProductById, fetchProductColorsById, fetchProductSizesById } from "@/lib/data"
 import { notFound } from "next/navigation"
 import Favorite from "@templates/(website)/products/[id]/Favorite"
-import { tokenPayload } from "@/lib/auth/auth"
-// export const generateMetadata = async ({ params }) => {
-//     const product = await fetchProductById(params.id)
-//     if (!product) return notFound()
-//     return {
-//         title: product.name
-//     }
-// }
+import { getPayload } from "@/lib/auth/session"
+export const generateMetadata = async ({ params }) => {
+    const product = await fetchProductById(params.id)
+    if (!product) return notFound()
+    return {
+        title: product.name
+    }
+}
 
 
 
@@ -26,7 +26,8 @@ export default async function page({ params }) {
     // if product not found redirect to not-found page
     const product = await fetchProductById(productId)
     if (!product) notFound()
-    const { id: userId } = await tokenPayload()
+    const payload = await getPayload()
+    const userId = payload?.userId
     const colors = await fetchProductColorsById(productId)
     const sizes = await fetchProductSizesById(productId)
     const isFavorite = await fetchFavorite(productId, userId)
@@ -44,18 +45,18 @@ export default async function page({ params }) {
                     <div className="space-y-[10px]">
 
                         <div className="flex justify-between gap-4">
-                            <h2 className="text-base font-morabba">
+                            <h2 className="text-base font-secondary">
                                 {product.name}
                             </h2>
 
                             <Favorite
                                 isFavorite={isFavorite}
-                                user_id={userId}
-                                product_id={productId}
+                                userId={userId}
+                                productId={productId}
                             />
                         </div>
                         <div className="h-px mt-4 bg-gray"></div>
-                        <Form id={productId} colors={colors} sizes={sizes} />
+                        <Form productId={productId} colors={colors} sizes={sizes} />
 
                     </div>
                 </div>
@@ -72,7 +73,7 @@ export default async function page({ params }) {
 const Description = () => {
     return (
         <>
-            <div className="box  flex justify-around gap-2 p-1 font-morabba sticky text-center top-12 md:top-14 ">
+            <div className="box  flex justify-around gap-2 p-1 font-secondary sticky text-center top-12 md:top-14 ">
                 <a href="#spec" className="bg-Purple/20 flex-1 p-2 rounded-md">
                     مشخصات
                 </a>

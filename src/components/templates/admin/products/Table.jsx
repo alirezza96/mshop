@@ -6,7 +6,7 @@ const Table = async ({ query, currentPage }) => {
     const products = await fetchFilteredProducts(query, currentPage)
     return (
         <table className="table-fixed w-full table ">
-            <thead className="font-morabba">
+            <thead className="font-secondary">
                 <tr>
                     <th>شناسه محصول</th>
                     <th>نام</th>

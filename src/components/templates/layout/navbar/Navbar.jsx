@@ -9,14 +9,14 @@ import { getPayload } from "@/lib/auth/session"
 export default async function Navbar() {
     const payload = await getPayload()
     return (
-        <div className="px-8 md:px-2 h-12 flex items-center gap-x-1 lg:gap-x-2 fixed inset-x-0 bottom-0  md:top-1  md:container  box    z-50">
+        <div className="px-8 md:px-2 h-12 flex items-center gap-x-1 lg:gap-x-2 fixed inset-x-0 bottom-0  md:top-1  md:container  box z-50 font-secondary">
             <div className="flex  items-center justify-between grow ">
                 <div className="h-12 flex flex-row-reverse md:flex-row items-center gap-x-2">
                     <NavLink href="/" >
                         <HomeIcon className="w-6 h-6" />
                     </NavLink>
                     <Divider />
-                    <div className="hidden md:flex md:gap-x-2 lg:gap-x-4 font-morabba">
+                    <div className="hidden md:flex md:gap-x-2 lg:gap-x-4 font-secondary">
                         <NavLink href={"/products"} className="group">
                             محصولات
                             <div className=" absolute bottom-12 md:bottom-auto md:top-14 inset-x-0 box p-2  min-h-48 max-h-96 overflow-y-auto z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200">
@@ -52,7 +52,9 @@ export default async function Navbar() {
                     <ShoppingCartIcon className="w-6 h-6 stroke-Fuchsia" />
                 </button>
                 <Suspense fallback={<BasketContentSkeleton />}>
-                    <Basket className=" invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200" />
+                    <Basket 
+                    userId={payload?.userId}
+                    className=" invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200" />
                 </Suspense>
             </div>
 

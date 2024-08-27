@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 
-const buttonStyle = "font-morabba text-Fuchsia  hover:text-Purple hover:bg-Purple/10  rounded-xl p-2"
+const buttonStyle = "font-secondary text-Fuchsia  hover:text-Purple hover:bg-Purple/10  rounded-xl p-2"
 export const Button = ({ children, className, ...rest }) => {
     // return <button {...rest} className={`button transition-colors ${className}`}>{children}</button>
     const elem = rest.href ?
@@ -26,7 +26,7 @@ export const Input = ({ children, className, label, ...rest }) => {
         case "submit": {
             return (
                 <input {...rest}
-                    className={`${className} bg-Purple hover:bg-dark-purple text-white p-2 my-1 rounded-md min-w-24 cursor-pointer font-morabba disabled:cursor-not-allowed disabled:bg-gray`}
+                    className={`${className} bg-Purple hover:bg-dark-purple text-white p-2 my-1 rounded-md min-w-24 cursor-pointer font-secondary disabled:cursor-not-allowed disabled:bg-gray`}
                 />
             )
         }
@@ -51,8 +51,10 @@ export const Input = ({ children, className, label, ...rest }) => {
                         style={{ backgroundColor: rest.color }}
                         className={`${className} relative 
                         before:bg-gray peer-disabled:text-gray peer-disabled:before:absolute before:inset-x-0 before:inset-y-1/2 before:-z-10 before:h-px before:-rotate-45  before:transition-transform
-                         text-sm overflow-hidden  border border-solid border-gray text-center rounded-3xl 
-                         peer-checked:ring ring-lavender `}
+                         text-sm overflow-hidden  border border-solid border-gray cursor-pointer text-center rounded-3xl 
+                        hover:bg-lavender transition-all delay-75
+                        select-none
+                         peer-checked:outline-dotted  outline-offset-2 outline-Purple `}
                     >
                         {children}
                     </label>
@@ -62,7 +64,7 @@ export const Input = ({ children, className, label, ...rest }) => {
         default: {
             return (
                 <>
-                    <label htmlFor={rest.id} className="font-morabba">
+                    <label htmlFor={rest.id} className="font-secondary">
                         {label}
                     </label>
                     <div
@@ -70,7 +72,7 @@ export const Input = ({ children, className, label, ...rest }) => {
                         <input
                             {...rest}
                             id={rest.id}
-                            className=" w-full mx-2  bg-transparent outline-none focus-visible:border-b-2 border-Fuchsia/30 font-dana placeholder:text-right placeholder:text-sm" />
+                            className=" w-full mx-2  bg-transparent outline-none focus-visible:border-b-2 border-Fuchsia/30  placeholder:text-right placeholder:text-sm" />
                         {children}
                     </div>
                 </>
@@ -85,7 +87,7 @@ export const Input = ({ children, className, label, ...rest }) => {
 export const Select = ({ label, className, children, defaultValueId, defaultValueName, ...rest }) => {
     return (
         <>
-            <label htmlFor={rest.id} className="font-morabba">
+            <label htmlFor={rest.id} className="font-secondary">
                 {label}
             </label>
             <select

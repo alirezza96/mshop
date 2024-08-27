@@ -50,7 +50,7 @@ export function Card({
     <div className=" rounded-xl box p-2 space-y-2 min-w-32">
       <div className="flex items-center  gap-2">
         {Icon ? <Icon className="h-5 w-5" /> : null}
-        <h3 className='font-morabba text-sm'>{title}</h3>
+        <h3 className='font-secondary text-sm'>{title}</h3>
       </div>
       <p
         className={`

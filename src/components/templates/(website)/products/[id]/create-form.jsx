@@ -2,13 +2,12 @@
 import { useUpdateQueryParam } from "@/hooks/useUpdateQueryParam";
 import { Input, Submit } from "@modules/form";
 import ErrorMessage from "@/components/modules/ErrorMessage";
-import { useActionState } from "react";
+import { useActionState, useMemo } from "react";
 import { createInvoice } from "@/actions/invoice"
 import { formatCurrency } from "@/lib/utils";
-
 const Picker = ({ title, children }) => (
     <div>
-        <p className="font-morabba py-1">{title}:</p>
+        <p className="font-secondary py-1">{title}:</p>
         <div className="flex gap-x-[6px]" role="radiogroup">
             {children}
         </div>
@@ -18,10 +17,11 @@ const Picker = ({ title, children }) => (
 export default function Form({ colors, sizes, productId }) {
     const totalPrice = 18_000_000
     const addToCart = createInvoice.bind(null, productId)
-    const initialState = { message: null, errors: {} }
+    const initialState = { message: null, errors: {}, status: false }
     const [formState, formAction, pending] = useActionState(addToCart, initialState)
     const { getQueryParam, changeHandler, isPending } = useUpdateQueryParam();
-    console.log("getQueryParam =>", getQueryParam(encodeURIComponent("color")))
+    const selectedColor = useMemo(() => getQueryParam("c"), [getQueryParam])
+    const selectedSize = useMemo(() => getQueryParam("s"), [getQueryParam])
     return (
         <form action={formAction} className="space-y-[10px]">
             <Picker title="رنگ">
@@ -29,11 +29,11 @@ export default function Form({ colors, sizes, productId }) {
                     <Input
                         type="radio"
                         key={item.color}
-                        name="color"
+                        name="c"
                         id={item.color}
                         value={item.color}
-                        checked={getQueryParam("color") === item.name}
-                        onChange={() => changeHandler("color", item.name)}
+                        checked={selectedColor === item.color}
+                        onChange={() => changeHandler("c", item.color)}
                         disabled={!item.inventory}
                         className="min-w-14 min-h-2"
                     >
@@ -48,11 +48,11 @@ export default function Form({ colors, sizes, productId }) {
                     <Input
                         type="radio"
                         key={item.size}
-                        name="size"
+                        name="s"
                         id={item.size}
                         value={item.size}
-                        checked={getQueryParam("size") === item.name}
-                        onChange={() => changeHandler("size", item.name)}
+                        checked={selectedSize === item.size}
+                        onChange={() => changeHandler("s", item.size)}
                         disabled={!item.inventory}
                         className="min-w-14 min-h-2"
                     >
@@ -66,7 +66,7 @@ export default function Form({ colors, sizes, productId }) {
                 <Submit title="افزودن به سبد خرید" disabled={pending || isPending} />
                 <span className="font-bold">{formatCurrency(totalPrice)}</span>
             </div>
-            <ErrorMessage>{formState.message}</ErrorMessage>
+            <ErrorMessage status={formState?.status}>{formState?.message}</ErrorMessage>
         </form>
     );
 }

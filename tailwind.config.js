@@ -22,10 +22,7 @@ module.exports = {
       "Light-Blue": "#4895EF",
       "transparent": "transparent"
     },
-    fontFamily: {
-      "dana": ["var(--font-dana)", "sans-serif"],
-      "morabba": ["var(--font-morabba)", "sans-serif"],
-    },
+
     container: {
       center: true,
       padding: {
@@ -46,6 +43,12 @@ module.exports = {
     //     },
     //   },
     // },
+    extend: {
+      fontFamily: {
+        primary: ["var(--font-primary)"],
+        secondary: ["var(--font-secondary)"],
+      },
+    }
   },
   plugins: [
     function ({ addVariant }) {

@@ -55,10 +55,34 @@ export function InvoiceSkeleton() {
         </div>
       </div>
       <div className="mt-2 h-4 w-12 rounded-md bg-gray/70-200" />
+
     </div>
   );
 }
+export function InvoiceSkeletonCardColor() {
+  return (
+    <div className=" animate-pulse  flex gap-x-1">
+      <div className=" h-3 w-3 rounded-full  bg-gray/70" />
+      <div className=" h-3 w-3 rounded-full  bg-gray/70" />
+      <div className=" h-3 w-3 rounded-full  bg-gray/70" />
+      <div className=" h-3 w-3 rounded-full  bg-gray/70" />
+      <div className=" h-3 w-3 rounded-full  bg-gray/70" />
 
+    </div>
+  )
+}
+export function InvoiceSkeletonCardSize() {
+  return (
+    <div className=" animate-pulse  flex gap-x-1">
+      <div className=" h-5 w-8 rounded-full  bg-gray/70" />
+      <div className=" h-5 w-8 rounded-full  bg-gray/70" />
+      <div className=" h-5 w-8 rounded-full  bg-gray/70" />
+      <div className=" h-5 w-8 rounded-full  bg-gray/70" />
+      <div className=" h-5 w-8 rounded-full  bg-gray/70" />
+
+    </div>
+  )
+}
 export function LatestInvoicesSkeleton() {
   return (
     <div
@@ -74,8 +98,8 @@ export function LatestInvoicesSkeleton() {
           <InvoiceSkeleton />
         </div>
         <div className="flex items-center pb-2 pt-6">
-          <div className="h-5 w-5 rounded-full bg-gray/70-200" />
-          <div className="ml-2 h-4 w-20 rounded-md bg-gray/70-200" />
+          <InvoiceSkeletonCardColor />
+          <InvoiceSkeletonCardSize />
         </div>
       </div>
     </div>
@@ -226,8 +250,8 @@ export function BasketContentSkeleton() {
       <div className="border-t border-dashed "></div>
       <div className="flex justify-between">
 
-      <div className="h-8 bg-gray/70 my-1 rounded-md w-56"></div>
-      <div className="h-12 bg-gray/70 my-1 rounded-md w-24"></div>
+        <div className="h-8 bg-gray/70 my-1 rounded-md w-56"></div>
+        <div className="h-12 bg-gray/70 my-1 rounded-md w-24"></div>
       </div>
     </div>
   )

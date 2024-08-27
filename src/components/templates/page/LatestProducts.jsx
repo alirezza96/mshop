@@ -5,9 +5,10 @@ const LatestProducts = async () => {
     return latestProducts?.map((product) => (
         <CardProduct
             key={product.id}
+            id= {product.id}
             href={product.id}
-            fa={product.name}
-            en={product.english_name}
+            name={product.name}
+            englishName={product.english_name}
             src={product.thumbnail_url}
         />
     ))

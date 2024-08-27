@@ -1,25 +1,36 @@
 "use client"
-import { useOptimistic } from "react"
 import { HeartIcon } from "@heroicons/react/24/outline"
 import { isFavoriteAction } from "@/lib/actions"
+import { useOptimistic, useEffect } from "react"
 
-export default function Favorite({ isFavorite, product_id, user_id }) {
-    const [optimisticState, addOptimistic] = useOptimistic(
+export default function Favorite({ isFavorite, productId, userId }) {
+    const [optimisticFavorite, setOptimisticFavorite] = useOptimistic(
         isFavorite,
-        (currentState, optimisticValue) => !currentState
+        (state, isFavorite) => isFavorite // تعریف تابع برای تعیین وضعیت جدید
     )
-    const formAction = () => {
-        addOptimistic(false)
-        isFavoriteAction(!optimisticState, product_id, user_id)
 
+    useEffect(() => {
+        if (optimisticFavorite !== isFavorite) {
+            (async () => {
+                try {
+                    await isFavoriteAction(optimisticFavorite, productId, userId)
+                } catch (error) {
+                    setOptimisticFavorite(isFavorite) // بازگشت به حالت اولیه در صورت خطا
+                    console.error("Failed to update favorite status:", error)
+                }
+            })();
+        }
+    }, [optimisticFavorite])
+
+    const changeHandler = () => {
+        setOptimisticFavorite(!optimisticFavorite) // تغییر فوری وضعیت خوش‌بینانه
     }
 
-    console.log("optimisticState =>", optimisticState)
     return (
-        <button onClick={formAction}>
-            <HeartIcon className={`w-6 h-6 cursor-pointer hover:fill-Fuchsia/40 hover:text-Fuchsia ${optimisticState ? "fill-Purple text-Purple" : ""}`} />
+        <button onClick={changeHandler}>
+            <HeartIcon className={`w-6 h-6 cursor-pointer ${optimisticFavorite ? "fill-Fuchsia text-Fuchsia" : ""}`} />
             <p>
-                value: {optimisticState ? "true" : "false"}
+                {optimisticFavorite ? "true" : "false"}
             </p>
         </button>
     )

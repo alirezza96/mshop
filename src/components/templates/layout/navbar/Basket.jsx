@@ -4,14 +4,12 @@ import { fetchPreOrders } from "@/lib/data"
 import { FaceFrownIcon } from "@heroicons/react/24/outline"
 import { Button } from "../../../modules/form"
 import PreOrderDetail from "../../(website)/cart/page/order-detail"
-const Basket = async ({ className }) => {
-    const { preOrders, rowCount } = await fetchPreOrders()
+export default async function Basket({ className, userId }) {
+    const { preOrders, rowCount } = await fetchPreOrders(userId)
     return (
         <>
             {/* counter  */}
-            <div className={`${!rowCount && "hidden"} w-6 text-center rounded-full text-white bg-pink/80 e absolute top-1 select-none`}>
-                {rowCount}
-            </div>
+            <Counter rowCount={rowCount} />
             <div className={` absolute bottom-12 md:bottom-auto md:top-14 inset-x-0 box p-2  z-50 ${className} `}>
                 {
                     !preOrders?.length ?
@@ -64,6 +62,13 @@ const Basket = async ({ className }) => {
         </>
     )
 }
+
+const Counter = ({ rowCount }) => (
+    <div className="w-6  text-center rounded-full text-white bg-pink/80  absolute top-1 select-none">
+        {rowCount}
+    </div>
+)
+
 const BasketCard = (props) => {
     return (
         <tr className="child:align-middle">
@@ -91,11 +96,11 @@ const BasketCard = (props) => {
                         </p>
                         <p>
                             رنگ:
-                            {props.color}
+                            {props.color_name}
                         </p>
                         <p>
                             سایز:
-                            {props.size}
+                            {props.size_name}
                         </p>
                     </div>
                 </div>
@@ -112,5 +117,3 @@ const BasketCard = (props) => {
 
 
 
-
-export default Basket

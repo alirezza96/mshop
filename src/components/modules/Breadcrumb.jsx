@@ -4,7 +4,7 @@ import { NavLink } from "@modules/form"
 import Link from "next/link"
 const Breadcrumb = ({ breadcrumbs }) => {
   return (
-    <ol className="flex items-center min-h-10">
+    <ol className="flex items-center min-h-10 font-bold">
       {
         breadcrumbs?.map((breadcrumb, index) => (
           <li key={breadcrumb.href}>

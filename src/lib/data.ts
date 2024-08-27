@@ -37,7 +37,8 @@ export async function fetchLatestProducts() {
     // await new Promise((resolve) => setTimeout(resolve, 10000));
 
     const data = await sql<Product>`
-            SELECT * FROM PRODUCTS LIMIT 6
+          SELECT * FROM products
+            LIMIT 6
         `
     return data.rows
   } catch (error) {
@@ -77,16 +78,19 @@ export async function fetchLatestInvoices() {
   }
 }
 
-export async function fetchPreOrders() {
+export async function fetchPreOrders(userId: string) {
 
   try {
     const data = await sql`
-      SELECT h.date,d.*,p.name, p.english_name, p.thumbnail_url FROM invoices as h
+      SELECT h.date,p.name, p.english_name, p.thumbnail_url, d.price, d.quantity, sizes.name as size_name, colors.name as color_name FROM invoices as h
         LEFT OUTER JOIN invoices_detail as d
           ON h.id = d.id
         LEFT OUTER JOIN products as p
           ON p.id = d.product_id
-          WHERE h.user_id = 'c9c173bd-9f67-4ff1-bdec-7d1e20f797ca'
+	left outer join product_variants as pv on pv.product_id = p.id
+	left outer join colors on colors.id = pv.color_id
+	left outer join sizes on sizes.id = pv.size_id
+          WHERE h.user_id = ${userId}
             AND h.status = 'pending'
     `
     const preOrders = data.rows
@@ -205,16 +209,18 @@ export async function fetchProductById(id: string, size: string, color: string) 
   }
 }
 export async function fetchProductColorsById(id: string) {
+
   const colors = await sql`
     select DISTINCT c.name, c.color, pv.inventory from product_variants as pv
       inner join colors as c
         on c.id = pv.color_id
       where pv.product_id = ${id}
   `
-  return colors.rows.map(color => ({ ...color, color: `#${color.color}` }))
+  return colors.rows
 }
 
 export async function fetchProductSizesById(id: string) {
+
   const sizes = await sql`
     SELECT DISTINCT s.name, s.size, pv.inventory FROM product_variants as pv
       INNER JOIN sizes as s 
@@ -391,13 +397,14 @@ export const fetchUsersPage = async (query: string) => {
   }
 }
 
-export const fetchFavorite = async (product_id, user_id) => {
+export const fetchFavorite = async (product_id: string, user_id: string) => {
   try {
     const favorites = await sql`
       SELECT 1 FROM favorites WHERE 
         product_id=${product_id} 
         AND user_id=${user_id}
     `
+
     const isFavorite = Boolean(favorites.rowCount)
     return isFavorite
   } catch (error) {

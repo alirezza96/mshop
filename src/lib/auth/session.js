@@ -43,12 +43,7 @@ const cookie = {
     duration: 60 * 60 * 1000
 }
 
-// const callback = (redirect) => {
-//     const pathname = headers().get("referer")
-//     const searchParams = new URLSearchParams(new URL(pathname).search)
-//     searchParams.has("redirect") ? redirect(searchParams.get("redirect"))
-//         : redirect(redirect)
-// }
+
 const setCookie = (session) => {
     const expires = new Date(Date.now() + cookie.duration)
     cookies().set(cookie.name, session, { ...cookie.options, expires })
@@ -61,12 +56,10 @@ export const createSession = async (data) => {
     const referer  = headers().get("referer");
     const url = new URL(referer);
     const params = new URLSearchParams(url.search);
-    
     setCookie(session);
-    console.log(1111111111111)
     if (params.has("redirect")) {
-        const redirectUrl = params.get("redirect");
-        redirect(redirectUrl.toString());
+        const redirectUrl = decodeURIComponent(params.get("redirect"))
+        redirect(redirectUrl);
     } else {
         redirect("/dashboard");
     }
@@ -76,7 +69,8 @@ export const createSession = async (data) => {
 export const verifySession = async () => {
     const payload = await getPayload()
     const referer = headers().get("referer")
-    const registerUrl = `/register?redirect=${referer}`
+    const redirectUrl = encodeURIComponent(referer)
+    const registerUrl = `/register?redirect=${redirectUrl}`
     if (!payload?.userId) redirect(registerUrl)
     return {
         isAuth: true,
@@ -87,9 +81,6 @@ export const verifySession = async () => {
 
 
 export const updateSession = async () => {
-    // const session = cookies().get(cookie.name)?.value
-    // const payload = await decrypt(session)
-    // if (!session || !payload) return null
     const payload = await getPayload()
     if (!payload) return null
     setCookie(payload)

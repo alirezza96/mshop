@@ -25,7 +25,7 @@ export default function ProfileOptions({payload}) {
 }
 const Options = () => {
     return (
-        <ul className="font-morabba w-full md:w-48 absolute left-0 bottom-14 md:top-14 md:bottom-auto box py-4 px-2 space-y-2  z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200">
+        <ul className="font-secondary w-full md:w-48 absolute left-0 bottom-14 md:top-14 md:bottom-auto box py-4 px-2 space-y-2  z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200">
             <li >
                 <NavLink className="block" href="/dashboard">حساب کاربری</NavLink>
             </li>

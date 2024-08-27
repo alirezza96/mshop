@@ -2,11 +2,11 @@
 import { sql } from "@vercel/postgres"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
-import {  z } from "zod"
+import { z } from "zod"
 import path from "path"
 import { writeFile } from "fs/promises"
-import {  tokenPayload } from "@/lib/auth/auth"
-import {  headers } from "next/headers"
+import { tokenPayload } from "@/lib/auth/auth"
+import { headers } from "next/headers"
 import { formatDateToLocal } from "./utils"
 //invoices
 const InvoiceFormSchema = z.object({
@@ -118,30 +118,28 @@ export async function deleteInvoice(id: string) {
 
 }
 
+
 export async function isFavoriteAction(isFavorite: boolean, product_id: string, user_id: string) {
   try {
     if (isFavorite) {
       console.log(product_id, user_id, 1)
       await sql`
-      INSERT INTO favorites (product_id, user_id)
-      VALUES(${product_id}, ${user_id})
+      DELETE FROM favorites WHERE
+      product_id = ${product_id} 
+      and user_id = ${user_id}
       `
     } else {
       console.log(product_id, user_id, 2)
       await sql`
-      DELETE FROM favorites WHERE
-      product_id = ${product_id} 
-      and user_id = ${user_id}
-    `
+        INSERT INTO favorites (product_id, user_id)
+        VALUES(${product_id}, ${user_id})
+        `
     }
   } catch (error) {
     return {
       message: "Database Error: Failed to favorite product."
     }
   }
-  console.log("create function fired isFavorite =>", isFavorite)
-  console.log("create function fired product_id =>", product_id)
-  console.log("create function fired user_id =>", user_id)
 }
 
 //products
@@ -215,7 +213,7 @@ export const createProduct = async (prevState: State, formData: FormData) => {
 
 export const updateProduct = (formData: FormData) => {
   const data = Object.fromEntries(formData.entries())
-  
+
   console.log("formData fired 🎆 =>", data)
 }
 
