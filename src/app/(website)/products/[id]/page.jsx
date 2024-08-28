@@ -4,7 +4,12 @@ import Form from "@templates/(website)/products/[id]/create-form"
 import { fetchFavorite, fetchProductById, fetchProductColorsById, fetchProductSizesById } from "@/lib/data"
 import { notFound } from "next/navigation"
 import Favorite from "@templates/(website)/products/[id]/Favorite"
+import Images from "@templates/(website)/products/[id]/Images"
 import { getPayload } from "@/lib/auth/session"
+import { fetchImagesById } from "@/scripts/products"
+
+import { Suspense } from "react"
+
 export const generateMetadata = async ({ params }) => {
     const product = await fetchProductById(params.id)
     if (!product) return notFound()
@@ -31,16 +36,15 @@ export default async function page({ params }) {
     const colors = await fetchProductColorsById(productId)
     const sizes = await fetchProductSizesById(productId)
     const isFavorite = await fetchFavorite(productId, userId)
+    const images = await fetchImagesById(productId)
+
     return (
         <div className="container">
             <Breadcrumb breadcrumbs={breadcrumbs} />
             <div className="my-3 flex flex-col  md:flex-row gap-4 md:gap-8 ">
-                <Image
-                    src={product.thumbnail_url}
-                    alt={`تصویر محصول ${product.name}`}
-                    height={540}
-                    width={405}
-                    className="rounded-lg disabled-drag mx-auto" />
+                {/* <Suspense fallback="loading..."> */}
+                    <Images images={images}/>
+                {/* </Suspense> */}
                 <div className="flex-auto flex flex-col justify-between  ">
                     <div className="space-y-[10px]">
 

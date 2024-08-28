@@ -54,7 +54,7 @@ export default async function Navbar() {
                 <Suspense fallback={<BasketContentSkeleton />}>
                     <Basket 
                     userId={payload?.userId}
-                    className=" invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200" />
+                    className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all delay-200" />
                 </Suspense>
             </div>
 

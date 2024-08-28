@@ -290,6 +290,65 @@ const revenue = [
 ];
 
 
+const images = [
+  {
+    name: "a01",
+    src: "/products/a01.png",
+    is_default: true,
+    is_thumbnail:true,
+    product_id: products[0].id
+  },
+  {
+    name: "a02",
+    src: "/products/a02.jpg",
+    is_default: false,
+    is_thumbnail:false,
+    product_id: products[0].id
+  },
+  {
+    name: "a03",
+    src: "/products/a03.jpg",
+    is_default: false,
+    is_thumbnail:false,
+    product_id: products[0].id
+  },
+  {
+    name: "a04",
+    src: "/products/a04.jpg",
+    is_default: false,
+    is_thumbnail:false,
+    product_id: products[0].id
+  },
+  {
+    name: "a05",
+    src: "/products/a05.jpg",
+    is_default: false,
+    is_thumbnail:false,
+    product_id: products[0].id
+  },
+  {
+    name: "a06",
+    src: "/products/a06.png",
+    is_default: false,
+    is_thumbnail:false,
+    product_id: products[0].id
+  },
+  {
+    name: "a07",
+    src: "/products/a07.jpg",
+    is_default: false,
+    is_thumbnail:false,
+    product_id: products[0].id
+  },
+  {
+    name: "a08",
+    src: "/products/a08.png",
+    is_default: false,
+    is_thumbnail:false,
+    product_id: products[0].id
+  },
+]
+
 
 export {
   users
@@ -302,4 +361,5 @@ export {
   , sizes
   , colors
   , categories
+  , images
 };

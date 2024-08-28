@@ -10,7 +10,7 @@ export default async function Basket({ className, userId }) {
         <>
             {/* counter  */}
             <Counter rowCount={rowCount} />
-            <div className={` absolute bottom-12 md:bottom-auto md:top-14 inset-x-0 box p-2  z-50 ${className} `}>
+            <div className={`box absolute bottom-12 md:bottom-auto md:top-14 inset-x-0  p-2  z-50 ${className} `}>
                 {
                     !preOrders?.length ?
                         <div className="h-48 flex flex-col justify-center items-center">
@@ -63,11 +63,14 @@ export default async function Basket({ className, userId }) {
     )
 }
 
-const Counter = ({ rowCount }) => (
-    <div className="w-6  text-center rounded-full text-white bg-pink/80  absolute top-1 select-none">
-        {rowCount}
-    </div>
-)
+const Counter = ({ rowCount }) => {
+    const element = rowCount ?
+        <div className="w-6  text-center rounded-full text-white bg-pink/80  absolute top-1 select-none">
+            {rowCount}
+        </div>
+        : null
+        return element
+}
 
 const BasketCard = (props) => {
     return (

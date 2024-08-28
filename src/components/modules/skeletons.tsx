@@ -2,7 +2,7 @@
 const shimmer = 'before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent';
 export function CardSkeleton() {
   return (
-    <div className={`animate-pulse  border border-solid border-gray/20 rounded-md overflow-hidden `}>
+    <div className={`animate-pulse  border border-solid border-gray/20 rounded-md overflow-hidden`}>
       {/* header  */}
       <div className="h-[240px] bg-gray/70"></div>
       {/* body  */}
@@ -12,8 +12,8 @@ export function CardSkeleton() {
             <div className="h-5  bg-gray/70 rounded-l-sm rounded-tr-sm"></div>
             <div className="h-5  w-[30%] rounded-b-sm bg-gray/70 "></div>
           </div>
-          <div className="h-5  w-[60%] bg-gray/70 rounded-sm"></div>
-          <div className="h-5  w-[60%] bg-gray/70 rounded-sm"></div>
+          <InvoiceSkeletonCardColor />
+          <InvoiceSkeletonCardSize />
           <div className="h-5  w-[60%] bg-gray/70 rounded-sm"></div>
         </div>
       </div>
