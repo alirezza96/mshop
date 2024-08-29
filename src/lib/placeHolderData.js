@@ -8,21 +8,32 @@ const users = [
     name: 'admin',
     email: 'admin@admin.com',
     role: "admin",
-    password: '123456',
+    password: '1234',
+    isBan: false
   },
   {
     id: randomUUID(),
     name: 'user',
     email: 'user@user.com',
     role: "user",
-    password: '123456',
+    password: '1234',
+    isBan: false
   },
   {
     id: randomUUID(),
     name: 'customer',
     email: 'customer@customer.com',
     role: "user",
-    password: '123456',
+    password: '1234',
+    isBan: false
+  },
+  {
+    id: randomUUID(),
+    name: 'ban',
+    email: 'ban@ban.com',
+    role: "user",
+    password: '1234',
+    isBan: true
   },
 ];
 
@@ -162,6 +173,30 @@ const productVariants = [
     inventory: 50
   },
   {
+    product_id: products[0].id,
+    color_id: 2,
+    size_id: 2,
+    inventory: 0
+  },
+  {
+    product_id: products[0].id,
+    color_id: 1,
+    size_id: 2,
+    inventory: 30
+  },
+  {
+    product_id: products[1].id,
+    color_id: 1,
+    size_id: 2,
+    inventory: 30
+  },
+  {
+    product_id: products[1].id,
+    color_id: 2,
+    size_id: 2,
+    inventory: 0
+  },
+  {
     product_id: products[1].id,
     color_id: 1,
     size_id: 2,
@@ -174,10 +209,34 @@ const productVariants = [
     inventory: 20
   },
   {
+    product_id: products[2].id,
+    color_id: 2,
+    size_id: 2,
+    inventory: 0
+  },
+  {
+    product_id: products[2].id,
+    color_id: 1,
+    size_id: 2,
+    inventory: 30
+  },
+  {
     product_id: products[3].id,
     color_id: 2,
     size_id: 2,
     inventory: 10
+  },
+  {
+    product_id: products[3].id,
+    color_id: 2,
+    size_id: 2,
+    inventory: 0
+  },
+  {
+    product_id: products[3].id,
+    color_id: 1,
+    size_id: 2,
+    inventory: 30
   },
 ]
 

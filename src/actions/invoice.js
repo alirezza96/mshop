@@ -3,6 +3,7 @@ import { verifySession } from "@/lib/auth/session"
 import { Schema } from "../schema/invoice"
 import { sql } from "@vercel/postgres"
 import { formatDateToLocal } from "@/lib/utils"
+import { revalidateTag } from "next/cache"
 export async function createInvoice(productId, prevState, formData) {
     const data = {
         color: formData.get("c"), // color
@@ -67,5 +68,6 @@ export async function createInvoice(productId, prevState, formData) {
             message: 'Database Error: Failed to Create Invoice.'
         };
     }
+    revalidateTag()
     // revalidatePath("/")
 }

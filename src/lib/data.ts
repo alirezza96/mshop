@@ -13,6 +13,8 @@ import {
 import { formatCurrency, formatDateToLocal, formatNumber } from './utils';
 // import { tokenPayload } from './auth';
 import { validate, v4 } from 'uuid';
+import { cache } from 'react';
+
 
 export async function fetchRevenue() {
   try {
@@ -31,21 +33,26 @@ export async function fetchRevenue() {
     throw new Error('Failed to fetch revenue data.');
   }
 }
+export const fetchLatestProducts = cache(
+  async () => {
+    try {
+      // await new Promise((resolve) => setTimeout(resolve, 10000));
 
-export async function fetchLatestProducts() {
-  try {
-    // await new Promise((resolve) => setTimeout(resolve, 10000));
-
-    const data = await sql<Product>`
-          SELECT * FROM products
-            LIMIT 6
-        `
-    return data.rows
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch the latest products.');
+      const data = await sql<Product>`
+              SELECT products.* , images.src FROM products
+              LEFT OUTER JOIN (
+                SELECT src, product_id FROM images WHERE is_thumbnail = true
+              ) as images on images.product_id= products.id
+                LIMIT 6
+            `
+      return data.rows
+    } catch (error) {
+      console.error('Database Error:', error);
+      throw new Error('Failed to fetch the latest products.');
+    }
   }
-}
+
+)
 export async function fetchPopularProducts() {
   try {
     const data = await sql<Product>`
@@ -211,7 +218,7 @@ export async function fetchProductById(id: string, size: string, color: string) 
 export async function fetchProductColorsById(id: string) {
 
   const colors = await sql`
-    select DISTINCT c.name, c.color, pv.inventory from product_variants as pv
+    select distinct c.name, c.color, case when inventory > 0 then true else false end as is_available from product_variants as pv
       inner join colors as c
         on c.id = pv.color_id
       where pv.product_id = ${id}
@@ -219,10 +226,22 @@ export async function fetchProductColorsById(id: string) {
   return colors.rows
 }
 
+export async function fetchProductVariants(id:string) {
+  const data = await sql`
+    select  c.name as c_key, c.color as c_value, s.name as s_key, s.size as s_value, pv.inventory  from product_variants as pv
+      inner join colors as c
+        on c.id = pv.color_id
+	inner join sizes as s
+		on s.id = pv.size_id
+      where pv.product_id = ${id}
+  `
+  return data.rows
+}
+
 export async function fetchProductSizesById(id: string) {
 
   const sizes = await sql`
-    SELECT DISTINCT s.name, s.size, pv.inventory FROM product_variants as pv
+    SELECT DISTINCT s.name, s.size, case when inventory > 0 then true else false end as is_available FROM product_variants as pv
       INNER JOIN sizes as s 
         ON s.id = pv.size_id
     WHERE pv.product_id = ${id}  

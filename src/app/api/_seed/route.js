@@ -26,7 +26,8 @@ async function seedUsers() {
       name VARCHAR(255) NOT NULL,
       email TEXT NOT NULL UNIQUE,
       role TEXT NOT NULL,
-      password TEXT NOT NULL
+      password TEXT NOT NULL,
+      is_ban BOOLEAN DEFAULT FALSE
     );
   `;
 
@@ -34,8 +35,8 @@ async function seedUsers() {
     users.map(async (user) => {
       const hashedPassword = await hashPassword(user.password)
       return client.sql`
-        INSERT INTO users (id, name, email, role, password)
-        VALUES (${user.id}, ${user.name}, ${user.email}, ${user.role}, ${hashedPassword})
+        INSERT INTO users (id, name, email, role, password, is_ban)
+        VALUES (${user.id}, ${user.name}, ${user.email}, ${user.role}, ${hashedPassword}, ${user.isBan})
         ON CONFLICT (id) DO NOTHING;
       `;
     }),
@@ -290,13 +291,13 @@ async function seedImages(){
 export async function GET() {
   try {
     await client.sql`BEGIN`;
+    await seedProducts();
     await seedUsers();
     await seedCustomers();
     await seedInvoices();
     await seedInvoicesDetail();
     await seedRevenue();
     // await seedCategories();
-    await seedProducts();
     await seedColors();
     await seedSizes();
     await seedProductVariants();

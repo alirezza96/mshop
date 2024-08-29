@@ -32,7 +32,11 @@ export async function signUp(
     const { name, email, password, rePassword } = validationResult.data
     if (password !== rePassword) {
         return {
-            message: "رمز عبور یکسان نیست"
+            message: "رمز عبور یکسان نیست",
+            name,
+            email,
+            password,
+            rePassword
         }
     }
     // 3. Check if the user's email already exists
@@ -110,7 +114,7 @@ export async function signIn(
     // if user is ban, return early
     if (user.is_ban) {
         return {
-            message: "حساب کاربری شما مسدود است. با پشتیبانی تماس بگیرید."
+            message: "حساب کاربری شما مسدود است."
             , email
             , password
         }
@@ -125,7 +129,6 @@ export async function signIn(
         }
     }
     // 4. If login successful, create a session for the user and redirect
-    console.log(1)
     await createSession({ userId: user.id, name: user.name, role: user.role })
 
 }

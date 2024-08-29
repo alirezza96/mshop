@@ -44,7 +44,7 @@ export const Input = ({ children, className, label, ...rest }) => {
                     <input {...rest}
                         type="radio"
                         id={rest.id}
-                        className="peer appearance-none"
+                        className="peer "
                     />
                     <label
                         htmlFor={rest.id}
@@ -54,7 +54,7 @@ export const Input = ({ children, className, label, ...rest }) => {
                          text-sm overflow-hidden  border border-solid border-gray cursor-pointer text-center rounded-3xl 
                         hover:bg-lavender transition-all delay-75
                         select-none
-                         peer-checked:outline-dotted  outline-offset-2 outline-Purple `}
+                         peer-checked:outline-dotted  peer-checked:outline-offset-2 peer-checked:outline-Purple `}
                     >
                         {children}
                     </label>

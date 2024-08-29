@@ -23,7 +23,9 @@ export default function Form({ colors, sizes, productId }) {
     const selectedColor = useMemo(() => getQueryParam("c"), [getQueryParam])
     const selectedSize = useMemo(() => getQueryParam("s"), [getQueryParam])
     return (
-        <form action={formAction} className="space-y-[10px]">
+        <form 
+        action={formAction} 
+        className="space-y-[10px]">
             <Picker title="رنگ">
                 {colors?.map((item) => (
                     <Input
@@ -63,7 +65,8 @@ export default function Form({ colors, sizes, productId }) {
             <ErrorMessage>{formState.errors?.size}</ErrorMessage>
 
             <div className="flex justify-between items-center">
-                <Submit title="افزودن به سبد خرید" disabled={pending || isPending} />
+                <Submit title="افزودن به سبد خرید"
+                    disabled={pending || isPending} />
                 <span className="font-bold">{formatCurrency(totalPrice)}</span>
             </div>
             <ErrorMessage status={formState?.status}>{formState?.message}</ErrorMessage>

@@ -9,7 +9,7 @@ const LatestProducts = async () => {
             href={product.id}
             name={product.name}
             englishName={product.english_name}
-            src={product.thumbnail_url}
+            src={product.src}
         />
     ))
 }
