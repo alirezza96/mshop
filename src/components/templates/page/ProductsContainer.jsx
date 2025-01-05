@@ -1,10 +1,10 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/outline"
 import { Button } from "@modules/form"
 
-export default function ProductsContainer({ title, href, children}) {
+export default function ProductsContainer({ title, href, children }) {
     return (
         <div className="space-y-4">
-            <ProductsHeader href={href} title={title} />
+            < Header href={href} title={title} />
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
                 {children}
             </div>
@@ -13,7 +13,7 @@ export default function ProductsContainer({ title, href, children}) {
 }
 
 
-const ProductsHeader = ({ title, href }) => {
+const Header = ({ title, href }) => {
     const elem = href ?
         <div className="text-Fuchsia flex items-center gap-1 font-secondary" aria-label="products-header">
             <Button

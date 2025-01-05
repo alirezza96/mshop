@@ -12,7 +12,7 @@ import { InvoiceSkeletonCardColor, InvoiceSkeletonCardSize } from "../skeletons"
 export default async function CardProduct({ id, href, name, englishName, src }) {
     const price = 1_800_000
     return (
-        <div className="group  rounded-lg overflow-hidden hover:bg-white hover:shadow-md transition-all delay-75">
+        <div className="bg-green group  rounded-lg overflow-hidden hover:bg-white hover:shadow-md transition-all delay-75">
             <Cover src={src ? src :NoPic} href={href} />
 
             <div className="p-1 text-sm flex flex-col justify-between  min-h-32 overflow-hidden">

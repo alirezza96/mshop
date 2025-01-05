@@ -3,7 +3,7 @@ import { formatCurrency } from "@/lib/utils"
 import { fetchPreOrders } from "@/lib/data"
 import { FaceFrownIcon } from "@heroicons/react/24/outline"
 import { Button } from "../../../modules/form"
-import PreOrderDetail from "../../(website)/cart/page/order-detail"
+import PreOrderDetail from "../../cart/page/order-detail"
 export default async function Basket({ className, userId }) {
     const { preOrders, rowCount } = await fetchPreOrders(userId)
     return (

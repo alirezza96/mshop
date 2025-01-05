@@ -36,7 +36,7 @@ export async function fetchRevenue() {
 export const fetchLatestProducts = cache(
   async () => {
     try {
-      // await new Promise((resolve) => setTimeout(resolve, 10000));
+      await new Promise((resolve) => setTimeout(resolve, 10000));
 
       const data = await sql<Product>`
               SELECT products.* , images.src FROM products

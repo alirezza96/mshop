@@ -38,6 +38,15 @@ importers:
       react-dom:
         specifier: 19.0.0-beta-4508873393-20240430
         version: 19.0.0-beta-4508873393-20240430(react@19.0.0-beta-4508873393-20240430)
+      react-loading-skeleton:
+        specifier: ^3.5.0
+        version: 3.5.0(react@19.0.0-beta-4508873393-20240430)
+      react-spinners:
+        specifier: ^0.15.0
+        version: 0.15.0(react-dom@19.0.0-beta-4508873393-20240430(react@19.0.0-beta-4508873393-20240430))(react@19.0.0-beta-4508873393-20240430)
+      react-toastify:
+        specifier: ^11.0.2
+        version: 11.0.2(react-dom@19.0.0-beta-4508873393-20240430(react@19.0.0-beta-4508873393-20240430))(react@19.0.0-beta-4508873393-20240430)
       swiper:
         specifier: ^11.1.4
         version: 11.1.4
@@ -1571,6 +1580,23 @@ packages:
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  react-loading-skeleton@3.5.0:
+    resolution: {integrity: sha512-gxxSyLbrEAdXTKgfbpBEFZCO/P153DnqSCQau2+o6lNy1jgMRr2MmRmOzMmyrwSaSYLRB8g7b0waYPmUjz7IhQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+
+  react-spinners@0.15.0:
+    resolution: {integrity: sha512-ZO3/fNB9Qc+kgpG3SfdlMnvTX6LtLmTnOogb3W6sXIaU/kZ1ydEViPfZ06kSOaEsor58C/tzXw2wROGQu3X2pA==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  react-toastify@11.0.2:
+    resolution: {integrity: sha512-GjHuGaiXMvbls3ywqv8XdWONwrcO4DXCJIY1zVLkHU73gEElKvTTXNI5Vom3s/k/M8hnkrfsqgBSX3OwmlonbA==}
+    peerDependencies:
+      react: ^18 || ^19
+      react-dom: ^18 || ^19
 
   react@19.0.0-beta-4508873393-20240430:
     resolution: {integrity: sha512-//89udV7fhVq5pEzpNH7vlpmS5D4wDbPn0oif+G7vwDsuSks5yJGdqrE1uzn2CyFNL73FjV3/R3Pjyaxs+xnvg==}
@@ -3629,6 +3655,21 @@ snapshots:
       scheduler: 0.25.0-beta-4508873393-20240430
 
   react-is@16.13.1: {}
+
+  react-loading-skeleton@3.5.0(react@19.0.0-beta-4508873393-20240430):
+    dependencies:
+      react: 19.0.0-beta-4508873393-20240430
+
+  react-spinners@0.15.0(react-dom@19.0.0-beta-4508873393-20240430(react@19.0.0-beta-4508873393-20240430))(react@19.0.0-beta-4508873393-20240430):
+    dependencies:
+      react: 19.0.0-beta-4508873393-20240430
+      react-dom: 19.0.0-beta-4508873393-20240430(react@19.0.0-beta-4508873393-20240430)
+
+  react-toastify@11.0.2(react-dom@19.0.0-beta-4508873393-20240430(react@19.0.0-beta-4508873393-20240430))(react@19.0.0-beta-4508873393-20240430):
+    dependencies:
+      clsx: 2.1.1
+      react: 19.0.0-beta-4508873393-20240430
+      react-dom: 19.0.0-beta-4508873393-20240430(react@19.0.0-beta-4508873393-20240430)
 
   react@19.0.0-beta-4508873393-20240430: {}
 
